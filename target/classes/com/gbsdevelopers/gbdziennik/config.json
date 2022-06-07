@@ -1,0 +1,13 @@
+{
+    "GbsClientConfig":{
+        "serverHostname": "localhost",
+        "serverPort": 25565
+    },
+    "MySqlConfig":{
+        "host": "localhost",
+        "port": "3306",
+        "database": "gbdziennik",
+        "user": "gbdziennik",
+        "password": "gbdziennik"
+    }
+}

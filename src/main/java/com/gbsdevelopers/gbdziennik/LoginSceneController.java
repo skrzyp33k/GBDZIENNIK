@@ -1,27 +1,42 @@
 package com.gbsdevelopers.gbdziennik;
 
 import com.gbsdevelopers.gbssocket.GbsMessage;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.Vector;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+
 
 public class LoginSceneController implements Initializable {
-    @FXML
-    private TextField loginTextField;
 
     @FXML
     private PasswordField passwordPasswordField;
 
     @FXML
-    public ImageView sideImage;
+    private ImageView backgroundImage;
+
+    @FXML
+    private Label loginInfo;
+
+    @FXML
+    private Button loginButton;
+
+    @FXML
+    private TextField loginTextField;
 
     private String MD5(String md5) {
         try {
@@ -38,7 +53,8 @@ public class LoginSceneController implements Initializable {
     }
 
     @FXML
-    private void loginButtonAction() {
+    private void loginButtonAction(ActionEvent event) throws IOException {
+        loginInfo.setText("");
 
         Vector<String> args = new Vector<String>();
 
@@ -52,12 +68,40 @@ public class LoginSceneController implements Initializable {
         if (reply.header.equals("0")) {
             //gbs
         } else {
-            //not gbs
+            loginInfo.setText("Nieprawidłowe dane logowania!");
         }
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        sideImage.setImage(new Image(Program.class.getResourceAsStream("img/logo_gbdziennik.png")));
+        loginTextField.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent keyEvent) {
+                if (keyEvent.getCode().equals(KeyCode.ENTER))
+                {
+                    try {
+                        loginButtonAction(null);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+
+        passwordPasswordField.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent keyEvent) {
+                if (keyEvent.getCode().equals(KeyCode.ENTER))
+                {
+                    try {
+                        loginButtonAction(null);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+
+        backgroundImage.setImage(new Image(Program.class.getResourceAsStream("img/BACKGROUND.png")));
     }
 }

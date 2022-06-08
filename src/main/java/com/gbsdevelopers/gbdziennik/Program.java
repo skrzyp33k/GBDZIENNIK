@@ -11,6 +11,7 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.Vector;
 
+import javafx.stage.StageStyle;
 import org.json.*;
 
 import com.gbsdevelopers.gbssocket.*;
@@ -53,7 +54,16 @@ public class Program extends Application {
         dbArgs.add(config.getJSONObject("MySqlConfig").getString("user"));
         dbArgs.add(config.getJSONObject("MySqlConfig").getString("password"));
 
-        socket.executeRequest(new GbsMessage("_configureDB", dbArgs));
+        GbsMessage reply = null;
+
+        try{
+            reply = socket.executeRequest(new GbsMessage("_configureDB", dbArgs));
+        }
+        catch (IOException ex)
+        {
+            AlertBox.show("Nie można połączyć się z serwerem :(","GbDziennik - ERROR");
+            System.exit(1);
+        }
     }
 
     @Override
@@ -65,7 +75,8 @@ public class Program extends Application {
         Scene scene = new Scene(fxmlLoader.load(), 1280, 720);
         stage.setTitle("GBDziennik - Zaloguj się!");
         stage.setScene(scene);
-        stage.getIcons().add(new Image(Program.class.getResourceAsStream("img/icon.png")));
+        stage.getIcons().add(new Image(Program.class.getResourceAsStream("img/ICON.png")));
+        stage.setResizable(false);
         stage.show();
     }
 

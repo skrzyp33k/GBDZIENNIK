@@ -66,7 +66,15 @@ public class LoginSceneController implements Initializable {
         GbsMessage reply = Program.socket.executeRequest(message);
 
         if (reply.header.equals("0")) {
-            //gbs
+            if (reply.arguments.get(1).equals("a")) {
+                //admin
+            } else if (reply.arguments.get(1).equals("u")) {
+                //uczen
+            } else if (reply.arguments.get(1).equals("r")) {
+                //rodzic
+            } else if (reply.arguments.get(1).equals("n")) {
+                //nauczyciel
+            }
         } else {
             loginInfo.setText("Nieprawidłowe dane logowania!");
         }
@@ -77,8 +85,7 @@ public class LoginSceneController implements Initializable {
         loginTextField.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent keyEvent) {
-                if (keyEvent.getCode().equals(KeyCode.ENTER))
-                {
+                if (keyEvent.getCode().equals(KeyCode.ENTER)) {
                     try {
                         loginButtonAction(null);
                     } catch (IOException e) {
@@ -91,8 +98,7 @@ public class LoginSceneController implements Initializable {
         passwordPasswordField.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent keyEvent) {
-                if (keyEvent.getCode().equals(KeyCode.ENTER))
-                {
+                if (keyEvent.getCode().equals(KeyCode.ENTER)) {
                     try {
                         loginButtonAction(null);
                     } catch (IOException e) {

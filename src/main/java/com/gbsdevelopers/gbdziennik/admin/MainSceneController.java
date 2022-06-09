@@ -125,30 +125,73 @@ public class MainSceneController implements Initializable {
     private ArrayList<GbRemark> remarksArrayList;
 
     @FXML
-    private Button addButton;
+    private Button addClassButton;
 
     @FXML
-    private Button editButton;
+    private Button removeClassButton;
 
     @FXML
-    private Button removeButton;
+    private Button addStudentButton;
+
+    @FXML
+    private Button removeStudentButton;
+
+    @FXML
+    private Button addTeacherButton;
+
+    @FXML
+    private Button removeTeacherButton;
+
+    @FXML
+    private Button addCourseButton;
+
+    @FXML
+    private Button addLessonButton;
+
+    @FXML
+    private Button changeAttendanceButton;
 
     @FXML
     private Button refreshButton;
 
     @FXML
-    void addButtonClick(ActionEvent event) {
+    private Button manualQueryButton;
 
+
+    @FXML
+    void addClassButtonClicked(ActionEvent event) {
     }
 
     @FXML
-    void removeButtonClick(ActionEvent event) {
-
+    void removeClassButtonClicked(ActionEvent event) {
     }
 
     @FXML
-    void editButtonClick(ActionEvent event) {
+    void addStudentButtonClicked(ActionEvent event) {
+    }
 
+    @FXML
+    void removeStudentButtonClicked(ActionEvent event) {
+    }
+
+    @FXML
+    void addTeacherButtonClicked(ActionEvent event) {
+    }
+
+    @FXML
+    void removeTeacherButtonClicked(ActionEvent event) {
+    }
+
+    @FXML
+    void addCourseButtonClicked(ActionEvent event) {
+    }
+
+    @FXML
+    void addLessonButtonClicked(ActionEvent event) {
+    }
+
+    @FXML
+    void changeAttendanceButtonClicked(ActionEvent event) {
     }
 
     @FXML
@@ -166,7 +209,11 @@ public class MainSceneController implements Initializable {
         this.buildAttendancesTable();
         this.buildMessagesTable();
         this.buildRemarksTable();
-        //plany
+    }
+
+    @FXML
+    void manualQueryButtonClick(ActionEvent event) {
+
     }
 
     @Override
@@ -194,7 +241,7 @@ public class MainSceneController implements Initializable {
             TableView newTableView = new TableView();
 
             newTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-            newTableView.setPrefSize(1280, 600); //618
+            newTableView.setPrefSize(1280, 618);
 
             try {
                 Vector<String> tableName = new Vector<String>();
@@ -206,8 +253,7 @@ public class MainSceneController implements Initializable {
 
             ArrayList<GbSchedule> scheduleArrayList = new ArrayList<GbSchedule>();
 
-            for(String str : reply.arguments)
-            {
+            for (String str : reply.arguments) {
                 scheduleArrayList.add(new GbSchedule(str));
             }
 
@@ -220,16 +266,16 @@ public class MainSceneController implements Initializable {
             TableColumn columnCzwartek = new TableColumn("Czwartek");
             TableColumn columnPiatek = new TableColumn("Piatek");
 
-            columnGodzina.setCellValueFactory(new PropertyValueFactory<GbSchedule,String>("godzina"));
-            columnPoniedzialek.setCellValueFactory(new PropertyValueFactory<GbSchedule,String>("poniedzialek"));
-            columnWtorek.setCellValueFactory(new PropertyValueFactory<GbSchedule,String>("wtorek"));
-            columnSroda.setCellValueFactory(new PropertyValueFactory<GbSchedule,String>("sroda"));
-            columnCzwartek.setCellValueFactory(new PropertyValueFactory<GbSchedule,String>("czwartek"));
-            columnPiatek.setCellValueFactory(new PropertyValueFactory<GbSchedule,String>("piatek"));
+            columnGodzina.setCellValueFactory(new PropertyValueFactory<GbSchedule, String>("godzina"));
+            columnPoniedzialek.setCellValueFactory(new PropertyValueFactory<GbSchedule, String>("poniedzialek"));
+            columnWtorek.setCellValueFactory(new PropertyValueFactory<GbSchedule, String>("wtorek"));
+            columnSroda.setCellValueFactory(new PropertyValueFactory<GbSchedule, String>("sroda"));
+            columnCzwartek.setCellValueFactory(new PropertyValueFactory<GbSchedule, String>("czwartek"));
+            columnPiatek.setCellValueFactory(new PropertyValueFactory<GbSchedule, String>("piatek"));
 
             newTableView.setItems(data);
 
-            newTableView.getColumns().addAll(columnGodzina,columnPoniedzialek,columnWtorek,columnSroda,columnCzwartek,columnPiatek);
+            newTableView.getColumns().addAll(columnGodzina, columnPoniedzialek, columnWtorek, columnSroda, columnCzwartek, columnPiatek);
 
             newAnchor.getChildren().add(newTableView);
 
@@ -666,7 +712,5 @@ public class MainSceneController implements Initializable {
 
         remarksTable.getColumns().addAll(columnIDuwagi, columnTresc, columnIDnauczyciela, columnIDucznia, columnDatawystawienia);
     }
-
-    //plany
 
 }

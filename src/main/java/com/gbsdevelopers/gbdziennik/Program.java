@@ -21,6 +21,10 @@ public class Program extends Application {
 
     private static JSONObject config;
 
+    public static String loggedUser;
+
+    public static String loggedID;
+
     private JSONObject loadConfig()
     {
         InputStream inputStream = Program.class.getResourceAsStream("config.json");

@@ -6,10 +6,14 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -157,41 +161,98 @@ public class MainSceneController implements Initializable {
     @FXML
     private Button manualQueryButton;
 
+    private void showStage(String fxml, String title) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(Program.class.getResource("fxml/" + fxml));
+        Scene scene = new Scene(fxmlLoader.load(), 480, 640);
+
+        Stage stage = new Stage();
+
+        stage.setTitle("GBDziennik - " + title);
+        stage.setScene(scene);
+        stage.getIcons().add(new Image(Program.class.getResourceAsStream("img/icon.png")));
+        stage.setResizable(false);
+        stage.show();
+    }
 
     @FXML
     void addClassButtonClicked(ActionEvent event) {
+        try {
+            showStage("addClassScene.fxml", "Dodawanie klasy");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
     void removeClassButtonClicked(ActionEvent event) {
+        try {
+            showStage("removeClassScene.fxml", "Usuwanie klasy");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
     void addStudentButtonClicked(ActionEvent event) {
+        try {
+            showStage("addStudentScene.fxml", "Dodawanie ucznia");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
     void removeStudentButtonClicked(ActionEvent event) {
+        try {
+            showStage("removeStudentScene.fxml", "Usuwanie ucznia");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
     void addTeacherButtonClicked(ActionEvent event) {
+        try {
+            showStage("addTeacherScene.fxml", "Dodawanie nauczyciela");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
     void removeTeacherButtonClicked(ActionEvent event) {
+        try {
+            showStage("removeTeacherScene.fxml", "Usuwanie nauczyciela");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
     void addCourseButtonClicked(ActionEvent event) {
+        try {
+            showStage("addCourseScene.fxml", "Dodawanie przedmiotu");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
     void addLessonButtonClicked(ActionEvent event) {
+        try {
+            showStage("addLessonScene.fxml", "Dodawanie lekcji");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
     void changeAttendanceButtonClicked(ActionEvent event) {
+        try {
+            showStage("changeAttendanceScene.fxml", "Zmiana frekwencji");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -213,7 +274,11 @@ public class MainSceneController implements Initializable {
 
     @FXML
     void manualQueryButtonClick(ActionEvent event) {
-
+        try {
+            showStage("manualQueryScene.fxml", "Ręczne polecenie");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

@@ -19,13 +19,16 @@
       <ImageView fx:id="messagesImage" fitHeight="160.0" fitWidth="210.0" layoutX="419.0" onMouseClicked="#messagesClicked" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="remarksImage" fitHeight="160.0" fitWidth="210.0" layoutX="629.0" onMouseClicked="#remarksClicked" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="scheduleImage" fitHeight="160.0" fitWidth="210.0" layoutX="839.0" onMouseClicked="#scheduleClicked" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="logoutImage" fitHeight="70.0" fitWidth="210.0" layoutX="1056.0" layoutY="89.0" onMouseClicked="#logoutClicked" pickOnBounds="true" preserveRatio="true"/>
+      <ImageView fx:id="logoutImage" fitHeight="70.0" fitWidth="210.0" layoutX="1056.0" layoutY="89.0" onMouseClicked="#logoutClicked" pickOnBounds="true" preserveRatio="true" />
       <Label layoutX="1092.0" layoutY="14.0" text="Zalogowany jako:">
          <font>
             <Font name="System Bold" size="19.0" />
          </font>
       </Label>
       <ImageView fx:id="avatarImage" fitHeight="50.0" fitWidth="48.0" layoutX="1044.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" />
-      <Label fx:id="actualUser" layoutX="1092.0" layoutY="44.0" prefHeight="17.0" prefWidth="158.0" />
+      <Label fx:id="actualUser" alignment="CENTER" contentDisplay="CENTER" layoutX="1092.0" layoutY="44.0" prefHeight="17.0" prefWidth="158.0" textAlignment="CENTER">
+         <font>
+            <Font name="System Italic" size="14.0" />
+         </font></Label>
    </children>
 </AnchorPane>

@@ -28,6 +28,8 @@ public class MainSceneController implements Initializable {
         avatarImage.setImage(new Image(Program.class.getResourceAsStream("img/teacher.png")));
         logoutImage.setImage(new Image(Program.class.getResourceAsStream("img/logout.png")));
         backgroundImage.setImage(new Image(Program.class.getResourceAsStream("img/background.png")));
+
+        actualUser.setText(Program.loggedUser + " (" +  Program.loggedID+ ")");
     }
 
     @FXML
@@ -93,7 +95,6 @@ public class MainSceneController implements Initializable {
         stage.setResizable(false);
         stage.show();
 
-        Stage thisStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        thisStage.close();
+        ((Stage)(((Node) event.getSource()).getScene().getWindow())).close();
     }
 }

@@ -26,6 +26,9 @@
          </font>
       </Label>
       <ImageView fx:id="avatarImage" fitHeight="50.0" fitWidth="48.0" layoutX="1044.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" />
-      <Label fx:id="actualUser" layoutX="1092.0" layoutY="44.0" prefHeight="17.0" prefWidth="158.0" />
+      <Label fx:id="actualUser" alignment="CENTER" contentDisplay="CENTER" layoutX="1092.0" layoutY="44.0" prefHeight="17.0" prefWidth="158.0" textAlignment="CENTER">
+         <font>
+            <Font name="System Italic" size="14.0" />
+         </font></Label>
    </children>
 </AnchorPane>

@@ -60,6 +60,8 @@ public class LoginSceneController implements Initializable {
     @FXML
     private void loginButtonAction(ActionEvent event) throws IOException {
         loginInfo.setText("");
+        Program.loggedUser = "";
+        Program.loggedID = "";
 
         Vector<String> args = new Vector<String>();
 
@@ -71,6 +73,8 @@ public class LoginSceneController implements Initializable {
         GbsMessage reply = Program.socket.executeRequest(message);
 
         if (reply.header.equals("0")) {
+            Program.loggedUser = reply.arguments.get(0);
+            Program.loggedID = reply.arguments.get(2);
             Stage newStage = new Stage();
             if (reply.arguments.get(1).equals("a")) {
                 //admin
@@ -104,8 +108,7 @@ public class LoginSceneController implements Initializable {
             loginTextField.clear();
             passwordPasswordField.clear();
 
-            thisStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            thisStage.close();
+            ((Stage)(((Node) event.getSource()).getScene().getWindow())).close();
         } else {
             loginInfo.setText("Nieprawidłowe dane logowania!");
         }

@@ -22,9 +22,7 @@ public class GbAttendance {
         typ = new SimpleStringProperty(fields.get(4));
     }
 
-    public String getIdnieobecnosci() {
-        return idnieobecnosci.get();
-    }
+    public String getIdnieobecnosci() { return idnieobecnosci.get(); }
 
     public String getIducznia() {
         return iducznia.get();

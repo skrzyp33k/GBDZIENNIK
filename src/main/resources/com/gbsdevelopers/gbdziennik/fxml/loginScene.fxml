@@ -20,7 +20,7 @@
                   <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                </VBox.margin>
             </Label>
-            <TextField fx:id="loginTextField" onKeyPressed="#inputsEnterHit" promptText="Identyfikator">
+            <TextField fx:id="loginTextField" promptText="Identyfikator">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
@@ -36,7 +36,7 @@
                   <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                </VBox.margin>
             </Label>
-            <PasswordField fx:id="passwordPasswordField" onKeyPressed="#inputsEnterHit" promptText="Hasło">
+            <PasswordField fx:id="passwordPasswordField"  promptText="Hasło">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>

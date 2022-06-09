@@ -75,7 +75,7 @@ public class Program extends Application {
         Scene scene = new Scene(fxmlLoader.load(), 1280, 720);
         stage.setTitle("GBDziennik - Zaloguj się!");
         stage.setScene(scene);
-        stage.getIcons().add(new Image(Program.class.getResourceAsStream("img/ICON.png")));
+        stage.getIcons().add(new Image(Program.class.getResourceAsStream("img/icon.png")));
         stage.setResizable(false);
         stage.show();
     }

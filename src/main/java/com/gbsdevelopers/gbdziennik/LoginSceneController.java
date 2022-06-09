@@ -4,7 +4,10 @@ import com.gbsdevelopers.gbssocket.GbsMessage;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -19,9 +22,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.stage.Stage;
 
 
 public class LoginSceneController implements Initializable {
+    private Stage thisStage;
 
     @FXML
     private PasswordField passwordPasswordField;
@@ -66,15 +71,41 @@ public class LoginSceneController implements Initializable {
         GbsMessage reply = Program.socket.executeRequest(message);
 
         if (reply.header.equals("0")) {
+            Stage newStage = new Stage();
             if (reply.arguments.get(1).equals("a")) {
                 //admin
+                FXMLLoader fxmlLoader = new FXMLLoader(Program.class.getResource("fxml/adminMainScene.fxml"));
+                Scene scene = new Scene(fxmlLoader.load(), 1280, 720);
+                newStage.setTitle("GBDziennik - Panel administratora. Zalogowany jako: " + reply.arguments.get(0));
+                newStage.setScene(scene);
             } else if (reply.arguments.get(1).equals("u")) {
                 //uczen
+                FXMLLoader fxmlLoader = new FXMLLoader(Program.class.getResource("fxml/studentMainScene.fxml"));
+                Scene scene = new Scene(fxmlLoader.load(), 1280, 720);
+                newStage.setTitle("GBDziennik - Panel ucznia. Zalogowany jako: " + reply.arguments.get(0));
+                newStage.setScene(scene);
             } else if (reply.arguments.get(1).equals("r")) {
                 //rodzic
+                FXMLLoader fxmlLoader = new FXMLLoader(Program.class.getResource("fxml/parentMainScene.fxml"));
+                Scene scene = new Scene(fxmlLoader.load(), 1280, 720);
+                newStage.setTitle("GBDziennik - Panel rodzica. Zalogowany jako: " + reply.arguments.get(0));
+                newStage.setScene(scene);
             } else if (reply.arguments.get(1).equals("n")) {
                 //nauczyciel
+                FXMLLoader fxmlLoader = new FXMLLoader(Program.class.getResource("fxml/teacherMainScene.fxml"));
+                Scene scene = new Scene(fxmlLoader.load(), 1280, 720);
+                newStage.setTitle("GBDziennik - Panel nauczyciela. Zalogowany jako: " + reply.arguments.get(0));
+                newStage.setScene(scene);
             }
+            newStage.getIcons().add(new Image(Program.class.getResourceAsStream("img/icon.png")));
+            newStage.setResizable(false);
+            newStage.show();
+
+            loginTextField.clear();
+            passwordPasswordField.clear();
+
+            thisStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            thisStage.close();
         } else {
             loginInfo.setText("Nieprawidłowe dane logowania!");
         }
@@ -86,11 +117,7 @@ public class LoginSceneController implements Initializable {
             @Override
             public void handle(KeyEvent keyEvent) {
                 if (keyEvent.getCode().equals(KeyCode.ENTER)) {
-                    try {
-                        loginButtonAction(null);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    loginButton.fire();
                 }
             }
         });
@@ -99,15 +126,11 @@ public class LoginSceneController implements Initializable {
             @Override
             public void handle(KeyEvent keyEvent) {
                 if (keyEvent.getCode().equals(KeyCode.ENTER)) {
-                    try {
-                        loginButtonAction(null);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    loginButton.fire();
                 }
             }
         });
 
-        backgroundImage.setImage(new Image(Program.class.getResourceAsStream("img/BACKGROUND.png")));
+        backgroundImage.setImage(new Image(Program.class.getResourceAsStream("img/background.png")));
     }
 }

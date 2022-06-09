@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gbsdevelopers.gbdziennik.parent.MainSceneController">
    <children>
       <ImageView fx:id="backgroundImage" fitHeight="727.0" fitWidth="1286.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="gradesImage" fitHeight="160.0" fitWidth="209.0" onMouseClicked="#gradeClicked" pickOnBounds="true" preserveRatio="true" />

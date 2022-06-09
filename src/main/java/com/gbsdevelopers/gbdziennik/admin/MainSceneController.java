@@ -82,9 +82,7 @@ public class MainSceneController implements Initializable {
     @FXML
     private TabPane inSchedulesTab;
 
-    private HashMap<String, Tab> tabMap;
-
-    private HashMap<String, AnchorPane> anchorMap;
+    private Vector<String> schedulesNames;
 
     @FXML
     private Tab eventsTab;
@@ -184,18 +182,61 @@ public class MainSceneController implements Initializable {
             e.printStackTrace();
         }
 
-        tabMap = new HashMap<String, Tab>();
-        anchorMap = new HashMap<String, AnchorPane>();
+        schedulesNames = reply.arguments;
 
         inSchedulesTab.getTabs().clear();
 
         for (String tabName : reply.arguments) {
             Tab newTab = new Tab(tabName);
-            tabMap.put(tabName, newTab);
-            inSchedulesTab.getTabs().add(tabMap.get(tabName));
 
             AnchorPane newAnchor = new AnchorPane();
-            anchorMap.put(tabName, newAnchor);
+
+            TableView newTableView = new TableView();
+
+            newTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+            newTableView.setPrefSize(1280, 600); //618
+
+            try {
+                Vector<String> tableName = new Vector<String>();
+                tableName.add(tabName);
+                reply = Program.socket.executeRequest(new GbsMessage("_listSchedule", tableName));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            ArrayList<GbSchedule> scheduleArrayList = new ArrayList<GbSchedule>();
+
+            for(String str : reply.arguments)
+            {
+                scheduleArrayList.add(new GbSchedule(str));
+            }
+
+            ObservableList<GbSchedule> data = FXCollections.observableArrayList(scheduleArrayList);
+
+            TableColumn columnGodzina = new TableColumn("Godzina");
+            TableColumn columnPoniedzialek = new TableColumn("Poniedzialek");
+            TableColumn columnWtorek = new TableColumn("Wtorek");
+            TableColumn columnSroda = new TableColumn("Sroda");
+            TableColumn columnCzwartek = new TableColumn("Czwartek");
+            TableColumn columnPiatek = new TableColumn("Piatek");
+
+            columnGodzina.setCellValueFactory(new PropertyValueFactory<GbSchedule,String>("godzina"));
+            columnPoniedzialek.setCellValueFactory(new PropertyValueFactory<GbSchedule,String>("poniedzialek"));
+            columnWtorek.setCellValueFactory(new PropertyValueFactory<GbSchedule,String>("wtorek"));
+            columnSroda.setCellValueFactory(new PropertyValueFactory<GbSchedule,String>("sroda"));
+            columnCzwartek.setCellValueFactory(new PropertyValueFactory<GbSchedule,String>("czwartek"));
+            columnPiatek.setCellValueFactory(new PropertyValueFactory<GbSchedule,String>("piatek"));
+
+            newTableView.setItems(data);
+
+            newTableView.getColumns().addAll(columnGodzina,columnPoniedzialek,columnWtorek,columnSroda,columnCzwartek,columnPiatek);
+
+            newAnchor.getChildren().add(newTableView);
+
+            newTab.setContent(newAnchor);
+
+            inSchedulesTab.getTabs().add(newTab);
+
         }
     }
 

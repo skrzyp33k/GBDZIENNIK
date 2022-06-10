@@ -100,6 +100,7 @@ public class LoginSceneController implements Initializable {
 
         if (reply.header.equals("0")) {
             Program.loggedUser = reply.arguments.get(0);
+            Program.loggedPerms = reply.arguments.get(1);
             Program.loggedID = reply.arguments.get(2);
 
             Stage newStage = new Stage();

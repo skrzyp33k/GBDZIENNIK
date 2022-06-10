@@ -5,9 +5,11 @@ import com.gbsdevelopers.gbdziennik.datatypes.*;
 import com.gbsdevelopers.gbssocket.GbsMessage;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -269,6 +271,28 @@ public class MainSceneController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Handler for logoutButton
+     */
+    @FXML
+    void logoutButtonClick(ActionEvent event) {
+        FXMLLoader fxmlLoader = new FXMLLoader(Program.class.getResource("fxml/loginScene.fxml"));
+        Scene scene = null;
+        try {
+            scene = new Scene(fxmlLoader.load(), 1280, 720);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Stage stage = new Stage();
+        stage.setTitle("GBDziennik - Zaloguj się!");
+        stage.setScene(scene);
+        stage.getIcons().add(new Image(Objects.requireNonNull(Program.class.getResourceAsStream("img/icon.png"))));
+        stage.setResizable(false);
+        stage.show();
+
+        ((Stage) (((Node) event.getSource()).getScene().getWindow())).close();
     }
 
     /**

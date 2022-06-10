@@ -35,6 +35,11 @@ public class Program extends Application {
     public static String loggedID;
 
     /**
+     * Logged user Permissions
+     */
+    public static String loggedPerms;
+
+    /**
      * Main function.
      *
      * @param args Program args.

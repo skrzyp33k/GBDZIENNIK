@@ -16,6 +16,10 @@ module com.gbsdevelopers.gbdziennik {
     opens com.gbsdevelopers.gbdziennik.user to javafx.fxml;
     exports com.gbsdevelopers.gbdziennik.user;
 
-    exports com.gbsdevelopers.gbdziennik.datatypes;
-    opens com.gbsdevelopers.gbdziennik.datatypes to javafx.fxml;
+    exports com.gbsdevelopers.gbdziennik.admin.datatypes;
+    opens com.gbsdevelopers.gbdziennik.admin.datatypes to javafx.fxml, com.gbsdevelopers.gbdziennik.admin;
+
+    exports com.gbsdevelopers.gbdziennik.user.datatypes;
+    opens com.gbsdevelopers.gbdziennik.user.datatypes to javafx.fxml, com.gbsdevelopers.gbdziennik.user;
+
 }

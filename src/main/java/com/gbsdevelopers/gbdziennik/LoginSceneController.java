@@ -58,26 +58,6 @@ public class LoginSceneController implements Initializable {
     private TextField loginTextField;
 
     /**
-     * This function calculates MD5 hash.
-     *
-     * @param md5 String to hash.
-     * @return MD5 checksum.
-     */
-    private String MD5(String md5) {
-        try {
-            java.security.MessageDigest md = java.security.MessageDigest.getInstance("MD5");
-            byte[] array = md.digest(md5.getBytes());
-            StringBuilder sb = new StringBuilder();
-            for (byte b : array) {
-                sb.append(Integer.toHexString((b & 0xFF) | 0x100), 1, 3);
-            }
-            return sb.toString();
-        } catch (java.security.NoSuchAlgorithmException ignored) {
-        }
-        return null;
-    }
-
-    /**
      * LoginButton action handler.
      *
      * @param event Event that invoked action.
@@ -92,7 +72,7 @@ public class LoginSceneController implements Initializable {
         Vector<String> args = new Vector<>();
 
         args.add(loginTextField.getText());
-        args.add(MD5(passwordPasswordField.getText()));
+        args.add(GbsMessage.MD5(passwordPasswordField.getText()));
 
         GbsMessage message = new GbsMessage("_loginUser", args);
 
@@ -116,18 +96,12 @@ public class LoginSceneController implements Initializable {
                 FXMLLoader fxmlLoader = new FXMLLoader(Program.class.getResource("fxml/user/userMainScene.fxml"));
                 Scene scene = new Scene(fxmlLoader.load(), 1280, 720);
                 switch (reply.arguments.get(1)) {
-                    case "u" -> {
-                        //uczen
-                        newStage.setTitle("GBDziennik - Panel ucznia. Zalogowany jako: " + reply.arguments.get(0));
-                    }
-                    case "r" -> {
-                        //rodzic
-                        newStage.setTitle("GBDziennik - Panel rodzica. Zalogowany jako: " + reply.arguments.get(0));
-                    }
-                    case "n" -> {
-                        //nauczyciel
-                        newStage.setTitle("GBDziennik - Panel nauczyciela. Zalogowany jako: " + reply.arguments.get(0));
-                    }
+                    case "u" -> //uczen
+                            newStage.setTitle("GBDziennik - Panel ucznia. Zalogowany jako: " + reply.arguments.get(0));
+                    case "r" -> //rodzic
+                            newStage.setTitle("GBDziennik - Panel rodzica. Zalogowany jako: " + reply.arguments.get(0));
+                    case "n" -> //nauczyciel
+                            newStage.setTitle("GBDziennik - Panel nauczyciela. Zalogowany jako: " + reply.arguments.get(0));
                 }
                 newStage.setScene(scene);
             }

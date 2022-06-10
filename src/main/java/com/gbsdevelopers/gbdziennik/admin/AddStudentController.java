@@ -1,7 +1,6 @@
 package com.gbsdevelopers.gbdziennik.admin;
 
 import com.gbsdevelopers.gbdziennik.Program;
-import com.gbsdevelopers.gbdziennik.datatypes.GbAccount;
 import com.gbsdevelopers.gbssocket.GbsMessage;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -67,8 +66,8 @@ public class AddStudentController {
             message.arguments.add(nameTextField.getText());
             message.arguments.add(surnameTextField.getText());
             message.arguments.add(classIDTextField.getText());
-            message.arguments.add(GbAccount.MD5(studentPassTextField.getText()));
-            message.arguments.add(GbAccount.MD5(parentPassTextField.getText()));
+            message.arguments.add(GbsMessage.MD5(studentPassTextField.getText()));
+            message.arguments.add(GbsMessage.MD5(parentPassTextField.getText()));
 
             try {
                 Program.socket.executeRequest(message);

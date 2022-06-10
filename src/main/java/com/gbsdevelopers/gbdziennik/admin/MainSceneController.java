@@ -1,7 +1,7 @@
 package com.gbsdevelopers.gbdziennik.admin;
 
 import com.gbsdevelopers.gbdziennik.Program;
-import com.gbsdevelopers.gbdziennik.datatypes.*;
+import com.gbsdevelopers.gbdziennik.admin.datatypes.*;
 import com.gbsdevelopers.gbssocket.GbsMessage;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -800,7 +800,7 @@ public class MainSceneController implements Initializable {
         columnIDwiadomosci.setCellValueFactory(new PropertyValueFactory<GbMessage, String>("idwiadomosci"));
         columnWiadomosc.setCellValueFactory(new PropertyValueFactory<GbMessage, String>("wiadomosc"));
         columnIDnadawcy.setCellValueFactory(new PropertyValueFactory<GbMessage, String>("idnadawcy"));
-        columnIDodbiorcy.setCellValueFactory(new PropertyValueFactory<GbMessage, String>("idobdiorcys"));
+        columnIDodbiorcy.setCellValueFactory(new PropertyValueFactory<GbMessage, String>("idodbiorcy"));
         columnDatawyslania.setCellValueFactory(new PropertyValueFactory<GbMessage, String>("datawyslania"));
 
         messagesTable.setItems(data);

@@ -22,6 +22,8 @@ public class MainSceneController implements Initializable {
     @FXML
     private ImageView logoutImage;
     @FXML
+    private ImageView refreshImage;
+    @FXML
     private ImageView attendanceImage;
     @FXML
     private ImageView messagesImage;
@@ -36,6 +38,8 @@ public class MainSceneController implements Initializable {
     @FXML
     private ImageView gradesImage;
     @FXML
+    private ImageView eventsImage;
+    @FXML
     private ImageView scheduleImage;
 
     @Override
@@ -44,8 +48,10 @@ public class MainSceneController implements Initializable {
         attendanceImage.setImage(new Image(Objects.requireNonNull(Program.class.getResourceAsStream("img/attendance.png"))));
         messagesImage.setImage(new Image(Objects.requireNonNull(Program.class.getResourceAsStream("img/messages.png"))));
         remarksImage.setImage(new Image(Objects.requireNonNull(Program.class.getResourceAsStream("img/remarks.png"))));
+        eventsImage.setImage(new Image(Objects.requireNonNull(Program.class.getResourceAsStream("img/events.png"))));
         scheduleImage.setImage(new Image(Objects.requireNonNull(Program.class.getResourceAsStream("img/schedule.png"))));
         avatarImage.setImage(new Image(Objects.requireNonNull(Program.class.getResourceAsStream("img/student.png"))));
+        refreshImage.setImage(new Image(Objects.requireNonNull(Program.class.getResourceAsStream("img/refresh.png"))));
         logoutImage.setImage(new Image(Objects.requireNonNull(Program.class.getResourceAsStream("img/logout.png"))));
         backgroundImage.setImage(new Image(Objects.requireNonNull(Program.class.getResourceAsStream("img/background.png"))));
 
@@ -73,7 +79,17 @@ public class MainSceneController implements Initializable {
     }
 
     @FXML
+    void eventsClicked(MouseEvent event) {
+
+    }
+
+    @FXML
     void scheduleClicked(MouseEvent event) {
+
+    }
+
+    @FXML
+    void refreshClicked(MouseEvent event) {
 
     }
 

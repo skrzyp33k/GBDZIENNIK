@@ -101,41 +101,36 @@ public class LoginSceneController implements Initializable {
         if (reply.header.equals("0")) {
             Program.loggedUser = reply.arguments.get(0);
             Program.loggedID = reply.arguments.get(2);
+
             Stage newStage = new Stage();
-            switch (reply.arguments.get(1)) {
-                case "a" -> {
-                    //admin
-                    FXMLLoader fxmlLoader = new FXMLLoader(Program.class.getResource("fxml/adminMainScene.fxml"));
-                    Scene scene = new Scene(fxmlLoader.load(), 1280, 720);
-                    newStage.setTitle("GBDziennik - Panel administratora. Zalogowany jako: " + reply.arguments.get(0));
-                    newStage.setScene(scene);
-                    break;
-                }
-                case "u" -> {
-                    //uczen
-                    FXMLLoader fxmlLoader = new FXMLLoader(Program.class.getResource("fxml/studentMainScene.fxml"));
-                    Scene scene = new Scene(fxmlLoader.load(), 1280, 720);
-                    newStage.setTitle("GBDziennik - Panel ucznia. Zalogowany jako: " + reply.arguments.get(0));
-                    newStage.setScene(scene);
-                    break;
-                }
-                case "r" -> {
-                    //rodzic
-                    FXMLLoader fxmlLoader = new FXMLLoader(Program.class.getResource("fxml/parentMainScene.fxml"));
-                    Scene scene = new Scene(fxmlLoader.load(), 1280, 720);
-                    newStage.setTitle("GBDziennik - Panel rodzica. Zalogowany jako: " + reply.arguments.get(0));
-                    newStage.setScene(scene);
-                    break;
-                }
-                case "n" -> {
-                    //nauczyciel
-                    FXMLLoader fxmlLoader = new FXMLLoader(Program.class.getResource("fxml/teacherMainScene.fxml"));
-                    Scene scene = new Scene(fxmlLoader.load(), 1280, 720);
-                    newStage.setTitle("GBDziennik - Panel nauczyciela. Zalogowany jako: " + reply.arguments.get(0));
-                    newStage.setScene(scene);
-                    break;
-                }
+
+            if(reply.arguments.get(1).equals("a"))
+            {
+                FXMLLoader fxmlLoader = new FXMLLoader(Program.class.getResource("fxml/admin/adminMainScene.fxml"));
+                Scene scene = new Scene(fxmlLoader.load(), 1280, 720);
+                newStage.setTitle("GBDziennik - Panel administratora. Zalogowany jako: " + reply.arguments.get(0));
+                newStage.setScene(scene);
             }
+            else {
+                FXMLLoader fxmlLoader = new FXMLLoader(Program.class.getResource("fxml/user/userMainScene.fxml"));
+                Scene scene = new Scene(fxmlLoader.load(), 1280, 720);
+                switch (reply.arguments.get(1)) {
+                    case "u" -> {
+                        //uczen
+                        newStage.setTitle("GBDziennik - Panel ucznia. Zalogowany jako: " + reply.arguments.get(0));
+                    }
+                    case "r" -> {
+                        //rodzic
+                        newStage.setTitle("GBDziennik - Panel rodzica. Zalogowany jako: " + reply.arguments.get(0));
+                    }
+                    case "n" -> {
+                        //nauczyciel
+                        newStage.setTitle("GBDziennik - Panel nauczyciela. Zalogowany jako: " + reply.arguments.get(0));
+                    }
+                }
+                newStage.setScene(scene);
+            }
+
             newStage.getIcons().add(new Image(Objects.requireNonNull(Program.class.getResourceAsStream("img/icon.png"))));
             newStage.setResizable(false);
             newStage.show();

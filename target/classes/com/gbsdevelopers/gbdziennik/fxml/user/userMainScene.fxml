@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0"
+            prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.gbsdevelopers.gbdziennik.user.MainSceneController">
+   <ImageView fx:id="backgroundImage" fitHeight="720.0" fitWidth="1280.0" pickOnBounds="true" preserveRatio="true"/>
+   <VBox layoutX="113.0" layoutY="179.0" prefHeight="720.0" prefWidth="1280.0" AnchorPane.bottomAnchor="0.0"
+         AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <HBox prefHeight="137.0" prefWidth="1280.0">
+         <ImageView fx:id="gradesImage" fitHeight="137.0" fitWidth="180.0" onMouseClicked="#gradeClicked"
+                    pickOnBounds="true" preserveRatio="true"/>
+         <ImageView fx:id="attendanceImage" fitHeight="137.0" fitWidth="180.0" onMouseClicked="#attendanceClicked"
+                    pickOnBounds="true" preserveRatio="true"/>
+         <ImageView fx:id="messagesImage" fitHeight="137.0" fitWidth="180.0" onMouseClicked="#messagesClicked"
+                    pickOnBounds="true" preserveRatio="true"/>
+         <ImageView fx:id="remarksImage" fitHeight="137.0" fitWidth="180.0" onMouseClicked="#remarksClicked"
+                    pickOnBounds="true" preserveRatio="true"/>
+         <ImageView fx:id="eventsImage" fitHeight="137.0" fitWidth="180.0" onMouseClicked="#eventsClicked"
+                    pickOnBounds="true" preserveRatio="true"/>
+         <ImageView fx:id="scheduleImage" fitHeight="137.0" fitWidth="180.0" onMouseClicked="#scheduleClicked"
+                    pickOnBounds="true" preserveRatio="true"/>
+         <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+               prefHeight="137.0" prefWidth="200.0">
+            <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+                  prefHeight="77.0" prefWidth="200.0">
+               <ImageView fx:id="avatarImage" fitHeight="77.0" fitWidth="77.0" pickOnBounds="true"
+                          preserveRatio="true"/>
+               <VBox alignment="CENTER" prefHeight="77.0" prefWidth="123.0">
+                  <Label text="Zalogowany jako:">
+                     <font>
+                        <Font name="System Bold" size="13.0"/>
+                     </font>
+                  </Label>
+                  <Label fx:id="actualUser"/>
+               </VBox>
+            </HBox>
+            <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+                  minWidth="-Infinity" prefHeight="60.0" prefWidth="200.0">
+               <ImageView fx:id="refreshImage" fitHeight="40.0" fitWidth="40.0"
+                          onMouseClicked="#refreshClicked" pickOnBounds="true" preserveRatio="true"/>
+               <ImageView fx:id="logoutImage" fitHeight="50.0" fitWidth="160.0"
+                          onMouseClicked="#logoutClicked" pickOnBounds="true" preserveRatio="true"/>
+            </HBox>
+         </VBox>
+      </HBox>
+   </VBox>
+</AnchorPane>

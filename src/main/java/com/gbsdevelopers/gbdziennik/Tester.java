@@ -29,9 +29,7 @@ public class Tester {
         request.header = "_listAccounts";
 
         request.arguments = new Vector<>();
-
-        request.arguments.add("4a");
-        request.arguments.add("1");
+        
 
         GbsMessage reply = new GbsMessage();
 

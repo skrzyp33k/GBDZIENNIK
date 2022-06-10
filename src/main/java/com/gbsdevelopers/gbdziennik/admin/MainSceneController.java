@@ -1,10 +1,10 @@
 package com.gbsdevelopers.gbdziennik.admin;
 
 import com.gbsdevelopers.gbdziennik.Program;
+import com.gbsdevelopers.gbdziennik.datatypes.*;
 import com.gbsdevelopers.gbssocket.GbsMessage;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -17,150 +17,107 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Objects;
+import java.util.ResourceBundle;
+import java.util.Vector;
 
-
+/**
+ * Controller for AdminPanel
+ */
 public class MainSceneController implements Initializable {
-    @FXML
-    private TabPane mainTab;
 
-    @FXML
-    private Tab accountsTab;
-
+    /**
+     * TableView for accounts
+     */
     @FXML
     private TableView<GbAccount> accountsTable;
 
-    private ArrayList<GbAccount> accountsArrayList;
-
-    @FXML
-    private Tab teachersTab;
-
+    /**
+     * TableView for teachers
+     */
     @FXML
     private TableView<GbTeacher> teachersTable;
 
-    private ArrayList<GbTeacher> teachersArrayList;
-
-    @FXML
-    private Tab studentsTab;
-
+    /**
+     * TableView for students
+     */
     @FXML
     private TableView<GbStudent> studentsTable;
 
-    private ArrayList<GbStudent> studentsArrayList;
-
-    @FXML
-    private Tab parentsTab;
-
+    /**
+     * TableView for parents
+     */
     @FXML
     private TableView<GbParent> parentsTable;
 
-    private ArrayList<GbParent> parentsArrayList;
-
-    @FXML
-    private Tab classesTab;
-
+    /**
+     * TableView for classes
+     */
     @FXML
     private TableView<GbClass> classesTable;
 
-    private ArrayList<GbClass> classesArrayList;
-
-    @FXML
-    private Tab coursesTab;
-
+    /**
+     * TableView for courses
+     */
     @FXML
     private TableView<GbCourse> coursesTable;
 
-    private ArrayList<GbCourse> coursesArrayList;
-
-    @FXML
-    private Tab lessonsTab;
-
+    /**
+     * TableView for lessons
+     */
     @FXML
     private TableView<GbLesson> lessonsTable;
 
-    private ArrayList<GbLesson> lessonsArrayList;
-
-    @FXML
-    private Tab schedulesTab;
-
+    /**
+     * TabPane for scedules tabs
+     */
     @FXML
     private TabPane inSchedulesTab;
 
-    private Vector<String> schedulesNames;
-
-    @FXML
-    private Tab eventsTab;
-
+    /**
+     * TableView for events
+     */
     @FXML
     private TableView<GbEvent> eventsTable;
 
-    private ArrayList<GbEvent> eventsArrayList;
-
-    @FXML
-    private Tab gradesTab;
-
+    /**
+     * TableView for grades
+     */
     @FXML
     private TableView<GbGrade> gradesTable;
 
-    private ArrayList<GbGrade> gradesArrayList;
-
-    @FXML
-    private Tab attendanceTab;
-
+    /**
+     * TableView for attendances
+     */
     @FXML
     private TableView<GbAttendance> attendancesTable;
 
-    private ArrayList<GbAttendance> attendancesArrayList;
-
-    @FXML
-    private Tab messagesTab;
-
+    /**
+     * TableView for messages
+     */
     @FXML
     private TableView<GbMessage> messagesTable;
 
-    private ArrayList<GbMessage> messagesArrayList;
-
-    @FXML
-    private Tab remarksTab;
-
+    /**
+     * TableView for remarks
+     */
     @FXML
     private TableView<GbRemark> remarksTable;
 
-    private ArrayList<GbRemark> remarksArrayList;
-
-    @FXML
-    private Button addClassButton;
-
-    @FXML
-    private Button removeClassButton;
-
-    @FXML
-    private Button addStudentButton;
-
-    @FXML
-    private Button removeStudentButton;
-
-    @FXML
-    private Button addTeacherButton;
-
-    @FXML
-    private Button removeTeacherButton;
-
-    @FXML
-    private Button addCourseButton;
-
-    @FXML
-    private Button addLessonButton;
-
-    @FXML
-    private Button changeAttendanceButton;
-
+    /**
+     * Button for refresh data
+     */
     @FXML
     private Button refreshButton;
 
-    @FXML
-    private Button manualQueryButton;
-
+    /**
+     * Function that opens new window from Stage.
+     *
+     * @param fxml  FXML name
+     * @param title Window title
+     * @throws IOException Throws when can not find or load resources.
+     */
     private void showStage(String fxml, String title) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Program.class.getResource("fxml/" + fxml));
         Scene scene = new Scene(fxmlLoader.load(), 480, 640);
@@ -169,13 +126,16 @@ public class MainSceneController implements Initializable {
 
         stage.setTitle("GBDziennik - " + title);
         stage.setScene(scene);
-        stage.getIcons().add(new Image(Program.class.getResourceAsStream("img/icon.png")));
+        stage.getIcons().add(new Image(Objects.requireNonNull(Program.class.getResourceAsStream("img/icon.png"))));
         stage.setResizable(false);
         stage.show();
     }
 
+    /**
+     * Handler for addClassButton
+     */
     @FXML
-    void addClassButtonClicked(ActionEvent event) {
+    void addClassButtonClicked() {
         try {
             showStage("addClassScene.fxml", "Dodawanie klasy");
         } catch (IOException e) {
@@ -183,8 +143,11 @@ public class MainSceneController implements Initializable {
         }
     }
 
+    /**
+     * Handler for removeClassButton
+     */
     @FXML
-    void removeClassButtonClicked(ActionEvent event) {
+    void removeClassButtonClicked() {
         try {
             showStage("removeClassScene.fxml", "Usuwanie klasy");
         } catch (IOException e) {
@@ -192,8 +155,11 @@ public class MainSceneController implements Initializable {
         }
     }
 
+    /**
+     * Handler for addStudentButton
+     */
     @FXML
-    void addStudentButtonClicked(ActionEvent event) {
+    void addStudentButtonClicked() {
         try {
             showStage("addStudentScene.fxml", "Dodawanie ucznia");
         } catch (IOException e) {
@@ -201,8 +167,11 @@ public class MainSceneController implements Initializable {
         }
     }
 
+    /**
+     * Handler for removeStudentButton
+     */
     @FXML
-    void removeStudentButtonClicked(ActionEvent event) {
+    void removeStudentButtonClicked() {
         try {
             showStage("removeStudentScene.fxml", "Usuwanie ucznia");
         } catch (IOException e) {
@@ -210,8 +179,11 @@ public class MainSceneController implements Initializable {
         }
     }
 
+    /**
+     * Handler for addTeacherButton
+     */
     @FXML
-    void addTeacherButtonClicked(ActionEvent event) {
+    void addTeacherButtonClicked() {
         try {
             showStage("addTeacherScene.fxml", "Dodawanie nauczyciela");
         } catch (IOException e) {
@@ -219,8 +191,11 @@ public class MainSceneController implements Initializable {
         }
     }
 
+    /**
+     * Handler for removeTeacherButton
+     */
     @FXML
-    void removeTeacherButtonClicked(ActionEvent event) {
+    void removeTeacherButtonClicked() {
         try {
             showStage("removeTeacherScene.fxml", "Usuwanie nauczyciela");
         } catch (IOException e) {
@@ -228,8 +203,11 @@ public class MainSceneController implements Initializable {
         }
     }
 
+    /**
+     * Handler for addCourseButton
+     */
     @FXML
-    void addCourseButtonClicked(ActionEvent event) {
+    void addCourseButtonClicked() {
         try {
             showStage("addCourseScene.fxml", "Dodawanie przedmiotu");
         } catch (IOException e) {
@@ -237,8 +215,11 @@ public class MainSceneController implements Initializable {
         }
     }
 
+    /**
+     * Handler for addLessonButton
+     */
     @FXML
-    void addLessonButtonClicked(ActionEvent event) {
+    void addLessonButtonClicked() {
         try {
             showStage("addLessonScene.fxml", "Dodawanie lekcji");
         } catch (IOException e) {
@@ -246,8 +227,11 @@ public class MainSceneController implements Initializable {
         }
     }
 
+    /**
+     * Handler for changeAttendanceButton
+     */
     @FXML
-    void changeAttendanceButtonClicked(ActionEvent event) {
+    void changeAttendanceButtonClicked() {
         try {
             showStage("changeAttendanceScene.fxml", "Zmiana frekwencji");
         } catch (IOException e) {
@@ -255,8 +239,11 @@ public class MainSceneController implements Initializable {
         }
     }
 
+    /**
+     * Handler for refreshButton
+     */
     @FXML
-    void refreshButtonClick(ActionEvent event) {
+    void refreshButtonClick() {
         this.buildSchedulesTabs();
         this.buildAccountsTable();
         this.buildStudentsTable();
@@ -272,8 +259,11 @@ public class MainSceneController implements Initializable {
         this.buildRemarksTable();
     }
 
+    /**
+     * Handler for manualQueryButton
+     */
     @FXML
-    void manualQueryButtonClick(ActionEvent event) {
+    void manualQueryButtonClick() {
         try {
             showStage("manualQueryScene.fxml", "Ręczne polecenie");
         } catch (IOException e) {
@@ -281,11 +271,20 @@ public class MainSceneController implements Initializable {
         }
     }
 
+    /**
+     * Initialize window.
+     *
+     * @param url            URL location.
+     * @param resourceBundle Resource bundle.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         refreshButton.fire();
     }
 
+    /**
+     * Generate Schedules Tabs
+     */
     private void buildSchedulesTabs() {
         GbsMessage reply = null;
         try {
@@ -294,10 +293,9 @@ public class MainSceneController implements Initializable {
             e.printStackTrace();
         }
 
-        schedulesNames = reply.arguments;
-
         inSchedulesTab.getTabs().clear();
 
+        assert reply != null;
         for (String tabName : reply.arguments) {
             Tab newTab = new Tab(tabName);
 
@@ -309,14 +307,14 @@ public class MainSceneController implements Initializable {
             newTableView.setPrefSize(1280, 618);
 
             try {
-                Vector<String> tableName = new Vector<String>();
+                Vector<String> tableName = new Vector<>();
                 tableName.add(tabName);
                 reply = Program.socket.executeRequest(new GbsMessage("_listSchedule", tableName));
             } catch (IOException e) {
                 e.printStackTrace();
             }
 
-            ArrayList<GbSchedule> scheduleArrayList = new ArrayList<GbSchedule>();
+            ArrayList<GbSchedule> scheduleArrayList = new ArrayList<>();
 
             for (String str : reply.arguments) {
                 scheduleArrayList.add(new GbSchedule(str));
@@ -351,6 +349,9 @@ public class MainSceneController implements Initializable {
         }
     }
 
+    /**
+     * Generate Accounts Tab
+     */
     private void buildAccountsTable() {
         GbsMessage reply = null;
         try {
@@ -359,8 +360,9 @@ public class MainSceneController implements Initializable {
             e.printStackTrace();
         }
 
-        accountsArrayList = new ArrayList<GbAccount>();
+        ArrayList<GbAccount> accountsArrayList = new ArrayList<>();
 
+        assert reply != null;
         for (String str : reply.arguments) {
             accountsArrayList.add(new GbAccount(str));
         }
@@ -385,6 +387,9 @@ public class MainSceneController implements Initializable {
 
     }
 
+    /**
+     * Generate Teachers Tab
+     */
     private void buildTeachersTable() {
         GbsMessage reply = null;
         try {
@@ -393,8 +398,9 @@ public class MainSceneController implements Initializable {
             e.printStackTrace();
         }
 
-        teachersArrayList = new ArrayList<GbTeacher>();
+        ArrayList<GbTeacher> teachersArrayList = new ArrayList<>();
 
+        assert reply != null;
         for (String str : reply.arguments) {
             teachersArrayList.add(new GbTeacher(str));
         }
@@ -420,6 +426,9 @@ public class MainSceneController implements Initializable {
         teachersTable.getColumns().addAll(columnIDNauczyciela, columnImie, columnNazwisko, columnTelefonkontaktowy, columnIDKonta);
     }
 
+    /**
+     * Generate Parents Tab
+     */
     private void buildParentsTable() {
         GbsMessage reply = null;
         try {
@@ -428,8 +437,9 @@ public class MainSceneController implements Initializable {
             e.printStackTrace();
         }
 
-        parentsArrayList = new ArrayList<GbParent>();
+        ArrayList<GbParent> parentsArrayList = new ArrayList<>();
 
+        assert reply != null;
         for (String str : reply.arguments) {
             parentsArrayList.add(new GbParent(str));
         }
@@ -453,6 +463,9 @@ public class MainSceneController implements Initializable {
         parentsTable.getColumns().addAll(columnIDRodzica, columnImie, columnNazwisko, columnIDKonta);
     }
 
+    /**
+     * Generate Students Tab
+     */
     private void buildStudentsTable() {
         GbsMessage reply = null;
         try {
@@ -461,8 +474,9 @@ public class MainSceneController implements Initializable {
             e.printStackTrace();
         }
 
-        studentsArrayList = new ArrayList<GbStudent>();
+        ArrayList<GbStudent> studentsArrayList = new ArrayList<>();
 
+        assert reply != null;
         for (String str : reply.arguments) {
             studentsArrayList.add(new GbStudent(str));
         }
@@ -490,6 +504,9 @@ public class MainSceneController implements Initializable {
         studentsTable.getColumns().addAll(columnIDucznia, columnImie, columnNazwisko, columnIDrodzica, columnIDklasy, columnIDkonta);
     }
 
+    /**
+     * Generate Classes Tab
+     */
     private void buildClassesTable() {
         GbsMessage reply = null;
         try {
@@ -498,8 +515,9 @@ public class MainSceneController implements Initializable {
             e.printStackTrace();
         }
 
-        classesArrayList = new ArrayList<GbClass>();
+        ArrayList<GbClass> classesArrayList = new ArrayList<>();
 
+        assert reply != null;
         for (String str : reply.arguments) {
             classesArrayList.add(new GbClass(str));
         }
@@ -522,6 +540,9 @@ public class MainSceneController implements Initializable {
         classesTable.getColumns().addAll(columnIDklasy, columnNazwaklasy, columnIDnauczyciela);
     }
 
+    /**
+     * Generate Courses Tab
+     */
     private void buildCoursesTable() {
         GbsMessage reply = null;
         try {
@@ -530,8 +551,9 @@ public class MainSceneController implements Initializable {
             e.printStackTrace();
         }
 
-        coursesArrayList = new ArrayList<GbCourse>();
+        ArrayList<GbCourse> coursesArrayList = new ArrayList<>();
 
+        assert reply != null;
         for (String str : reply.arguments) {
             coursesArrayList.add(new GbCourse(str));
         }
@@ -554,6 +576,9 @@ public class MainSceneController implements Initializable {
         coursesTable.getColumns().addAll(columnIDprzedmiotu, columnNazwaprzedmiotu, columnOpis);
     }
 
+    /**
+     * Generate Lessons Tab
+     */
     private void buildLessonsTable() {
         GbsMessage reply = null;
         try {
@@ -562,8 +587,9 @@ public class MainSceneController implements Initializable {
             e.printStackTrace();
         }
 
-        lessonsArrayList = new ArrayList<GbLesson>();
+        ArrayList<GbLesson> lessonsArrayList = new ArrayList<>();
 
+        assert reply != null;
         for (String str : reply.arguments) {
             lessonsArrayList.add(new GbLesson(str));
         }
@@ -590,6 +616,9 @@ public class MainSceneController implements Initializable {
         lessonsTable.getColumns().addAll(columnIDlekcji, columnIDprzedmiotu, columnSala, columnIDnauczyciela, columnIDklasy);
     }
 
+    /**
+     * Generate Events Tab
+     */
     private void buildEventsTable() {
         GbsMessage reply = null;
         try {
@@ -598,8 +627,9 @@ public class MainSceneController implements Initializable {
             e.printStackTrace();
         }
 
-        eventsArrayList = new ArrayList<GbEvent>();
+        ArrayList<GbEvent> eventsArrayList = new ArrayList<>();
 
+        assert reply != null;
         for (String str : reply.arguments) {
             eventsArrayList.add(new GbEvent(str));
         }
@@ -629,6 +659,9 @@ public class MainSceneController implements Initializable {
         eventsTable.getColumns().addAll(columnIDwydarzenia, columnKategoria, columnOpis, columnIDlekcji, columnDatawydarzenia);
     }
 
+    /**
+     * Generate Grades Tab
+     */
     private void buildGradesTable() {
         GbsMessage reply = null;
         try {
@@ -637,8 +670,9 @@ public class MainSceneController implements Initializable {
             e.printStackTrace();
         }
 
-        gradesArrayList = new ArrayList<GbGrade>();
+        ArrayList<GbGrade> gradesArrayList = new ArrayList<>();
 
+        assert reply != null;
         for (String str : reply.arguments) {
             gradesArrayList.add(new GbGrade(str));
         }
@@ -671,6 +705,9 @@ public class MainSceneController implements Initializable {
         gradesTable.getColumns().addAll(columnIDoceny, columnOcena, columnWaga, columnOpis, columnIDucznia, columnIDnauczyciela, columnIDprzedmiotu, columnDatawystawienia);
     }
 
+    /**
+     * Generate Attendances Tab
+     */
     private void buildAttendancesTable() {
         GbsMessage reply = null;
         try {
@@ -679,8 +716,9 @@ public class MainSceneController implements Initializable {
             e.printStackTrace();
         }
 
-        attendancesArrayList = new ArrayList<GbAttendance>();
+        ArrayList<GbAttendance> attendancesArrayList = new ArrayList<>();
 
+        assert reply != null;
         for (String str : reply.arguments) {
             attendancesArrayList.add(new GbAttendance(str));
         }
@@ -706,6 +744,9 @@ public class MainSceneController implements Initializable {
         attendancesTable.getColumns().addAll(columnIDnieobecnosci, columnIDucznia, columnIDlekcji, columnDatanieobecnosci, columnTyp);
     }
 
+    /**
+     * Generate Messages Tab
+     */
     private void buildMessagesTable() {
         GbsMessage reply = null;
         try {
@@ -714,8 +755,9 @@ public class MainSceneController implements Initializable {
             e.printStackTrace();
         }
 
-        messagesArrayList = new ArrayList<GbMessage>();
+        ArrayList<GbMessage> messagesArrayList = new ArrayList<>();
 
+        assert reply != null;
         for (String str : reply.arguments) {
             messagesArrayList.add(new GbMessage(str));
         }
@@ -742,6 +784,9 @@ public class MainSceneController implements Initializable {
         messagesTable.getColumns().addAll(columnIDwiadomosci, columnWiadomosc, columnIDnadawcy, columnIDodbiorcy, columnDatawyslania);
     }
 
+    /**
+     * Generate Remarks Tab
+     */
     private void buildRemarksTable() {
         GbsMessage reply = null;
         try {
@@ -750,8 +795,9 @@ public class MainSceneController implements Initializable {
             e.printStackTrace();
         }
 
-        remarksArrayList = new ArrayList<GbRemark>();
+        ArrayList<GbRemark> remarksArrayList = new ArrayList<>();
 
+        assert reply != null;
         for (String str : reply.arguments) {
             remarksArrayList.add(new GbRemark(str));
         }

@@ -14,50 +14,43 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 
 public class MainSceneController implements Initializable {
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        gradesImage.setImage(new Image(Program.class.getResourceAsStream("img/grade.png")));
-        attendanceImage.setImage(new Image(Program.class.getResourceAsStream("img/attendance.png")));
-        messagesImage.setImage(new Image(Program.class.getResourceAsStream("img/messages.png")));
-        remarksImage.setImage(new Image(Program.class.getResourceAsStream("img/remarks.png")));
-        scheduleImage.setImage(new Image(Program.class.getResourceAsStream("img/schedule.png")));
-        avatarImage.setImage(new Image(Program.class.getResourceAsStream("img/teacher.png")));
-        logoutImage.setImage(new Image(Program.class.getResourceAsStream("img/logout.png")));
-        backgroundImage.setImage(new Image(Program.class.getResourceAsStream("img/background.png")));
-
-        actualUser.setText(Program.loggedUser + " (" +  Program.loggedID+ ")");
-    }
-
     @FXML
     private ImageView logoutImage;
-
     @FXML
     private ImageView attendanceImage;
-
     @FXML
     private ImageView messagesImage;
-
     @FXML
     private Label actualUser;
-
     @FXML
     private ImageView backgroundImage;
-
     @FXML
     private ImageView avatarImage;
-
     @FXML
     private ImageView remarksImage;
-
     @FXML
     private ImageView gradesImage;
-
     @FXML
     private ImageView scheduleImage;
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        gradesImage.setImage(new Image(Objects.requireNonNull(Program.class.getResourceAsStream("img/grade.png"))));
+        attendanceImage.setImage(new Image(Objects.requireNonNull(Program.class.getResourceAsStream("img/attendance.png"))));
+        messagesImage.setImage(new Image(Objects.requireNonNull(Program.class.getResourceAsStream("img/messages.png"))));
+        remarksImage.setImage(new Image(Objects.requireNonNull(Program.class.getResourceAsStream("img/remarks.png"))));
+        scheduleImage.setImage(new Image(Objects.requireNonNull(Program.class.getResourceAsStream("img/schedule.png"))));
+        avatarImage.setImage(new Image(Objects.requireNonNull(Program.class.getResourceAsStream("img/teacher.png"))));
+        logoutImage.setImage(new Image(Objects.requireNonNull(Program.class.getResourceAsStream("img/logout.png"))));
+        backgroundImage.setImage(new Image(Objects.requireNonNull(Program.class.getResourceAsStream("img/background.png"))));
+
+        actualUser.setText(Program.loggedUser + " (" + Program.loggedID + ")");
+    }
 
     @FXML
     void gradeClicked(MouseEvent event) {
@@ -91,10 +84,10 @@ public class MainSceneController implements Initializable {
         Stage stage = new Stage();
         stage.setTitle("GBDziennik - Zaloguj się!");
         stage.setScene(scene);
-        stage.getIcons().add(new Image(Program.class.getResourceAsStream("img/icon.png")));
+        stage.getIcons().add(new Image(Objects.requireNonNull(Program.class.getResourceAsStream("img/icon.png"))));
         stage.setResizable(false);
         stage.show();
 
-        ((Stage)(((Node) event.getSource()).getScene().getWindow())).close();
+        ((Stage) (((Node) event.getSource()).getScene().getWindow())).close();
     }
 }

@@ -34,7 +34,7 @@
                   <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
                </VBox.margin>
             </Label>
-            <RadioButton mnemonicParsing="false" text="O">
+            <RadioButton mnemonicParsing="false" selected="true" text="O">
                <toggleGroup>
                   <ToggleGroup fx:id="type" />
                </toggleGroup>

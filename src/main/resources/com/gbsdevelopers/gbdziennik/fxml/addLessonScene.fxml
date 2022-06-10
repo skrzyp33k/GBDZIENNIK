@@ -6,7 +6,6 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="480.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gbsdevelopers.gbdziennik.admin.AddLessonController">
    <children>
       <VBox alignment="CENTER" layoutX="140.0" layoutY="86.0" prefHeight="640.0" prefWidth="480.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -16,56 +15,68 @@
                   <Font name="System Bold" size="18.0" />
                </font>
                <VBox.margin>
-                  <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </VBox.margin>
             </Label>
             <TextField fx:id="courseIDTextField">
                <VBox.margin>
-                  <Insets bottom="25.0" left="40.0" right="40.0" top="25.0" />
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </VBox.margin>
+               <font>
+                  <Font size="18.0" />
+               </font>
             </TextField>
             <Label text="Sala">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
                <VBox.margin>
-                  <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </VBox.margin>
             </Label>
             <TextField fx:id="classroomTextField">
                <VBox.margin>
-                  <Insets bottom="25.0" left="40.0" right="40.0" top="25.0" />
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </VBox.margin>
+               <font>
+                  <Font size="18.0" />
+               </font>
             </TextField>
             <Label text="ID_nauczyciela">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
                <VBox.margin>
-                  <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </VBox.margin>
             </Label>
             <TextField fx:id="teacherIDTextField">
                <VBox.margin>
-                  <Insets bottom="25.0" left="40.0" right="40.0" top="25.0" />
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </VBox.margin>
+               <font>
+                  <Font size="18.0" />
+               </font>
             </TextField>
             <Label text="ID_klasy">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
                <VBox.margin>
-                  <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </VBox.margin>
             </Label>
             <TextField fx:id="classIDTextField">
                <VBox.margin>
-                  <Insets bottom="25.0" left="40.0" right="40.0" top="25.0" />
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </VBox.margin>
+               <font>
+                  <Font size="18.0" />
+               </font>
             </TextField>
             <Button fx:id="addButton" mnemonicParsing="false" onAction="#addButtonClicked" text="Dodaj">
                <VBox.margin>
-                  <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </VBox.margin>
             </Button>
          </children>

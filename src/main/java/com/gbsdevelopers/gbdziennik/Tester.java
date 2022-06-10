@@ -7,11 +7,10 @@ import java.io.IOException;
 import java.util.Vector;
 
 public class Tester {
-    public static void main(String[] args)
-    {
-        GbsClient client = new GbsClient(25565,"localhost");
+    public static void main(String[] args) {
+        GbsClient client = new GbsClient(25565, "localhost");
 
-        Vector<String> dbArgs = new Vector<String>();
+        Vector<String> dbArgs = new Vector<>();
 
         dbArgs.add("localhost");
         dbArgs.add("3306");
@@ -20,7 +19,7 @@ public class Tester {
         dbArgs.add("gbdziennik");
 
         try {
-            client.executeRequest(new GbsMessage("_configureDB",dbArgs));
+            client.executeRequest(new GbsMessage("_configureDB", dbArgs));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -29,7 +28,7 @@ public class Tester {
 
         request.header = "_listAccounts";
 
-        request.arguments = new Vector<String>();
+        request.arguments = new Vector<>();
 
         request.arguments.add("4a");
         request.arguments.add("1");
@@ -44,8 +43,7 @@ public class Tester {
 
         System.out.println(reply.header);
 
-        for(String replyLine : reply.arguments)
-        {
+        for (String replyLine : reply.arguments) {
             System.out.println(replyLine);
         }
 

@@ -1,28 +1,57 @@
 package com.gbsdevelopers.gbdziennik.admin;
 
+import com.gbsdevelopers.gbdziennik.Program;
+import com.gbsdevelopers.gbssocket.GbsMessage;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
+/**
+ * Controller for ChangeAttendance
+ */
 public class ChangeAttendanceController {
 
+    /**
+     * Type ToggleGroup
+     */
     @FXML
     private ToggleGroup type;
 
+    /**
+     * Attendance ID TextField
+     */
     @FXML
     private TextField attendanceIDTextField;
 
-    @FXML
-    private Button changeButton;
-
+    /**
+     * Handler for ChangeButton
+     *
+     * @param event Event that invoked action
+     */
     @FXML
     void changeButtonClicked(ActionEvent event) {
+        if (!(attendanceIDTextField.getText().isEmpty())) {
+            GbsMessage message = new GbsMessage();
 
-        ((Stage)(((Node) event.getSource()).getScene().getWindow())).close();
+            message.header = "_changeAttendance";
+
+            message.arguments.add(attendanceIDTextField.getText());
+            message.arguments.add(((RadioButton) (type.getSelectedToggle())).getText());
+
+            try {
+                Program.socket.executeRequest(message);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            ((Stage) (((Node) event.getSource()).getScene().getWindow())).close();
+        }
     }
 
 }

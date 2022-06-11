@@ -29,9 +29,8 @@ public class GbUserMessage {
      *
      * @param str Data merged into one string
      */
-    public GbUserMessage(String str)
-    {
-        Vector<String> fields = GbsMessage.explode(str,";");
+    public GbUserMessage(String str) {
+        Vector<String> fields = GbsMessage.explode(str, ";");
 
         nadawca = new SimpleStringProperty(fields.get(0));
         wiadomosc = new SimpleStringProperty(fields.get(1));
@@ -40,6 +39,7 @@ public class GbUserMessage {
 
     /**
      * Getter for nadawca
+     *
      * @return value
      */
     public String getNadawca() {
@@ -48,6 +48,7 @@ public class GbUserMessage {
 
     /**
      * Setter for nadawca
+     *
      * @param value value
      */
     public void setNadawca(String value) {
@@ -56,6 +57,7 @@ public class GbUserMessage {
 
     /**
      * Getter for wiadomosc
+     *
      * @return value
      */
     public String getWiadomosc() {
@@ -64,6 +66,7 @@ public class GbUserMessage {
 
     /**
      * Setter for wiadomosc
+     *
      * @param value value
      */
     public void setWiadomosc(String value) {
@@ -72,6 +75,7 @@ public class GbUserMessage {
 
     /**
      * Getter for data
+     *
      * @return value
      */
     public String getData() {
@@ -80,6 +84,7 @@ public class GbUserMessage {
 
     /**
      * Setter for data
+     *
      * @param value value
      */
     public void setData(String value) {

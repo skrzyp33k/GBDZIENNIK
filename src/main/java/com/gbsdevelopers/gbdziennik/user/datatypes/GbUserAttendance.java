@@ -34,8 +34,7 @@ public class GbUserAttendance {
      *
      * @param str Data merged into one string
      */
-    public GbUserAttendance(String str)
-    {
+    public GbUserAttendance(String str) {
         Vector<String> fields = GbsMessage.explode(str,";");
 
         uczen = new SimpleStringProperty(fields.get(0));

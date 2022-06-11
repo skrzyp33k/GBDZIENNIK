@@ -5,17 +5,47 @@ import javafx.beans.property.SimpleStringProperty;
 
 import java.util.Vector;
 
+/**
+ * Class for plan for user space
+ */
 public class GbUserSchedule {
+    /**
+     * Godzina field
+     */
     private final SimpleStringProperty godzina;
+
+    /**
+     * Poniedzialek field
+     */
     private final SimpleStringProperty poniedzialek;
+
+    /**
+     * Wtorek field
+     */
     private final SimpleStringProperty wtorek;
+
+    /**
+     * Sroda field
+     */
     private final SimpleStringProperty sroda;
+
+    /**
+     * Czwartek field
+     */
     private final SimpleStringProperty czwartek;
+
+    /**
+     * Piatek field
+     */
     private final SimpleStringProperty piatek;
 
-    public GbUserSchedule(String str)
-    {
-        Vector<String> fields = GbsMessage.explode(str,";");
+    /**
+     * Constructor that construct object from row data merged into one string
+     *
+     * @param str Data merged into one string
+     */
+    public GbUserSchedule(String str) {
+        Vector<String> fields = GbsMessage.explode(str, ";");
 
         godzina = new SimpleStringProperty(fields.get(0));
         poniedzialek = new SimpleStringProperty(fields.get(1));
@@ -25,75 +55,111 @@ public class GbUserSchedule {
         piatek = new SimpleStringProperty(fields.get(5));
     }
 
+    /**
+     * Getter for Godzina
+     *
+     * @return value
+     */
     public String getGodzina() {
         return godzina.get();
     }
 
-    public SimpleStringProperty godzinaProperty() {
-        return godzina;
+    /**
+     * Setter for Godzina
+     *
+     * @param value value
+     */
+    public void setGodzina(String value) {
+        this.godzina.set(value);
     }
 
-    public void setGodzina(String godzina) {
-        this.godzina.set(godzina);
-    }
-
+    /**
+     * Getter for Poniedzialek
+     *
+     * @return value
+     */
     public String getPoniedzialek() {
         return poniedzialek.get();
     }
 
-    public SimpleStringProperty poniedzialekProperty() {
-        return poniedzialek;
+    /**
+     * Setter for Poniedzialek
+     *
+     * @param value value
+     */
+    public void setPoniedzialek(String value) {
+        this.poniedzialek.set(value);
     }
 
-    public void setPoniedzialek(String poniedzialek) {
-        this.poniedzialek.set(poniedzialek);
-    }
-
+    /**
+     * Getter for Wtorek
+     *
+     * @return value
+     */
     public String getWtorek() {
         return wtorek.get();
     }
 
-    public SimpleStringProperty wtorekProperty() {
-        return wtorek;
+    /**
+     * Setter for Wtorek
+     *
+     * @param value value
+     */
+    public void setWtorek(String value) {
+        this.wtorek.set(value);
     }
 
-    public void setWtorek(String wtorek) {
-        this.wtorek.set(wtorek);
-    }
-
+    /**
+     * Getter for Sroda
+     *
+     * @return value
+     */
     public String getSroda() {
         return sroda.get();
     }
 
-    public SimpleStringProperty srodaProperty() {
-        return sroda;
+    /**
+     * Setter for Sroda
+     *
+     * @param value value
+     */
+    public void setSroda(String value) {
+        this.sroda.set(value);
     }
 
-    public void setSroda(String sroda) {
-        this.sroda.set(sroda);
-    }
-
+    /**
+     * Getter for Czwartek
+     *
+     * @return value
+     */
     public String getCzwartek() {
         return czwartek.get();
     }
 
-    public SimpleStringProperty czwartekProperty() {
-        return czwartek;
+    /**
+     * Setter for Czwartek
+     *
+     * @param value value
+     */
+    public void setCzwartek(String value) {
+        this.czwartek.set(value);
     }
 
-    public void setCzwartek(String czwartek) {
-        this.czwartek.set(czwartek);
-    }
-
+    /**
+     * Getter for Piatek
+     *
+     * @return value
+     */
     public String getPiatek() {
         return piatek.get();
     }
 
-    public SimpleStringProperty piatekProperty() {
-        return piatek;
-    }
-
-    public void setPiatek(String piatek) {
-        this.piatek.set(piatek);
+    /**
+     * Setter for Piatek
+     *
+     * @param value value
+     */
+    public void setPiatek(String value) {
+        this.piatek.set(value);
     }
 }

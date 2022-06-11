@@ -5,11 +5,13 @@ import com.gbsdevelopers.gbdziennik.user.datatypes.*;
 import com.gbsdevelopers.gbssocket.GbsMessage;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -26,7 +28,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.ResourceBundle;
-import java.util.Vector;
 
 /**
  * Controller for userMainScene
@@ -98,26 +99,77 @@ public class MainSceneController implements Initializable {
     @FXML
     private ImageView scheduleImage;
 
+    /**
+     * sideVBox VBox
+     */
     @FXML
     private VBox sideVBox;
 
+    /**
+     * TableView for grades
+     */
     @FXML
     TableView<GbUserGrade> gradesTableView;
 
+    /**
+     * TableView for attendances
+     */
     @FXML
     TableView<GbUserAttendance> attendancesTableView;
 
+    /**
+     * TableView for messages
+     */
     @FXML
     TableView<GbUserMessage> messagesTableView;
 
+    /**
+     * TableView for remarks
+     */
     @FXML
     TableView<GbUserRemark> remarksTableView;
 
+    /**
+     * TableView for events
+     */
     @FXML
     TableView<GbUserEvent> eventsTableView;
 
+    /**
+     * TableView for schedule
+     */
     @FXML
     TableView<GbUserSchedule> scheduleTableView;
+
+    /**
+     * addGrade Button
+     */
+    @FXML
+    Button addGradeButton;
+
+    /**
+     * addAttendance Button
+     */
+    @FXML
+    Button addAttendanceButton;
+
+    /**
+     * sendMessage Button
+     */
+    @FXML
+    Button sendMessageButton;
+
+    /**
+     * addRemark Button
+     */
+    @FXML
+    Button addRemarkButton;
+
+    /**
+     * addEvent Button
+     */
+    @FXML
+    Button addEventButton;
 
     /**
      * Student ID
@@ -151,12 +203,9 @@ public class MainSceneController implements Initializable {
      */
     private String getStudentID() {
         String query;
-        if(Program.loggedPerms.equals("u"))
-        {
+        if (Program.loggedPerms.equals("u")) {
             query = "SELECT ID_ucznia FROM uczniowie WHERE ID_konta = " + Program.loggedID + ";";
-        }
-        else
-        {
+        } else {
             query = "SELECT ID_ucznia FROM uczniowie WHERE ID_rodzica = " + parentID + ";";
         }
 
@@ -258,8 +307,12 @@ public class MainSceneController implements Initializable {
         return reply.arguments.get(0);
     }
 
-    private String getClassName()
-    {
+    /**
+     * Get className for logged user
+     *
+     * @return className
+     */
+    private String getClassName() {
         String query = "SELECT nazwa_klasy FROM klasy WHERE ID_klasy = " + classID + ";";
 
         GbsMessage message = new GbsMessage();
@@ -339,28 +392,6 @@ public class MainSceneController implements Initializable {
     }
 
     /**
-     * Function that opens new window from Stage.
-     *
-     * @param fxml  FXML name
-     * @param title Window title
-     * @throws IOException Throws when can not find or load resources.
-     */
-    private void showStage(String fxml, String title) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Program.class.getResource("fxml/" + fxml));
-        Scene scene = new Scene(fxmlLoader.load(), 480, 640);
-
-        Stage stage = new Stage();
-
-        stage.setTitle("GBDziennik - " + title);
-        stage.setScene(scene);
-        stage.getIcons().add(new Image(Objects.requireNonNull(Program.class.getResourceAsStream("img/icon.png"))));
-        stage.setResizable(false);
-        stage.show();
-    }
-
-    //region TableViews functions
-
-    /**
      * Changes TableViews visibility
      *
      * @param tableView TableView that is should be visible
@@ -426,12 +457,9 @@ public class MainSceneController implements Initializable {
 
         gradesTableView.setItems(data);
 
-        if(Program.loggedPerms.equals("n"))
-        {
-            gradesTableView.getColumns().addAll(columnUczen,columnPrzedmiot, columnOcena, columnWaga, columnOpis, columnDatawystawienia);
-        }
-        else
-        {
+        if (Program.loggedPerms.equals("n")) {
+            gradesTableView.getColumns().addAll(columnUczen, columnPrzedmiot, columnOcena, columnWaga, columnOpis, columnDatawystawienia);
+        } else {
             gradesTableView.getColumns().addAll(columnPrzedmiot, columnOcena, columnWaga, columnOpis, columnDatawystawienia);
         }
     }
@@ -483,12 +511,9 @@ public class MainSceneController implements Initializable {
 
         attendancesTableView.setItems(data);
 
-        if(Program.loggedPerms.equals("n"))
-        {
+        if (Program.loggedPerms.equals("n")) {
             attendancesTableView.getColumns().addAll(columnUczen, columnPrzedmiot, columnData, columnTyp);
-        }
-        else
-        {
+        } else {
             attendancesTableView.getColumns().addAll(columnPrzedmiot, columnData, columnTyp);
         }
     }
@@ -599,16 +624,20 @@ public class MainSceneController implements Initializable {
      * EventsTable builder
      */
     private void buildEventsTable() {
-        String query = switch (Program.loggedPerms) {
-            case "n" -> "SELECT p.nazwa_przedmiotu, k.nazwa_klasy, w.Kategoria, w.Opis, w.data_wydarzenia FROM wydarzenia w, przedmioty p, lekcje l, klasy k WHERE w.ID_lekcji = l.ID_lekcji AND l.ID_przedmiotu = p.ID_przedmiotu AND l.ID_klasy = k.ID_klasy AND l.ID_nauczyciela = "+teacherID+" ORDER BY p.nazwa_przedmiotu ASC, w.data_wydarzenia DESC;";
-            default -> "SELECT p.nazwa_przedmiotu, null, w.Kategoria, w.Opis, w.data_wydarzenia FROM wydarzenia w, przedmioty p, lekcje l, klasy k, uczniowie u WHERE w.ID_lekcji = l.ID_lekcji AND l.ID_przedmiotu = p.ID_przedmiotu AND u.ID_klasy = l.ID_klasy AND u.ID_ucznia = "+studentID+" ORDER BY w.data_wydarzenia DESC;";
-        };
-
         GbsMessage message = new GbsMessage();
 
         message.header = "_executeSelect";
 
-        message.arguments.add(query);
+        switch (Program.loggedPerms) {
+            case "n" -> {
+                message.arguments.add("SELECT p.nazwa_przedmiotu, k.nazwa_klasy, w.Kategoria, w.Opis, w.data_wydarzenia FROM wydarzenia w, przedmioty p, lekcje l, klasy k WHERE w.ID_lekcji = l.ID_lekcji AND l.ID_przedmiotu = p.ID_przedmiotu AND l.ID_klasy = k.ID_klasy AND l.ID_nauczyciela = " + teacherID + " AND w.data_wydarzenia > CURRENT_TIMESTAMP() ORDER BY p.nazwa_przedmiotu ASC, w.data_wydarzenia ASC;");
+                message.arguments.add("SELECT p.nazwa_przedmiotu, k.nazwa_klasy, w.Kategoria, w.Opis, w.data_wydarzenia FROM wydarzenia w, przedmioty p, lekcje l, klasy k WHERE w.ID_lekcji = l.ID_lekcji AND l.ID_przedmiotu = p.ID_przedmiotu AND l.ID_klasy = k.ID_klasy AND l.ID_nauczyciela = " + teacherID + " AND w.data_wydarzenia <= CURRENT_TIMESTAMP() ORDER BY p.nazwa_przedmiotu ASC, w.data_wydarzenia DESC;");
+            }
+            default -> {
+                message.arguments.add("SELECT p.nazwa_przedmiotu, null, w.Kategoria, w.Opis, w.data_wydarzenia FROM wydarzenia w, przedmioty p, lekcje l, klasy k, uczniowie u WHERE w.ID_lekcji = l.ID_lekcji AND l.ID_przedmiotu = p.ID_przedmiotu AND u.ID_klasy = l.ID_klasy AND u.ID_ucznia = " + studentID + " AND w.data_wydarzenia > CURRENT_TIMESTAMP() ORDER BY w.data_wydarzenia ASC;");
+                message.arguments.add("SELECT p.nazwa_przedmiotu, null, w.Kategoria, w.Opis, w.data_wydarzenia FROM wydarzenia w, przedmioty p, lekcje l, klasy k, uczniowie u WHERE w.ID_lekcji = l.ID_lekcji AND l.ID_przedmiotu = p.ID_przedmiotu AND u.ID_klasy = l.ID_klasy AND u.ID_ucznia = " + studentID + " AND w.data_wydarzenia <= CURRENT_TIMESTAMP() ORDER BY w.data_wydarzenia DESC;");
+            }
+        }
 
         GbsMessage reply = null;
 
@@ -644,12 +673,9 @@ public class MainSceneController implements Initializable {
 
         eventsTableView.setItems(data);
 
-        if(Program.loggedPerms.equals("n"))
-        {
+        if (Program.loggedPerms.equals("n")) {
             eventsTableView.getColumns().addAll(columnPrzedmiot, columnKlasa, columnKategoria, columnOpis, columnDatawydarzenia);
-        }
-        else
-        {
+        } else {
             eventsTableView.getColumns().addAll(columnPrzedmiot, columnKategoria, columnOpis, columnDatawydarzenia);
         }
     }
@@ -660,12 +686,9 @@ public class MainSceneController implements Initializable {
     private void buildScheduleTable() {
         String query;
 
-        if(Program.loggedPerms.equals("n"))
-        {
+        if (Program.loggedPerms.equals("n")) {
             query = "SELECT Godzina,(SELECT CONCAT(p.nazwa_przedmiotu,\", \", l.Sala,\", \", k.nazwa_klasy) FROM lekcje l, nauczyciele n, klasy k, przedmioty p WHERE l.ID_przedmiotu = p.ID_przedmiotu AND l.ID_nauczyciela = n.ID_nauczyciela AND l.ID_klasy = k.ID_klasy AND l.ID_nauczyciela = " + teacherID + "  AND l.ID_lekcji = pl.Poniedzialek),(SELECT CONCAT(p.nazwa_przedmiotu,\", \", l.Sala,\", \", k.nazwa_klasy) FROM lekcje l, nauczyciele n, klasy k, przedmioty p WHERE l.ID_przedmiotu = p.ID_przedmiotu AND l.ID_nauczyciela = n.ID_nauczyciela AND l.ID_klasy = k.ID_klasy AND l.ID_nauczyciela = " + teacherID + "  AND l.ID_lekcji = pl.Wtorek),(SELECT CONCAT(p.nazwa_przedmiotu,\", \", l.Sala,\", \", k.nazwa_klasy) FROM lekcje l, nauczyciele n, klasy k, przedmioty p WHERE l.ID_przedmiotu = p.ID_przedmiotu AND l.ID_nauczyciela = n.ID_nauczyciela AND l.ID_klasy = k.ID_klasy AND l.ID_nauczyciela = " + teacherID + "  AND l.ID_lekcji = pl.Sroda),(SELECT CONCAT(p.nazwa_przedmiotu,\", \", l.Sala,\", \", k.nazwa_klasy) FROM lekcje l, nauczyciele n, klasy k, przedmioty p WHERE l.ID_przedmiotu = p.ID_przedmiotu AND l.ID_nauczyciela = n.ID_nauczyciela AND l.ID_klasy = k.ID_klasy AND l.ID_nauczyciela = " + teacherID + "  AND l.ID_lekcji = pl.Czwartek),(SELECT CONCAT(p.nazwa_przedmiotu,\", \", l.Sala,\", \", k.nazwa_klasy) FROM lekcje l, nauczyciele n, klasy k, przedmioty p WHERE l.ID_przedmiotu = p.ID_przedmiotu AND l.ID_nauczyciela = n.ID_nauczyciela AND l.ID_klasy = k.ID_klasy AND l.ID_nauczyciela = " + teacherID + "  AND l.ID_lekcji = pl.Piatek) FROM plan_1a pl;";
-        }
-        else
-        {
+        } else {
             query = "SELECT Godzina,(SELECT CONCAT(p.nazwa_przedmiotu, \", \", l.Sala, \", \",CONCAT((SELECT nazwisko FROM nauczyciele WHERE ID_nauczyciela = l.ID_nauczyciela),\" \",(SELECT imie FROM nauczyciele WHERE ID_nauczyciela = l.ID_nauczyciela))) FROM lekcje l, przedmioty p, nauczyciele n, klasy k WHERE l.ID_przedmiotu = p.ID_przedmiotu AND l.ID_nauczyciela = n.ID_nauczyciela AND l.ID_klasy = k.ID_klasy AND l.ID_klasy = '" + className + "' AND l.ID_lekcji = pl.Poniedzialek),(SELECT CONCAT(p.nazwa_przedmiotu, \", \", l.Sala, \", \",CONCAT((SELECT nazwisko FROM nauczyciele WHERE ID_nauczyciela = l.ID_nauczyciela),\" \",(SELECT imie FROM nauczyciele WHERE ID_nauczyciela = l.ID_nauczyciela))) FROM lekcje l, przedmioty p, nauczyciele n, klasy k WHERE l.ID_przedmiotu = p.ID_przedmiotu AND l.ID_nauczyciela = n.ID_nauczyciela AND l.ID_klasy = k.ID_klasy AND l.ID_klasy = '" + className + "' AND l.ID_lekcji = pl.Wtorek),(SELECT CONCAT(p.nazwa_przedmiotu, \", \", l.Sala, \", \",CONCAT((SELECT nazwisko FROM nauczyciele WHERE ID_nauczyciela = l.ID_nauczyciela),\" \",(SELECT imie FROM nauczyciele WHERE ID_nauczyciela = l.ID_nauczyciela))) FROM lekcje l, przedmioty p, nauczyciele n, klasy k WHERE l.ID_przedmiotu = p.ID_przedmiotu AND l.ID_nauczyciela = n.ID_nauczyciela AND l.ID_klasy = k.ID_klasy AND l.ID_klasy = '" + className + "' AND l.ID_lekcji = pl.Sroda),(SELECT CONCAT(p.nazwa_przedmiotu, \", \", l.Sala, \", \",CONCAT((SELECT nazwisko FROM nauczyciele WHERE ID_nauczyciela = l.ID_nauczyciela),\" \",(SELECT imie FROM nauczyciele WHERE ID_nauczyciela = l.ID_nauczyciela))) FROM lekcje l, przedmioty p, nauczyciele n, klasy k WHERE l.ID_przedmiotu = p.ID_przedmiotu AND l.ID_nauczyciela = n.ID_nauczyciela AND l.ID_klasy = k.ID_klasy AND l.ID_klasy = '" + className + "' AND l.ID_lekcji = pl.Czwartek),(SELECT CONCAT(p.nazwa_przedmiotu, \", \", l.Sala, \", \",CONCAT((SELECT nazwisko FROM nauczyciele WHERE ID_nauczyciela = l.ID_nauczyciela),\" \",(SELECT imie FROM nauczyciele WHERE ID_nauczyciela = l.ID_nauczyciela))) FROM lekcje l, przedmioty p, nauczyciele n, klasy k WHERE l.ID_przedmiotu = p.ID_przedmiotu AND l.ID_nauczyciela = n.ID_nauczyciela AND l.ID_klasy = k.ID_klasy AND l.ID_klasy = '" + className + "' AND l.ID_lekcji = pl.Piatek) FROM plan_1a pl;";
         }
 
@@ -685,8 +708,7 @@ public class MainSceneController implements Initializable {
 
         ArrayList<GbUserSchedule> replyArrayList = new ArrayList<>();
 
-        for(String str : reply.arguments)
-        {
+        for (String str : reply.arguments) {
             replyArrayList.add(new GbUserSchedule(str));
         }
 
@@ -714,8 +736,6 @@ public class MainSceneController implements Initializable {
 
         scheduleTableView.getColumns().addAll(columnGodzina, columnPoniedzialek, columnWtorek, columnSroda, columnCzwartek, columnPiatek);
     }
-
-    //endregion
 
     /**
      * Function body for gradeClicked()
@@ -838,6 +858,76 @@ public class MainSceneController implements Initializable {
             stage.show();
 
             ((Stage) (((Node) event.getSource()).getScene().getWindow())).close();
+        }
+    }
+
+    /**
+     * Handler for addGradeButton action
+     *
+     * @param event Action Event
+     */
+    @FXML
+    void addGradeButtonClicked(ActionEvent event) {
+        try {
+            Program.showStage("user/addGradeScene.fxml", "Dodawanie oceny");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Handler for addAttendanceButton action
+     *
+     * @param event Action Event
+     */
+    @FXML
+    void addAttendanceButtonClicked(ActionEvent event) {
+        try {
+            Program.showStage("user/addAttendanceScene.fxml", "Dodawanie frekwencji");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Handler for sendMessageButton action
+     *
+     * @param event Action Event
+     */
+    @FXML
+    void sendMessageButtonClicked(ActionEvent event) {
+        try {
+            Program.showStage("user/sendMessageScene.fxml", "Wysyłanie wiadomości");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Handler for addRemarkButton action
+     *
+     * @param event Action Event
+     */
+    @FXML
+    void addRemarkButtonClicked(ActionEvent event) {
+        try {
+            Program.showStage("user/addRemarkScene.fxml", "Dodawanie uwagi");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Handler for addEventButton action
+     *
+     * @param event Action Event
+     */
+    @FXML
+    void addEventButtonClicked(ActionEvent event) {
+        try {
+            Program.showStage("user/addEventScene.fxml", "Dodawanie wydarzenia");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

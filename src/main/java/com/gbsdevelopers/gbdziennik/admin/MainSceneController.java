@@ -7,20 +7,16 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.Vector;
 
@@ -114,32 +110,12 @@ public class MainSceneController implements Initializable {
     private Button refreshButton;
 
     /**
-     * Function that opens new window from Stage.
-     *
-     * @param fxml  FXML name
-     * @param title Window title
-     * @throws IOException Throws when can not find or load resources.
-     */
-    private void showStage(String fxml, String title) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Program.class.getResource("fxml/" + fxml));
-        Scene scene = new Scene(fxmlLoader.load(), 480, 640);
-
-        Stage stage = new Stage();
-
-        stage.setTitle("GBDziennik - " + title);
-        stage.setScene(scene);
-        stage.getIcons().add(new Image(Objects.requireNonNull(Program.class.getResourceAsStream("img/icon.png"))));
-        stage.setResizable(false);
-        stage.show();
-    }
-
-    /**
      * Handler for addClassButton
      */
     @FXML
     void addClassButtonClicked() {
         try {
-            showStage("admin/addClassScene.fxml", "Dodawanie klasy");
+            Program.showStage("admin/addClassScene.fxml", "Dodawanie klasy");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -151,7 +127,7 @@ public class MainSceneController implements Initializable {
     @FXML
     void removeClassButtonClicked() {
         try {
-            showStage("admin/removeClassScene.fxml", "Usuwanie klasy");
+            Program.showStage("admin/removeClassScene.fxml", "Usuwanie klasy");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -163,7 +139,7 @@ public class MainSceneController implements Initializable {
     @FXML
     void addStudentButtonClicked() {
         try {
-            showStage("admin/addStudentScene.fxml", "Dodawanie ucznia");
+            Program.showStage("admin/addStudentScene.fxml", "Dodawanie ucznia");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -175,7 +151,7 @@ public class MainSceneController implements Initializable {
     @FXML
     void removeStudentButtonClicked() {
         try {
-            showStage("admin/removeStudentScene.fxml", "Usuwanie ucznia");
+            Program.showStage("admin/removeStudentScene.fxml", "Usuwanie ucznia");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -187,7 +163,7 @@ public class MainSceneController implements Initializable {
     @FXML
     void addTeacherButtonClicked() {
         try {
-            showStage("admin/addTeacherScene.fxml", "Dodawanie nauczyciela");
+            Program.showStage("admin/addTeacherScene.fxml", "Dodawanie nauczyciela");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -199,7 +175,7 @@ public class MainSceneController implements Initializable {
     @FXML
     void removeTeacherButtonClicked() {
         try {
-            showStage("admin/removeTeacherScene.fxml", "Usuwanie nauczyciela");
+            Program.showStage("admin/removeTeacherScene.fxml", "Usuwanie nauczyciela");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -211,7 +187,7 @@ public class MainSceneController implements Initializable {
     @FXML
     void addCourseButtonClicked() {
         try {
-            showStage("admin/addCourseScene.fxml", "Dodawanie przedmiotu");
+            Program.showStage("admin/addCourseScene.fxml", "Dodawanie przedmiotu");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -223,7 +199,7 @@ public class MainSceneController implements Initializable {
     @FXML
     void addLessonButtonClicked() {
         try {
-            showStage("admin/addLessonScene.fxml", "Dodawanie lekcji");
+            Program.showStage("admin/addLessonScene.fxml", "Dodawanie lekcji");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -235,7 +211,7 @@ public class MainSceneController implements Initializable {
     @FXML
     void changeAttendanceButtonClicked() {
         try {
-            showStage("admin/changeAttendanceScene.fxml", "Zmiana frekwencji");
+            Program.showStage("admin/changeAttendanceScene.fxml", "Zmiana frekwencji");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -267,7 +243,7 @@ public class MainSceneController implements Initializable {
     @FXML
     void manualQueryButtonClick() {
         try {
-            showStage("admin/utils/manualQueryScene.fxml", "Ręczne polecenie");
+            Program.showStage("admin/manualQueryScene.fxml", "Ręczne polecenie");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -278,19 +254,11 @@ public class MainSceneController implements Initializable {
      */
     @FXML
     void logoutButtonClick(ActionEvent event) {
-        FXMLLoader fxmlLoader = new FXMLLoader(Program.class.getResource("fxml/loginScene.fxml"));
-        Scene scene = null;
         try {
-            scene = new Scene(fxmlLoader.load(), 1280, 720);
+            Program.showStage("loginScene.fxml", "Zaloguj się!");
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Stage stage = new Stage();
-        stage.setTitle("GBDziennik - Zaloguj się!");
-        stage.setScene(scene);
-        stage.getIcons().add(new Image(Objects.requireNonNull(Program.class.getResourceAsStream("img/icon.png"))));
-        stage.setResizable(false);
-        stage.show();
 
         ((Stage) (((Node) event.getSource()).getScene().getWindow())).close();
     }

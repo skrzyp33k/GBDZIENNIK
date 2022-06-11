@@ -40,6 +40,26 @@ public class Program extends Application {
     public static String loggedPerms;
 
     /**
+     * Function that opens new window from Stage.
+     *
+     * @param fxml  FXML name
+     * @param title Window title
+     * @throws IOException Throws when can not find or load resources.
+     */
+    public static void showStage(String fxml, String title) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(Program.class.getResource("fxml/" + fxml));
+        Scene scene = new Scene(fxmlLoader.load(), 480, 640);
+
+        Stage stage = new Stage();
+
+        stage.setTitle("GBDziennik - " + title);
+        stage.setScene(scene);
+        stage.getIcons().add(new Image(Objects.requireNonNull(Program.class.getResourceAsStream("img/icon.png"))));
+        stage.setResizable(false);
+        stage.show();
+    }
+
+    /**
      * Main function.
      *
      * @param args Program args.

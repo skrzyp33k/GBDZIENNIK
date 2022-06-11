@@ -15,6 +15,11 @@ public class GbUserLessonChoiceElement {
     private SimpleStringProperty idlekcji;
 
     /**
+     * ID przedmiotu field
+     */
+    private SimpleStringProperty idprzedmiotu;
+
+    /**
      * Nazwa klasy field
      */
     private SimpleStringProperty nazwaprzedmiotu;
@@ -29,7 +34,8 @@ public class GbUserLessonChoiceElement {
         Vector<String> fields = GbsMessage.explode(str,";");
 
         idlekcji = new SimpleStringProperty(fields.get(0));
-        nazwaprzedmiotu = new SimpleStringProperty(fields.get(1));
+        idprzedmiotu = new SimpleStringProperty(fields.get(1));
+        nazwaprzedmiotu = new SimpleStringProperty(fields.get(2));
     }
 
     /**
@@ -46,6 +52,22 @@ public class GbUserLessonChoiceElement {
      */
     public void setIdlekcji(String value) {
         this.idlekcji.set(value);
+    }
+
+    /**
+     * Getter for ID lekcji
+     * @return value
+     */
+    public String getIdprzedmiotu() {
+        return idprzedmiotu.get();
+    }
+
+    /**
+     * Setter for ID lekcji
+     * @param value value
+     */
+    public void setIdprzedmoitu(String value) {
+        this.idprzedmiotu.set(value);
     }
 
     /**

@@ -77,6 +77,14 @@
                         <Font size="14.0" />
                      </font>
                   </TextField>
+                  <Label fx:id="gradeMessage" textFill="RED">
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font name="Arial" size="12.0" />
+                     </font>
+                  </Label>
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
@@ -103,6 +111,14 @@
                         <Font size="14.0" />
                      </font>
                   </TextField>
+                  <Label fx:id="weightMessage" textFill="RED">
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font name="Arial" size="12.0" />
+                     </font>
+                  </Label>
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
@@ -129,9 +145,17 @@
                         <Font size="14.0" />
                      </font>
                   </TextArea>
+                  <Label fx:id="descriptionMessage" textFill="RED">
+                     <font>
+                        <Font name="Arial" size="12.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </HBox.margin>
+                  </Label>
                </children>
             </HBox>
-            <Button mnemonicParsing="false" text="Dodaj">
+            <Button fx:id="adButton" mnemonicParsing="false" onAction="#addButtonClicked" text="Dodaj">
                <font>
                   <Font name="Arial Black" size="16.0" />
                </font>

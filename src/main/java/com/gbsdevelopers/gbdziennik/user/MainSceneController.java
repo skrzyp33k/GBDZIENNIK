@@ -80,7 +80,7 @@ public class MainSceneController implements Initializable {
 
             message.arguments.clear();
 
-            message.arguments.add("SELECT l.ID_lekcji, CONCAT(p.nazwa_przedmiotu,\" \",k.nazwa_klasy) AS Dane FROM lekcje l, przedmioty p, klasy k WHERE l.ID_przedmiotu = p.ID_przedmiotu AND l.ID_klasy = k.ID_klasy AND l.ID_nauczyciela = "+teacherID+" ORDER BY Dane ASC;");
+            message.arguments.add("SELECT l.ID_lekcji, l.ID_przedmiotu, CONCAT(p.nazwa_przedmiotu,\" \",k.nazwa_klasy) AS Dane FROM lekcje l, przedmioty p, klasy k WHERE l.ID_przedmiotu = p.ID_przedmiotu AND l.ID_klasy = k.ID_klasy AND l.ID_nauczyciela = "+teacherID+" ORDER BY Dane ASC;");
 
             reply = null;
 
@@ -272,7 +272,7 @@ public class MainSceneController implements Initializable {
     /**
      * Teacher ID
      */
-    private String teacherID;
+    public static String teacherID;
 
     /**
      * Class ID

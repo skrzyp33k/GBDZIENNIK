@@ -14,6 +14,8 @@ import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.net.URL;
@@ -24,6 +26,10 @@ import java.util.ResourceBundle;
  * Controller for addRemarkScene
  */
 public class AddRemarkController implements Initializable {
+    /**
+     * Logger for log4j
+     */
+    private static final Logger logger = LogManager.getLogger(AddRemarkController.class);
 
     /**
      * Background Image
@@ -56,6 +62,8 @@ public class AddRemarkController implements Initializable {
      */
     @FXML
     void addButtonClicked(ActionEvent event) {
+        logger.info("Clicked addButton");
+
         String studentID = studentsChoiceBox.getSelectionModel().getSelectedItem().getIducznia();
         String content = contentTextArea.getText();
 
@@ -93,5 +101,7 @@ public class AddRemarkController implements Initializable {
         backgroundImage.setImage(new Image(Objects.requireNonNull(Program.class.getResourceAsStream("img/background_sm.png"))));
 
         studentsChoiceBox.setItems(FXCollections.observableList(MainSceneController.choiceStudentsArrayList));
+
+        logger.info("Window initialized");
     }
 }

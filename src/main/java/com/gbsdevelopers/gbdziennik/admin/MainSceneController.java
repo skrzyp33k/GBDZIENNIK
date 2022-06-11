@@ -13,6 +13,8 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.net.URL;
@@ -24,6 +26,11 @@ import java.util.Vector;
  * Controller for AdminPanel
  */
 public class MainSceneController implements Initializable {
+
+    /**
+     * Logger for log4j2
+     */
+    private static final Logger logger = LogManager.getLogger(MainSceneController.class);
 
     /**
      * TableView for accounts
@@ -114,6 +121,8 @@ public class MainSceneController implements Initializable {
      */
     @FXML
     void addClassButtonClicked() {
+        logger.info("Clicked addClassButton");
+
         try {
             Program.showStage("admin/addClassScene.fxml", "Dodawanie klasy");
         } catch (IOException e) {
@@ -126,6 +135,8 @@ public class MainSceneController implements Initializable {
      */
     @FXML
     void removeClassButtonClicked() {
+        logger.info("Clicked removeClassButton");
+
         try {
             Program.showStage("admin/removeClassScene.fxml", "Usuwanie klasy");
         } catch (IOException e) {
@@ -138,6 +149,8 @@ public class MainSceneController implements Initializable {
      */
     @FXML
     void addStudentButtonClicked() {
+        logger.info("Clicked addStudentButton");
+
         try {
             Program.showStage("admin/addStudentScene.fxml", "Dodawanie ucznia");
         } catch (IOException e) {
@@ -150,6 +163,8 @@ public class MainSceneController implements Initializable {
      */
     @FXML
     void removeStudentButtonClicked() {
+        logger.info("Clicked removeStudentButton");
+
         try {
             Program.showStage("admin/removeStudentScene.fxml", "Usuwanie ucznia");
         } catch (IOException e) {
@@ -162,6 +177,8 @@ public class MainSceneController implements Initializable {
      */
     @FXML
     void addTeacherButtonClicked() {
+        logger.info("Clicked addTeacherButton");
+
         try {
             Program.showStage("admin/addTeacherScene.fxml", "Dodawanie nauczyciela");
         } catch (IOException e) {
@@ -174,6 +191,8 @@ public class MainSceneController implements Initializable {
      */
     @FXML
     void removeTeacherButtonClicked() {
+        logger.info("Clicked removeTeacherButton");
+
         try {
             Program.showStage("admin/removeTeacherScene.fxml", "Usuwanie nauczyciela");
         } catch (IOException e) {
@@ -186,6 +205,8 @@ public class MainSceneController implements Initializable {
      */
     @FXML
     void addCourseButtonClicked() {
+        logger.info("Clicked addCourseButton");
+
         try {
             Program.showStage("admin/addCourseScene.fxml", "Dodawanie przedmiotu");
         } catch (IOException e) {
@@ -198,6 +219,8 @@ public class MainSceneController implements Initializable {
      */
     @FXML
     void addLessonButtonClicked() {
+        logger.info("Clicked addLessonButton");
+
         try {
             Program.showStage("admin/addLessonScene.fxml", "Dodawanie lekcji");
         } catch (IOException e) {
@@ -210,6 +233,8 @@ public class MainSceneController implements Initializable {
      */
     @FXML
     void changeAttendanceButtonClicked() {
+        logger.info("Clicked changeAttendanceButton");
+
         try {
             Program.showStage("admin/changeAttendanceScene.fxml", "Zmiana frekwencji");
         } catch (IOException e) {
@@ -222,6 +247,8 @@ public class MainSceneController implements Initializable {
      */
     @FXML
     void refreshButtonClick() {
+        logger.info("Clicked refreshButton");
+
         this.buildSchedulesTabs();
         this.buildAccountsTable();
         this.buildStudentsTable();
@@ -242,6 +269,8 @@ public class MainSceneController implements Initializable {
      */
     @FXML
     void manualQueryButtonClick() {
+        logger.info("Clicked manualQueryButton");
+
         try {
             Program.showStage("admin/manualQueryScene.fxml", "Ręczne polecenie");
         } catch (IOException e) {
@@ -254,6 +283,8 @@ public class MainSceneController implements Initializable {
      */
     @FXML
     void logoutButtonClick(ActionEvent event) {
+        logger.info("Clicked logoutButton");
+
         try {
             Program.showStage("loginScene.fxml", "Zaloguj się!",1280,720);
         } catch (IOException e) {
@@ -271,6 +302,7 @@ public class MainSceneController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        logger.info("Window initialized");
         refreshButton.fire();
     }
 

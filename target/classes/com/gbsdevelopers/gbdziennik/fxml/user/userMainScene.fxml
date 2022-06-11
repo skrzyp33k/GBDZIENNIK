@@ -1,139 +1,155 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.*?>
-<?import java.lang.*?>
-<?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.Font?>
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gbsdevelopers.gbdziennik.user.MainSceneController">
-   <children>
-      <ImageView fx:id="backgroundImage" fitHeight="720.0" fitWidth="1280.0" pickOnBounds="true" preserveRatio="true" />
-      <TableView fx:id="gradesTableView" focusTraversable="false" layoutY="137.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="583.0" prefWidth="1080.0" visible="false">
-         <columnResizePolicy>
-            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-         </columnResizePolicy>
-      </TableView>
-      <TableView fx:id="attendancesTableView" focusTraversable="false" layoutY="137.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="583.0" prefWidth="1080.0" visible="false">
-         <columnResizePolicy>
-            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-         </columnResizePolicy>
-      </TableView>
-      <TableView fx:id="messagesTableView" focusTraversable="false" layoutY="137.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="583.0" prefWidth="1080.0" visible="false">
-         <columnResizePolicy>
-            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-         </columnResizePolicy>
-      </TableView>
-      <TableView fx:id="remarksTableView" focusTraversable="false" layoutY="137.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="583.0" prefWidth="1080.0" visible="false">
-         <columnResizePolicy>
-            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-         </columnResizePolicy>
-      </TableView>
-      <TableView fx:id="eventsTableView" focusTraversable="false" layoutY="137.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="583.0" prefWidth="1080.0" visible="false">
-         <columnResizePolicy>
-            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-         </columnResizePolicy>
-      </TableView>
-      <TableView fx:id="scheduleTableView" focusTraversable="false" layoutY="137.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="583.0" prefWidth="1080.0" visible="false">
-         <columnResizePolicy>
-            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-         </columnResizePolicy>
-      </TableView>
-      <VBox layoutX="113.0" layoutY="179.0" prefHeight="720.0" prefWidth="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <HBox prefHeight="137.0" prefWidth="1280.0">
-               <children>
-                  <ImageView fx:id="gradesImage" fitHeight="137.0" fitWidth="180.0" onMouseClicked="#gradeClicked" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fx:id="attendanceImage" fitHeight="137.0" fitWidth="180.0" onMouseClicked="#attendanceClicked" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fx:id="messagesImage" fitHeight="137.0" fitWidth="180.0" onMouseClicked="#messagesClicked" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fx:id="remarksImage" fitHeight="137.0" fitWidth="180.0" onMouseClicked="#remarksClicked" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fx:id="eventsImage" fitHeight="137.0" fitWidth="180.0" onMouseClicked="#eventsClicked" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fx:id="scheduleImage" fitHeight="137.0" fitWidth="180.0" onMouseClicked="#scheduleClicked" pickOnBounds="true" preserveRatio="true" />
-                  <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="137.0" prefWidth="200.0">
-                     <children>
-                        <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="77.0" prefWidth="200.0">
-                           <children>
-                              <ImageView fx:id="avatarImage" fitHeight="77.0" fitWidth="77.0" pickOnBounds="true" preserveRatio="true">
-                                 <HBox.margin>
-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                 </HBox.margin></ImageView>
-                              <VBox alignment="CENTER" prefHeight="77.0" prefWidth="123.0">
-                                 <children>
-                                    <Label text="Zalogowany jako:">
-                                       <font>
-                                          <Font name="System Bold" size="13.0" />
-                                       </font>
-                                    </Label>
-                                    <Label fx:id="actualUser" />
-                                 </children>
-                              </VBox>
-                           </children>
-                        </HBox>
-                        <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="200.0">
-                           <children>
-                              <ImageView fx:id="refreshImage" fitHeight="40.0" fitWidth="40.0" onMouseClicked="#refreshClicked" pickOnBounds="true" preserveRatio="true" />
-                              <ImageView fx:id="logoutImage" fitHeight="50.0" fitWidth="160.0" onMouseClicked="#logoutClicked" pickOnBounds="true" preserveRatio="true" />
-                           </children>
-                        </HBox>
-                     </children>
-                  </VBox>
-               </children>
-            </HBox>
-            <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="583.0" prefWidth="1280.0">
-               <children>
-                  <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="583.0" prefWidth="1080.0" textAlignment="CENTER">
+<?import javafx.scene.text.*?>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0"
+            prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.gbsdevelopers.gbdziennik.user.MainSceneController">
+   <ImageView fx:id="backgroundImage" fitHeight="720.0" fitWidth="1280.0" pickOnBounds="true" preserveRatio="true"/>
+   <TableView fx:id="gradesTableView" focusTraversable="false" layoutY="137.0" maxHeight="-Infinity"
+              maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="583.0" prefWidth="1080.0"
+              visible="false">
+      <columnResizePolicy>
+         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+      </columnResizePolicy>
+   </TableView>
+   <TableView fx:id="attendancesTableView" focusTraversable="false" layoutY="137.0" maxHeight="-Infinity"
+              maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="583.0" prefWidth="1080.0"
+              visible="false">
+      <columnResizePolicy>
+         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+      </columnResizePolicy>
+   </TableView>
+   <TableView fx:id="messagesTableView" focusTraversable="false" layoutY="137.0" maxHeight="-Infinity"
+              maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="583.0" prefWidth="1080.0"
+              visible="false">
+      <columnResizePolicy>
+         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+      </columnResizePolicy>
+   </TableView>
+   <TableView fx:id="remarksTableView" focusTraversable="false" layoutY="137.0" maxHeight="-Infinity"
+              maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="583.0" prefWidth="1080.0"
+              visible="false">
+      <columnResizePolicy>
+         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+      </columnResizePolicy>
+   </TableView>
+   <TableView fx:id="eventsTableView" focusTraversable="false" layoutY="137.0" maxHeight="-Infinity"
+              maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="583.0" prefWidth="1080.0"
+              visible="false">
+      <columnResizePolicy>
+         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+      </columnResizePolicy>
+   </TableView>
+   <TableView fx:id="scheduleTableView" focusTraversable="false" layoutY="137.0" maxHeight="-Infinity"
+              maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="583.0" prefWidth="1080.0"
+              visible="false">
+      <columnResizePolicy>
+         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+      </columnResizePolicy>
+   </TableView>
+   <VBox layoutX="113.0" layoutY="179.0" prefHeight="720.0" prefWidth="1280.0" AnchorPane.bottomAnchor="0.0"
+         AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <HBox prefHeight="137.0" prefWidth="1280.0">
+         <ImageView fx:id="gradesImage" fitHeight="137.0" fitWidth="180.0" onMouseClicked="#gradeClicked"
+                    pickOnBounds="true" preserveRatio="true"/>
+         <ImageView fx:id="attendanceImage" fitHeight="137.0" fitWidth="180.0" onMouseClicked="#attendanceClicked"
+                    pickOnBounds="true" preserveRatio="true"/>
+         <ImageView fx:id="messagesImage" fitHeight="137.0" fitWidth="180.0" onMouseClicked="#messagesClicked"
+                    pickOnBounds="true" preserveRatio="true"/>
+         <ImageView fx:id="remarksImage" fitHeight="137.0" fitWidth="180.0" onMouseClicked="#remarksClicked"
+                    pickOnBounds="true" preserveRatio="true"/>
+         <ImageView fx:id="eventsImage" fitHeight="137.0" fitWidth="180.0" onMouseClicked="#eventsClicked"
+                    pickOnBounds="true" preserveRatio="true"/>
+         <ImageView fx:id="scheduleImage" fitHeight="137.0" fitWidth="180.0" onMouseClicked="#scheduleClicked"
+                    pickOnBounds="true" preserveRatio="true"/>
+         <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+               prefHeight="137.0" prefWidth="200.0">
+            <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+                  prefHeight="77.0" prefWidth="200.0">
+               <ImageView fx:id="avatarImage" fitHeight="77.0" fitWidth="77.0" pickOnBounds="true"
+                          preserveRatio="true">
+                  <HBox.margin>
+                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                  </HBox.margin>
+               </ImageView>
+               <VBox alignment="CENTER" prefHeight="77.0" prefWidth="123.0">
+                  <Label text="Zalogowany jako:">
                      <font>
-                        <Font name="Bauhaus 93" size="96.0" />
+                        <Font name="System Bold" size="13.0"/>
                      </font>
                   </Label>
-                  <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="583.0" prefWidth="200.0">
-                     <children>
-                        <Button fx:id="addGradeButton" mnemonicParsing="false" onAction="#addGradeButtonClicked" text="Dodaj ocenę">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets bottom="20.0" left="15.0" right="15.0" top="20.0" />
-                           </VBox.margin>
-                        </Button>
-                        <Button fx:id="addAttendanceButton" mnemonicParsing="false" onAction="#addAttendanceButtonClicked" text="Dodaj frekwencję">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets bottom="20.0" left="15.0" right="15.0" top="20.0" />
-                           </VBox.margin>
-                        </Button>
-                        <Button fx:id="sendMessageButton" mnemonicParsing="false" onAction="#sendMessageButtonClicked" text="Wyślij wiadomość">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets bottom="20.0" left="15.0" right="15.0" top="20.0" />
-                           </VBox.margin>
-                        </Button>
-                        <Button fx:id="addRemarkButton" mnemonicParsing="false" onAction="#addRemarkButtonClicked" text="Dodaj uwagę">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets bottom="20.0" left="15.0" right="15.0" top="20.0" />
-                           </VBox.margin>
-                        </Button>
-                        <Button fx:id="addEventButton" mnemonicParsing="false" onAction="#addEventButtonClicked" text="Dodaj wydarzenie">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets bottom="20.0" left="15.0" right="15.0" top="20.0" />
-                           </VBox.margin>
-                        </Button>
-                     </children></VBox>
-               </children>
+                  <Label fx:id="actualUser"/>
+               </VBox>
             </HBox>
-         </children>
-      </VBox>
-   </children>
+            <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+                  minWidth="-Infinity" prefHeight="60.0" prefWidth="200.0">
+               <ImageView fx:id="refreshImage" fitHeight="40.0" fitWidth="40.0"
+                          onMouseClicked="#refreshClicked" pickOnBounds="true" preserveRatio="true"/>
+               <ImageView fx:id="logoutImage" fitHeight="50.0" fitWidth="160.0"
+                          onMouseClicked="#logoutClicked" pickOnBounds="true" preserveRatio="true"/>
+            </HBox>
+         </VBox>
+      </HBox>
+      <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+            minWidth="-Infinity" prefHeight="583.0" prefWidth="1280.0">
+         <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+                minWidth="-Infinity" prefHeight="583.0" prefWidth="1080.0" textAlignment="CENTER">
+            <font>
+               <Font name="Bauhaus 93" size="96.0"/>
+            </font>
+         </Label>
+         <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+               minWidth="-Infinity" prefHeight="583.0" prefWidth="200.0">
+            <Button fx:id="addGradeButton" mnemonicParsing="false" onAction="#addGradeButtonClicked"
+                    text="Dodaj ocenę">
+               <font>
+                  <Font size="14.0"/>
+               </font>
+               <VBox.margin>
+                  <Insets bottom="20.0" left="15.0" right="15.0" top="20.0"/>
+               </VBox.margin>
+            </Button>
+            <Button fx:id="addAttendanceButton" mnemonicParsing="false" onAction="#addAttendanceButtonClicked"
+                    text="Dodaj frekwencję">
+               <font>
+                  <Font size="14.0"/>
+               </font>
+               <VBox.margin>
+                  <Insets bottom="20.0" left="15.0" right="15.0" top="20.0"/>
+               </VBox.margin>
+            </Button>
+            <Button fx:id="sendMessageButton" mnemonicParsing="false" onAction="#sendMessageButtonClicked"
+                    text="Wyślij wiadomość">
+               <font>
+                  <Font size="14.0"/>
+               </font>
+               <VBox.margin>
+                  <Insets bottom="20.0" left="15.0" right="15.0" top="20.0"/>
+               </VBox.margin>
+            </Button>
+            <Button fx:id="addRemarkButton" mnemonicParsing="false" onAction="#addRemarkButtonClicked"
+                    text="Dodaj uwagę">
+               <font>
+                  <Font size="14.0"/>
+               </font>
+               <VBox.margin>
+                  <Insets bottom="20.0" left="15.0" right="15.0" top="20.0"/>
+               </VBox.margin>
+            </Button>
+            <Button fx:id="addEventButton" mnemonicParsing="false" onAction="#addEventButtonClicked"
+                    text="Dodaj wydarzenie">
+               <font>
+                  <Font size="14.0"/>
+               </font>
+               <VBox.margin>
+                  <Insets bottom="20.0" left="15.0" right="15.0" top="20.0"/>
+               </VBox.margin>
+            </Button>
+         </VBox>
+      </HBox>
+   </VBox>
 </AnchorPane>

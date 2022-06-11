@@ -7,6 +7,8 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 
@@ -14,6 +16,11 @@ import java.io.IOException;
  * Controller for RemoveClass
  */
 public class RemoveClassController {
+
+    /**
+     * Logger for log4j
+     */
+    private static final Logger logger = LogManager.getLogger(RemoveClassController.class);
 
     /**
      * Class Name TextField
@@ -28,6 +35,7 @@ public class RemoveClassController {
      */
     @FXML
     void removeButtonClicked(ActionEvent event) {
+        logger.info("Clicked removeButton");
 
         if (!(classNameTextField.getText().isEmpty())) {
             GbsMessage message = new GbsMessage();

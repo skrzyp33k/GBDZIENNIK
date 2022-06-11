@@ -9,6 +9,8 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 
@@ -16,6 +18,11 @@ import java.io.IOException;
  * Controller for ChangeAttendance
  */
 public class ChangeAttendanceController {
+
+    /**
+     * Logger for log4j
+     */
+    private static final Logger logger = LogManager.getLogger(ChangeAttendanceController.class);
 
     /**
      * Type ToggleGroup
@@ -36,6 +43,8 @@ public class ChangeAttendanceController {
      */
     @FXML
     void changeButtonClicked(ActionEvent event) {
+        logger.info("Clicked changeButton");
+
         if (!(attendanceIDTextField.getText().isEmpty())) {
             GbsMessage message = new GbsMessage();
 

@@ -7,6 +7,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+
 import org.json.JSONObject;
 
 import java.io.*;
@@ -40,6 +44,11 @@ public class Program extends Application {
     public static String loggedPerms;
 
     /**
+     * Logger for log4j2
+     */
+    private static final Logger logger = LogManager.getLogger(Program.class);
+
+    /**
      * Function that opens new window from Stage.
      *
      * @param fxml  FXML name
@@ -50,7 +59,18 @@ public class Program extends Application {
         showStage(fxml,title,480,640);
     }
 
+    /**
+     * Function that opens new window from Stage.
+     *
+     * @param fxml  FXML name
+     * @param title Window title
+     * @param width Window width
+     * @param height Window height
+     * @throws IOException Throws when can not find or load resources.
+     */
     public static void showStage(String fxml, String title, double width, double height) throws IOException {
+        logger.info("Loading fxml/" + fxml + " file");
+
         FXMLLoader fxmlLoader = new FXMLLoader(Program.class.getResource("fxml/" + fxml));
         Scene scene = new Scene(fxmlLoader.load(), width, height);
 
@@ -69,6 +89,7 @@ public class Program extends Application {
      * @param args Program args.
      */
     public static void main(String[] args) {
+        logger.info("Application started");
         launch();
     }
 
@@ -91,9 +112,11 @@ public class Program extends Application {
                 }
             }
         } catch (IOException ex) {
+            logger.error("Error while loading JSON config!");
             ex.printStackTrace();
         }
 
+        logger.info("JSON config loaded");
         return new JSONObject(stringBuilder.toString());
     }
 
@@ -119,6 +142,7 @@ public class Program extends Application {
             AlertBox.show("Nie można połączyć się z serwerem :(", "GbDziennik - ERROR");
             System.exit(1);
         }
+        logger.info("System initialized");
     }
 
     /**
@@ -132,12 +156,7 @@ public class Program extends Application {
 
         initialize();
 
-        FXMLLoader fxmlLoader = new FXMLLoader(Program.class.getResource("fxml/loginScene.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 1280, 720);
-        stage.setTitle("GBDziennik - Zaloguj się!");
-        stage.setScene(scene);
-        stage.getIcons().add(new Image(Objects.requireNonNull(Program.class.getResourceAsStream("img/icon.png"))));
-        stage.setResizable(false);
-        stage.show();
+        showStage("loginScene.fxml", "Zaloguj się!", 1280, 720);
     }
+
 }

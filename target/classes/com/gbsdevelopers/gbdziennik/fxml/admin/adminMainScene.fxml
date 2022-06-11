@@ -8,8 +8,8 @@
             fx:controller="com.gbsdevelopers.gbdziennik.admin.MainSceneController">
     <VBox layoutX="56.0" layoutY="-44.0" prefHeight="720.0" prefWidth="1280.0" AnchorPane.bottomAnchor="0.0"
           AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-        <TabPane fx:id="mainTab" prefHeight="720.0" prefWidth="1280.0" tabClosingPolicy="UNAVAILABLE">
-            <Tab fx:id="accountsTab" text="konta">
+        <TabPane prefHeight="720.0" prefWidth="1280.0" tabClosingPolicy="UNAVAILABLE">
+            <Tab text="konta">
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                     <TableView fx:id="accountsTable" layoutX="117.0" layoutY="91.0" prefHeight="646.0"
                                prefWidth="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
@@ -20,7 +20,7 @@
                     </TableView>
                 </AnchorPane>
             </Tab>
-            <Tab fx:id="teachersTab" text="nauczyciele">
+            <Tab text="nauczyciele">
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                     <TableView fx:id="teachersTable" layoutX="102.0" layoutY="82.0" prefHeight="646.0"
                                prefWidth="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
@@ -31,7 +31,7 @@
                     </TableView>
                 </AnchorPane>
             </Tab>
-            <Tab fx:id="studentsTab" text="uczniowie">
+            <Tab text="uczniowie">
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                     <TableView fx:id="studentsTable" layoutX="106.0" layoutY="105.0" prefHeight="646.0"
                                prefWidth="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
@@ -42,7 +42,7 @@
                     </TableView>
                 </AnchorPane>
             </Tab>
-            <Tab fx:id="parentsTab" text="rodzice">
+            <Tab text="rodzice">
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                     <TableView fx:id="parentsTable" layoutX="246.0" layoutY="140.0" prefHeight="646.0"
                                prefWidth="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
@@ -57,7 +57,7 @@
                     </TableView>
                 </AnchorPane>
             </Tab>
-            <Tab fx:id="classesTab" text="klasy">
+            <Tab text="klasy">
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                     <TableView fx:id="classesTable" layoutX="109.0" layoutY="69.0" prefHeight="646.0"
                                prefWidth="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
@@ -68,7 +68,7 @@
                     </TableView>
                 </AnchorPane>
             </Tab>
-            <Tab fx:id="coursesTab" text="przedmioty">
+            <Tab text="przedmioty">
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                     <TableView fx:id="coursesTable" layoutX="83.0" layoutY="95.0" prefHeight="646.0"
                                prefWidth="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
@@ -79,7 +79,7 @@
                     </TableView>
                 </AnchorPane>
             </Tab>
-            <Tab fx:id="lessonsTab" text="lekcje">
+            <Tab text="lekcje">
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                     <TableView fx:id="lessonsTable" layoutX="177.0" layoutY="67.0" prefHeight="646.0"
                                prefWidth="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
@@ -90,7 +90,7 @@
                     </TableView>
                 </AnchorPane>
             </Tab>
-            <Tab fx:id="schedulesTab" text="plany">
+            <Tab text="plany">
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                     <TabPane fx:id="inSchedulesTab" layoutX="-38.0" prefHeight="691.0" prefWidth="1280.0"
                              tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0"
@@ -98,7 +98,7 @@
                              AnchorPane.topAnchor="0.0"/>
                 </AnchorPane>
             </Tab>
-            <Tab fx:id="eventsTab" text="wydarzenia">
+            <Tab text="wydarzenia">
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                     <TableView fx:id="eventsTable" layoutX="191.0" layoutY="82.0" prefHeight="646.0"
                                prefWidth="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
@@ -109,7 +109,7 @@
                     </TableView>
                 </AnchorPane>
             </Tab>
-            <Tab fx:id="gradesTab" text="oceny">
+            <Tab text="oceny">
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                     <TableView fx:id="gradesTable" layoutX="126.0" layoutY="99.0" prefHeight="646.0"
                                prefWidth="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
@@ -120,7 +120,7 @@
                     </TableView>
                 </AnchorPane>
             </Tab>
-            <Tab fx:id="attendancesTab" text="nieobecnosci">
+            <Tab text="nieobecnosci">
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                     <TableView fx:id="attendancesTable" layoutX="115.0" layoutY="42.0" prefHeight="646.0"
                                prefWidth="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
@@ -131,7 +131,7 @@
                     </TableView>
                 </AnchorPane>
             </Tab>
-            <Tab fx:id="messagesTab" text="wiadomosci">
+            <Tab text="wiadomosci">
                 <AnchorPane prefHeight="200.0" prefWidth="200.0">
                     <TableView fx:id="messagesTable" layoutX="128.0" layoutY="95.0" prefHeight="646.0"
                                prefWidth="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
@@ -142,7 +142,7 @@
                     </TableView>
                 </AnchorPane>
             </Tab>
-            <Tab fx:id="remarksTab" text="uwagi">
+            <Tab text="uwagi">
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                     <TableView fx:id="remarksTable" layoutX="118.0" layoutY="34.0" prefHeight="646.0"
                                prefWidth="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
@@ -155,61 +155,61 @@
             </Tab>
         </TabPane>
         <HBox alignment="CENTER" prefHeight="40.0">
-            <Button fx:id="addClassButton" mnemonicParsing="false" onAction="#addClassButtonClicked"
+            <Button mnemonicParsing="false" onAction="#addClassButtonClicked"
                     text="Dodaj klasę">
                 <HBox.margin>
                     <Insets bottom="10.0" left="5.0" right="5.0" top="10.0"/>
                 </HBox.margin>
             </Button>
-            <Button fx:id="removeClassButton" mnemonicParsing="false" onAction="#removeClassButtonClicked"
+            <Button mnemonicParsing="false" onAction="#removeClassButtonClicked"
                     text="Usuń klasę">
                 <HBox.margin>
                     <Insets bottom="10.0" left="5.0" right="5.0" top="10.0"/>
                 </HBox.margin>
             </Button>
-            <Button fx:id="addStudentButton" mnemonicParsing="false" onAction="#addStudentButtonClicked"
+            <Button mnemonicParsing="false" onAction="#addStudentButtonClicked"
                     text="Dodaj ucznia">
                 <HBox.margin>
                     <Insets bottom="10.0" left="5.0" right="5.0" top="10.0"/>
                 </HBox.margin>
             </Button>
-            <Button fx:id="removeStudentButton" mnemonicParsing="false" onAction="#removeStudentButtonClicked"
+            <Button mnemonicParsing="false" onAction="#removeStudentButtonClicked"
                     text="Usuń ucznia">
                 <HBox.margin>
                     <Insets bottom="10.0" left="5.0" right="5.0" top="10.0"/>
                 </HBox.margin>
             </Button>
-            <Button fx:id="addTeacherButton" mnemonicParsing="false" onAction="#addTeacherButtonClicked"
+            <Button mnemonicParsing="false" onAction="#addTeacherButtonClicked"
                     text="Dodaj nauczyciela">
                 <HBox.margin>
                     <Insets bottom="10.0" left="5.0" right="5.0" top="10.0"/>
                 </HBox.margin>
             </Button>
-            <Button fx:id="removeTeacherButton" mnemonicParsing="false" onAction="#removeTeacherButtonClicked"
+            <Button mnemonicParsing="false" onAction="#removeTeacherButtonClicked"
                     text="Usuń nauczyciela">
                 <HBox.margin>
                     <Insets bottom="10.0" left="5.0" right="5.0" top="10.0"/>
                 </HBox.margin>
             </Button>
-            <Button fx:id="addCourseButton" mnemonicParsing="false" onAction="#addCourseButtonClicked"
+            <Button mnemonicParsing="false" onAction="#addCourseButtonClicked"
                     text="Dodaj przedmiot">
                 <HBox.margin>
                     <Insets bottom="10.0" left="5.0" right="5.0" top="10.0"/>
                 </HBox.margin>
             </Button>
-            <Button fx:id="addLessonButton" mnemonicParsing="false" onAction="#addLessonButtonClicked"
+            <Button mnemonicParsing="false" onAction="#addLessonButtonClicked"
                     text="Dodaj lekcje">
                 <HBox.margin>
                     <Insets bottom="10.0" left="5.0" right="5.0" top="10.0"/>
                 </HBox.margin>
             </Button>
-            <Button fx:id="changeAttendanceButton" mnemonicParsing="false"
+            <Button mnemonicParsing="false"
                     onAction="#changeAttendanceButtonClicked" text="Zmień nieobecność">
                 <HBox.margin>
                     <Insets bottom="10.0" left="5.0" right="5.0" top="10.0"/>
                 </HBox.margin>
             </Button>
-            <Button fx:id="manualQueryButton" mnemonicParsing="false" onAction="#manualQueryButtonClick"
+            <Button mnemonicParsing="false" onAction="#manualQueryButtonClick"
                     text="Manualne zapytanie">
                 <HBox.margin>
                     <Insets bottom="10.0" left="5.0" right="5.0" top="10.0"/>
@@ -220,7 +220,7 @@
                     <Insets bottom="10.0" left="5.0" right="5.0" top="10.0"/>
                 </HBox.margin>
             </Button>
-            <Button fx:id="logoutButton" mnemonicParsing="false" onAction="#logoutButtonClick" text="Wyloguj się">
+            <Button mnemonicParsing="false" onAction="#logoutButtonClick" text="Wyloguj się">
                 <HBox.margin>
                     <Insets bottom="10.0" left="5.0" right="5.0" top="10.0"/>
                 </HBox.margin>

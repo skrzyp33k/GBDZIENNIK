@@ -8,6 +8,8 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 
@@ -15,6 +17,11 @@ import java.io.IOException;
  * Controller for ManualQuery
  */
 public class ManualQueryController {
+
+    /**
+     * Logger for log4j
+     */
+    private static final Logger logger = LogManager.getLogger(ManualQueryController.class);
 
     /**
      * Query TextArea
@@ -29,6 +36,8 @@ public class ManualQueryController {
      */
     @FXML
     void executeButtonClicked(ActionEvent event) {
+
+        logger.info("Clicker executeButton");
 
         if (!(queryTextArea.getText().isEmpty())) {
             GbsMessage message = new GbsMessage();

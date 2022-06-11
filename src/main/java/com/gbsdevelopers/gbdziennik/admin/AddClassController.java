@@ -8,6 +8,8 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 
@@ -15,6 +17,10 @@ import java.io.IOException;
  * Controller for AddClass
  */
 public class AddClassController {
+    /**
+     * Logger for log4j
+     */
+    private static final Logger logger = LogManager.getLogger(AddClassController.class);
 
     /**
      * Teacher ID TextField
@@ -41,6 +47,7 @@ public class AddClassController {
      */
     @FXML
     void addButtonClicked(ActionEvent event) {
+        logger.info("Clicked addButton");
         if (!(classNameTextField.getText().isEmpty()) && !(teacherIdTextField.getText().isEmpty())) {
             GbsMessage message = new GbsMessage();
 

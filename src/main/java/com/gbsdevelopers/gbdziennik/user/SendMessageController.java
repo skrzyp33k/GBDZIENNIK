@@ -15,6 +15,8 @@ import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.net.URL;
@@ -25,6 +27,10 @@ import java.util.ResourceBundle;
  * Controller for sendMessageScene
  */
 public class SendMessageController implements Initializable {
+    /**
+     * Logger for log4j
+     */
+    private static final Logger logger = LogManager.getLogger(SendMessageController.class);
 
     /**
      * Background Image
@@ -56,6 +62,8 @@ public class SendMessageController implements Initializable {
      */
     @FXML
     void sendButtonClicked(ActionEvent event) {
+        logger.info("Clicked sendButton");
+
         String receiverID = receiverChoiceBox.getSelectionModel().getSelectedItem().getIdkonta();
         String messageText = messageTextArea.getText();
 

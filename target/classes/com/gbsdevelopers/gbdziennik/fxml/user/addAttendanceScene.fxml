@@ -1,111 +1,105 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.image.*?>
-<?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="480.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gbsdevelopers.gbdziennik.user.AddAttendanceController">
-   <children>
-      <ImageView fx:id="backgroundImage" fitHeight="640.0" fitWidth="480.0" pickOnBounds="true" preserveRatio="true" />
-       <VBox alignment="CENTER" layoutX="104.0" layoutY="93.0" prefHeight="640.0" prefWidth="480.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-          <children>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <Label text="Lekcja">
-                     <font>
-                        <Font name="Arial Black" size="16.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </HBox.margin>
-                  </Label>
-                  <ChoiceBox fx:id="lessonChoiceBox" prefWidth="150.0">
-                     <HBox.margin>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </HBox.margin>
-                  </ChoiceBox>
-               </children>
-            </HBox>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <Label text="Uczeń">
-                     <font>
-                        <Font name="Arial Black" size="16.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </HBox.margin>
-                  </Label>
-                  <ChoiceBox fx:id="studentsChoiceBox" disable="true" prefWidth="150.0">
-                     <HBox.margin>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </HBox.margin>
-                  </ChoiceBox>
-               </children>
-            </HBox>
-              <Label text="Typ">
-                  <font>
-                      <Font name="System Bold" size="18.0" />
-                  </font>
-                  <VBox.margin>
-                      <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
-                  </VBox.margin>
-              </Label>
-              <RadioButton mnemonicParsing="false" selected="true" text="O">
-                  <toggleGroup>
-                      <ToggleGroup fx:id="type" />
-                  </toggleGroup>
-                  <font>
-                      <Font name="System Bold" size="18.0" />
-                  </font>
-                  <VBox.margin>
-                      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                  </VBox.margin>
-              </RadioButton>
-              <RadioButton mnemonicParsing="false" text="N" toggleGroup="$type">
-                  <font>
-                      <Font name="System Bold" size="18.0" />
-                  </font>
-                  <VBox.margin>
-                      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                  </VBox.margin>
-              </RadioButton>
-              <RadioButton mnemonicParsing="false" text="U" toggleGroup="$type">
-                  <font>
-                      <Font name="System Bold" size="18.0" />
-                  </font>
-                  <VBox.margin>
-                      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                  </VBox.margin>
-              </RadioButton>
-              <RadioButton mnemonicParsing="false" text="S" toggleGroup="$type">
-                  <font>
-                      <Font name="System Bold" size="18.0" />
-                  </font>
-                  <VBox.margin>
-                      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                  </VBox.margin>
-              </RadioButton>
-              <RadioButton mnemonicParsing="false" text="Z" toggleGroup="$type">
-                  <font>
-                      <Font name="System Bold" size="18.0" />
-                  </font>
-                  <VBox.margin>
-                      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                  </VBox.margin>
-              </RadioButton>
-              <Button fx:id="addButton" mnemonicParsing="false" onAction="#addButtonClicked" text="Dodaj">
-                  <VBox.margin>
-                      <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
-                  </VBox.margin>
-               <font>
-                  <Font name="Arial Black" size="14.0" />
-               </font>
-              </Button>
-          </children>
-       </VBox>
-   </children>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0"
+            prefWidth="480.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.gbsdevelopers.gbdziennik.user.AddAttendanceController">
+    <ImageView fx:id="backgroundImage" fitHeight="640.0" fitWidth="480.0" pickOnBounds="true" preserveRatio="true"/>
+    <VBox alignment="CENTER" layoutX="104.0" layoutY="93.0" prefHeight="640.0" prefWidth="480.0"
+          AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+          AnchorPane.topAnchor="0.0">
+        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+            <Label text="Lekcja">
+                <font>
+                    <Font name="Arial Black" size="16.0"/>
+                </font>
+                <HBox.margin>
+                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                </HBox.margin>
+            </Label>
+            <ChoiceBox fx:id="lessonChoiceBox" prefWidth="150.0">
+                <HBox.margin>
+                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                </HBox.margin>
+            </ChoiceBox>
+        </HBox>
+        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+            <Label text="Uczeń">
+                <font>
+                    <Font name="Arial Black" size="16.0"/>
+                </font>
+                <HBox.margin>
+                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                </HBox.margin>
+            </Label>
+            <ChoiceBox fx:id="studentsChoiceBox" disable="true" prefWidth="150.0">
+                <HBox.margin>
+                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                </HBox.margin>
+            </ChoiceBox>
+        </HBox>
+        <Label text="Typ">
+            <font>
+                <Font name="System Bold" size="18.0"/>
+            </font>
+            <VBox.margin>
+                <Insets bottom="25.0" left="25.0" right="25.0" top="25.0"/>
+            </VBox.margin>
+        </Label>
+        <RadioButton mnemonicParsing="false" selected="true" text="O">
+            <toggleGroup>
+                <ToggleGroup fx:id="type"/>
+            </toggleGroup>
+            <font>
+                <Font name="System Bold" size="18.0"/>
+            </font>
+            <VBox.margin>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+            </VBox.margin>
+        </RadioButton>
+        <RadioButton mnemonicParsing="false" text="N" toggleGroup="$type">
+            <font>
+                <Font name="System Bold" size="18.0"/>
+            </font>
+            <VBox.margin>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+            </VBox.margin>
+        </RadioButton>
+        <RadioButton mnemonicParsing="false" text="U" toggleGroup="$type">
+            <font>
+                <Font name="System Bold" size="18.0"/>
+            </font>
+            <VBox.margin>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+            </VBox.margin>
+        </RadioButton>
+        <RadioButton mnemonicParsing="false" text="S" toggleGroup="$type">
+            <font>
+                <Font name="System Bold" size="18.0"/>
+            </font>
+            <VBox.margin>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+            </VBox.margin>
+        </RadioButton>
+        <RadioButton mnemonicParsing="false" text="Z" toggleGroup="$type">
+            <font>
+                <Font name="System Bold" size="18.0"/>
+            </font>
+            <VBox.margin>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+            </VBox.margin>
+        </RadioButton>
+        <Button mnemonicParsing="false" onAction="#addButtonClicked" text="Dodaj">
+            <VBox.margin>
+                <Insets bottom="25.0" left="25.0" right="25.0" top="25.0"/>
+            </VBox.margin>
+            <font>
+                <Font name="Arial Black" size="14.0"/>
+            </font>
+        </Button>
+    </VBox>
 </AnchorPane>

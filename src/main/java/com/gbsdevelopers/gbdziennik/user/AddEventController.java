@@ -16,6 +16,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.net.URL;
@@ -27,6 +29,10 @@ import java.util.ResourceBundle;
  * Controller for addEventScene
  */
 public class AddEventController implements Initializable {
+    /**
+     * Logger for log4j
+     */
+    private static final Logger logger = LogManager.getLogger(AddEventController.class);
 
     /**
      * Category TextField
@@ -83,6 +89,7 @@ public class AddEventController implements Initializable {
      */
     @FXML
     void addButtonClicked(ActionEvent event) {
+        logger.info("Clicked addButton");
         String lessonID = lessonChoiceBox.getSelectionModel().getSelectedItem().getIdlekcji();
         String category = categoryTextField.getText();
         String date = dateTimePicker.toString();
@@ -133,6 +140,8 @@ public class AddEventController implements Initializable {
         dateHBox.getChildren().add(dateTimePicker);
 
         lessonChoiceBox.setItems(FXCollections.observableList(MainSceneController.choiceLessonsArrayList));
+
+        logger.info("Window initialized");
     }
 }
 

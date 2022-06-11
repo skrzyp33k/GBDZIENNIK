@@ -15,6 +15,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.net.URL;
@@ -58,6 +61,11 @@ public class LoginSceneController implements Initializable {
     private TextField loginTextField;
 
     /**
+     * Logger for log4j2
+     */
+    private static final Logger logger = LogManager.getLogger(LoginSceneController.class);
+
+    /**
      * LoginButton action handler.
      *
      * @param event Event that invoked action.
@@ -65,6 +73,8 @@ public class LoginSceneController implements Initializable {
      */
     @FXML
     private void loginButtonAction(ActionEvent event) throws IOException {
+        logger.info("Clicked loginButton");
+
         loginInfo.setText("");
         Program.loggedUser = "";
         Program.loggedID = "";
@@ -85,14 +95,12 @@ public class LoginSceneController implements Initializable {
 
             Stage newStage = new Stage();
 
-            if(reply.arguments.get(1).equals("a"))
-            {
+            if (reply.arguments.get(1).equals("a")) {
                 FXMLLoader fxmlLoader = new FXMLLoader(Program.class.getResource("fxml/admin/adminMainScene.fxml"));
                 Scene scene = new Scene(fxmlLoader.load(), 1280, 720);
                 newStage.setTitle("GBDziennik - Panel administratora. Zalogowany jako: " + reply.arguments.get(0));
                 newStage.setScene(scene);
-            }
-            else {
+            } else {
                 FXMLLoader fxmlLoader = new FXMLLoader(Program.class.getResource("fxml/user/userMainScene.fxml"));
                 Scene scene = new Scene(fxmlLoader.load(), 1280, 720);
                 switch (reply.arguments.get(1)) {
@@ -113,9 +121,12 @@ public class LoginSceneController implements Initializable {
             loginTextField.clear();
             passwordPasswordField.clear();
 
+            logger.info("Logged as: " + Program.loggedUser);
+
             ((Stage) (((Node) event.getSource()).getScene().getWindow())).close();
         } else {
             loginInfo.setText("Nieprawidłowe dane logowania!");
+            logger.warn("Wrong login credentials!");
         }
     }
 
@@ -127,6 +138,8 @@ public class LoginSceneController implements Initializable {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        logger.info("Initialize window");
+
         loginTextField.setOnKeyPressed(keyEvent -> {
             if (keyEvent.getCode().equals(KeyCode.ENTER)) {
                 loginButton.fire();

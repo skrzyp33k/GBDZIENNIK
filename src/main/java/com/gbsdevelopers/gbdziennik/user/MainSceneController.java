@@ -20,6 +20,8 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.net.URL;
@@ -31,6 +33,10 @@ import java.util.ResourceBundle;
  * Controller for userMainScene
  */
 public class MainSceneController implements Initializable {
+    /**
+     * Logger for log4j
+     */
+    private static final Logger logger = LogManager.getLogger(MainSceneController.class);
 
     //region Static data for other windows
 
@@ -825,6 +831,7 @@ public class MainSceneController implements Initializable {
      */
     @FXML
     void gradeClicked(MouseEvent event) {
+        logger.info("Clicked gradeButton");
         if (event.getButton().equals(MouseButton.PRIMARY)) {
             gradeClickedFunc();
         }
@@ -837,6 +844,7 @@ public class MainSceneController implements Initializable {
      */
     @FXML
     void attendanceClicked(MouseEvent event) {
+        logger.info("Clicked attendanceButton");
         if (event.getButton().equals(MouseButton.PRIMARY)) {
             tablesVisibility(attendancesTableView);
             buildAttendancesTable();
@@ -850,6 +858,7 @@ public class MainSceneController implements Initializable {
      */
     @FXML
     void messagesClicked(MouseEvent event) {
+        logger.info("Clicked messageButton");
         if (event.getButton().equals(MouseButton.PRIMARY)) {
             tablesVisibility(messagesTableView);
             buildMessagesTable();
@@ -863,6 +872,7 @@ public class MainSceneController implements Initializable {
      */
     @FXML
     void remarksClicked(MouseEvent event) {
+        logger.info("Clicked remarksButton");
         if (event.getButton().equals(MouseButton.PRIMARY)) {
             tablesVisibility(remarksTableView);
             buildRemarksTable();
@@ -876,6 +886,7 @@ public class MainSceneController implements Initializable {
      */
     @FXML
     void eventsClicked(MouseEvent event) {
+        logger.info("Clicked eventsButton");
         if (event.getButton().equals(MouseButton.PRIMARY)) {
             tablesVisibility(eventsTableView);
             buildEventsTable();
@@ -889,6 +900,7 @@ public class MainSceneController implements Initializable {
      */
     @FXML
     void scheduleClicked(MouseEvent event) {
+        logger.info("Clicked scheduleButton");
         if (event.getButton().equals(MouseButton.PRIMARY)) {
             tablesVisibility(scheduleTableView);
             buildScheduleTable();
@@ -902,6 +914,7 @@ public class MainSceneController implements Initializable {
      */
     @FXML
     void refreshClicked(MouseEvent event) {
+        logger.info("Clicked refreshButton");
         if (event.getButton().equals(MouseButton.PRIMARY)) {
             getIDs();
 
@@ -923,6 +936,7 @@ public class MainSceneController implements Initializable {
      */
     @FXML
     void logoutClicked(MouseEvent event) throws IOException {
+        logger.info("Clicked logoutButton");
         if (event.getButton().equals(MouseButton.PRIMARY)) {
             Program.showStage("loginScene.fxml", "Zaloguj się!", 1280, 720);
 
@@ -937,6 +951,7 @@ public class MainSceneController implements Initializable {
      */
     @FXML
     void addGradeButtonClicked(ActionEvent event) {
+        logger.info("Clicked addGradeButton");
         try {
             Program.showStage("user/addGradeScene.fxml", "Dodawanie oceny");
         } catch (IOException e) {
@@ -951,6 +966,7 @@ public class MainSceneController implements Initializable {
      */
     @FXML
     void addAttendanceButtonClicked(ActionEvent event) {
+        logger.info("Clicked addAttendanceButton");
         try {
             Program.showStage("user/addAttendanceScene.fxml", "Dodawanie frekwencji");
         } catch (IOException e) {
@@ -965,6 +981,7 @@ public class MainSceneController implements Initializable {
      */
     @FXML
     void sendMessageButtonClicked(ActionEvent event) {
+        logger.info("Clicked sendMessageButton");
         try {
             Program.showStage("user/sendMessageScene.fxml", "Wysyłanie wiadomości");
         } catch (IOException e) {
@@ -979,6 +996,7 @@ public class MainSceneController implements Initializable {
      */
     @FXML
     void addRemarkButtonClicked(ActionEvent event) {
+        logger.info("Clicked addRemarkButton");
         try {
             Program.showStage("user/addRemarkScene.fxml", "Dodawanie uwagi");
         } catch (IOException e) {
@@ -993,6 +1011,7 @@ public class MainSceneController implements Initializable {
      */
     @FXML
     void addEventButtonClicked(ActionEvent event) {
+        logger.info("Clicked addEventButton");
         try {
             Program.showStage("user/addEventScene.fxml", "Dodawanie wydarzenia");
         } catch (IOException e) {
@@ -1055,6 +1074,8 @@ public class MainSceneController implements Initializable {
             addRemarkButton.setVisible(false);
             addEventButton.setVisible(false);
         }
+
+        logger.info("Window initialized");
 
         gradeClickedFunc();
     }

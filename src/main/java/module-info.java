@@ -6,6 +6,8 @@ module com.gbsdevelopers.gbdziennik {
     requires javafx.base;
     requires org.json;
     requires GbsClient;
+    requires org.apache.logging.log4j.core;
+    requires org.apache.logging.log4j;
 
     opens com.gbsdevelopers.gbdziennik to javafx.fxml;
     exports com.gbsdevelopers.gbdziennik;

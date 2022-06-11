@@ -15,6 +15,9 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 
 import java.io.IOException;
 import java.net.URL;
@@ -26,6 +29,10 @@ import java.util.ResourceBundle;
  * Controller for addAttendanceScene
  */
 public class AddAttendanceController implements Initializable {
+    /**
+     * Logger for log4j
+     */
+    private static final Logger logger = LogManager.getLogger(AddAttendanceController.class);
 
     /**
      * Lesson ChoiceBox
@@ -58,6 +65,7 @@ public class AddAttendanceController implements Initializable {
      */
     @FXML
     void addButtonClicked(ActionEvent event) {
+        logger.info("Clicked addButton");
         String lessonID = lessonChoiceBox.getSelectionModel().getSelectedItem().getIdlekcji();
         String studentID = studentsChoiceBox.getSelectionModel().getSelectedItem().getIducznia();
         String typ = ((RadioButton) (type.getSelectedToggle())).getText();
@@ -117,6 +125,8 @@ public class AddAttendanceController implements Initializable {
             }
 
             studentsChoiceBox.setItems(FXCollections.observableList(localStudentsArrayList));
+
+            logger.info("Window initialized");
         });
     }
 }

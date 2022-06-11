@@ -16,6 +16,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.net.URL;
@@ -29,6 +31,10 @@ import java.util.regex.Pattern;
  * Controller for addGradeScene
  */
 public class AddGradeController implements Initializable {
+    /**
+     * Logger for log4j
+     */
+    private static final Logger logger = LogManager.getLogger(AddGradeController.class);
 
     /**
      * Weight TextField
@@ -152,6 +158,7 @@ public class AddGradeController implements Initializable {
      */
     @FXML
     private void addButtonClicked(ActionEvent event) {
+        logger.info("Clicked addButton");
         String grade = gradeTextField.getText();
         String weight = weightTextField.getText();
         String description = descriptionTextArea.getText();
@@ -206,5 +213,8 @@ public class AddGradeController implements Initializable {
                 gradeMessage.setText("Niedozwolona ocena!");
             }
         }
+
+        logger.info("Window initialized");
+
     }
 }

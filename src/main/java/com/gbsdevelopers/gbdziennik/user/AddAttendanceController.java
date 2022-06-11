@@ -25,23 +25,39 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
+/**
+ * Controller for addAttendanceScene
+ */
 public class AddAttendanceController implements Initializable {
 
+    /**
+     * Lesson ChoiceBox
+     */
     @FXML
     private ChoiceBox<GbUserLessonChoiceElement> lessonChoiceBox;
 
+    /**
+     * Background Image
+     */
     @FXML
     private ImageView backgroundImage;
 
-    @FXML
-    private Button addButton;
-
+    /**
+     * Attendance Type
+     */
     @FXML
     private ToggleGroup type;
 
+    /**
+     * Students ChoiceBox
+     */
     @FXML
     private ChoiceBox<GbUserStudentChoiceElement> studentsChoiceBox;
 
+    /**
+     * Handler for addButton
+     * @param event ActionEvent
+     */
     @FXML
     void addButtonClicked(ActionEvent event) {
         String lessonID = lessonChoiceBox.getSelectionModel().getSelectedItem().getIdlekcji();
@@ -65,6 +81,12 @@ public class AddAttendanceController implements Initializable {
         }
     }
 
+    /**
+     * Initialize window.
+     *
+     * @param url            URL location.
+     * @param resourceBundle Resource bundle.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         backgroundImage.setImage(new Image(Objects.requireNonNull(Program.class.getResourceAsStream("img/background_sm.png"))));

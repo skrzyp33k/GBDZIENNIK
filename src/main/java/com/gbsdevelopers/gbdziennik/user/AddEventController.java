@@ -12,14 +12,17 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-
-import com.gbsdevelopers.gbdziennik.user.DateTimePicker;
 import javafx.scene.layout.HBox;
 
 import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
+import java.util.regex.Pattern;
 
+
+/**
+ * Controller for addEventScene
+ */
 public class AddEventController implements Initializable {
 
     @FXML
@@ -43,11 +46,22 @@ public class AddEventController implements Initializable {
     @FXML
     private DateTimePicker dateTimePicker;
 
+    /**
+     * RegEx Pattern for no semicolon
+     */
+    private Pattern semicolonPattern;
+
     @FXML
     void addButtonClicked(ActionEvent event) {
 
     }
 
+    /**
+     * Initialize window.
+     *
+     * @param url            URL location.
+     * @param resourceBundle Resource bundle.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         backgroundImage.setImage(new Image(Objects.requireNonNull(Program.class.getResourceAsStream("img/background_sm.png"))));

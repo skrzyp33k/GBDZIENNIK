@@ -71,7 +71,7 @@
             <Font size="18.0"/>
          </font>
       </TextField>
-      <Button fx:id="addButton" mnemonicParsing="false" onAction="#addButtonClicked" text="Dodaj">
+      <Button mnemonicParsing="false" onAction="#addButtonClicked" text="Dodaj">
          <VBox.margin>
             <Insets bottom="25.0" left="25.0" right="25.0" top="25.0"/>
          </VBox.margin>

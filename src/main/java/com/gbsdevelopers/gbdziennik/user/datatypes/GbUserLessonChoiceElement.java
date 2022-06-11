@@ -12,26 +12,25 @@ public class GbUserLessonChoiceElement {
     /**
      * ID lekcji field
      */
-    private SimpleStringProperty idlekcji;
+    private final SimpleStringProperty idlekcji;
 
     /**
      * ID przedmiotu field
      */
-    private SimpleStringProperty idprzedmiotu;
+    private final SimpleStringProperty idprzedmiotu;
 
     /**
      * Nazwa klasy field
      */
-    private SimpleStringProperty nazwaprzedmiotu;
+    private final SimpleStringProperty nazwaprzedmiotu;
 
     /**
      * Constructor that construct object from row data merged into one string
      *
      * @param str Data merged into one string
      */
-    public GbUserLessonChoiceElement(String str)
-    {
-        Vector<String> fields = GbsMessage.explode(str,";");
+    public GbUserLessonChoiceElement(String str) {
+        Vector<String> fields = GbsMessage.explode(str, ";");
 
         idlekcji = new SimpleStringProperty(fields.get(0));
         idprzedmiotu = new SimpleStringProperty(fields.get(1));
@@ -40,6 +39,7 @@ public class GbUserLessonChoiceElement {
 
     /**
      * Getter for ID lekcji
+     *
      * @return value
      */
     public String getIdlekcji() {
@@ -48,6 +48,7 @@ public class GbUserLessonChoiceElement {
 
     /**
      * Setter for ID lekcji
+     *
      * @param value value
      */
     public void setIdlekcji(String value) {
@@ -56,6 +57,7 @@ public class GbUserLessonChoiceElement {
 
     /**
      * Getter for ID lekcji
+     *
      * @return value
      */
     public String getIdprzedmiotu() {
@@ -64,6 +66,7 @@ public class GbUserLessonChoiceElement {
 
     /**
      * Setter for ID lekcji
+     *
      * @param value value
      */
     public void setIdprzedmoitu(String value) {
@@ -72,6 +75,7 @@ public class GbUserLessonChoiceElement {
 
     /**
      * Getter for Nazwa przedmiotu
+     *
      * @return value
      */
     public String getNazwaklasy() {
@@ -80,6 +84,7 @@ public class GbUserLessonChoiceElement {
 
     /**
      * Setter for Nazwa przedmiotu
+     *
      * @param value value
      */
     public void setNazwaklasy(String value) {
@@ -89,21 +94,21 @@ public class GbUserLessonChoiceElement {
 
     /**
      * Getter for only class number and letter
+     *
      * @return value
      */
-    public String getClassName()
-    {
-        return GbsMessage.explode(this.nazwaprzedmiotu.get()," ").lastElement();
+    public String getClassName() {
+        return GbsMessage.explode(this.nazwaprzedmiotu.get(), " ").lastElement();
 
     }
 
     /**
      * Provides text to ChoiceBox
+     *
      * @return dane
      */
     @Override
-    public String toString()
-    {
+    public String toString() {
         return nazwaprzedmiotu.get();
     }
 }

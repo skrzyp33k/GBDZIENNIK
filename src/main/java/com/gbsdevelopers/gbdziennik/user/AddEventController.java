@@ -8,7 +8,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.control.*;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -55,7 +58,6 @@ public class AddEventController implements Initializable {
     @FXML
     private Label descriptionMessage;
 
-
     /**
      * Lesson ChoiceBox
      */
@@ -76,6 +78,7 @@ public class AddEventController implements Initializable {
 
     /**
      * Handler for addButton
+     *
      * @param event ActionEvent
      */
     @FXML
@@ -88,28 +91,21 @@ public class AddEventController implements Initializable {
         categoryMessage.setText("");
         descriptionMessage.setText("");
 
-        if(!(lessonID.isEmpty()) && !(category.isEmpty()) && !(date.isEmpty()) && !(description.isEmpty()))
-        {
-            if(category.contains(";"))
-            {
+        if (!(lessonID.isEmpty()) && !(category.isEmpty()) && !(date.isEmpty()) && !(description.isEmpty())) {
+            if (category.contains(";")) {
                 //category ;
                 categoryMessage.setText("Niedozwolony znak (;)");
-            }
-            else
-            {
-                if(description.contains(";"))
-                {
+            } else {
+                if (description.contains(";")) {
                     //description ;
                     descriptionMessage.setText("Niedozwolony znak (;)");
-                }
-                else
-                {
+                } else {
                     //success
                     GbsMessage message = new GbsMessage();
 
                     message.header = "_manualQuery";
 
-                    message.arguments.add("INSERT INTO wydarzenia VALUES(null,'"+category+"','"+description+"',"+lessonID+",'"+date+"');");
+                    message.arguments.add("INSERT INTO wydarzenia VALUES(null,'" + category + "','" + description + "'," + lessonID + ",'" + date + "');");
 
                     try {
                         Program.socket.executeRequest(message);

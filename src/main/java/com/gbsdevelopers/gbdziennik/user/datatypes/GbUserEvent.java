@@ -36,9 +36,8 @@ public class GbUserEvent {
      *
      * @param str Data merged into one string
      */
-    public GbUserEvent(String str)
-    {
-        Vector<String> fields = GbsMessage.explode(str,";");
+    public GbUserEvent(String str) {
+        Vector<String> fields = GbsMessage.explode(str, ";");
 
         przedmiot = new SimpleStringProperty(fields.get(0));
         klasa = new SimpleStringProperty(fields.get(1));
@@ -49,6 +48,7 @@ public class GbUserEvent {
 
     /**
      * Getter for Przedmiot
+     *
      * @return value
      */
     public String getPrzedmiot() {
@@ -57,6 +57,7 @@ public class GbUserEvent {
 
     /**
      * Setter for Przedmiot
+     *
      * @param value value
      */
     public void setPrzedmiot(String value) {
@@ -65,6 +66,7 @@ public class GbUserEvent {
 
     /**
      * Getter for Klasa
+     *
      * @return value
      */
     public String getKlasa() {
@@ -73,6 +75,7 @@ public class GbUserEvent {
 
     /**
      * Setter for Klasa
+     *
      * @param value value
      */
     public void setklasa(String value) {
@@ -81,6 +84,7 @@ public class GbUserEvent {
 
     /**
      * Getter for Kategoria
+     *
      * @return value
      */
     public String getKategoria() {
@@ -89,6 +93,7 @@ public class GbUserEvent {
 
     /**
      * Setter for Kategoria
+     *
      * @param value value
      */
     public void setKategoria(String value) {
@@ -97,6 +102,7 @@ public class GbUserEvent {
 
     /**
      * Getter for Opis
+     *
      * @return value
      */
     public String getOpis() {
@@ -105,6 +111,7 @@ public class GbUserEvent {
 
     /**
      * Setter for Opis
+     *
      * @param value value
      */
     public void setOpis(String value) {
@@ -113,6 +120,7 @@ public class GbUserEvent {
 
     /**
      * Getter for Data wydarzenia
+     *
      * @return value
      */
     public String getDatawydarzenia() {
@@ -121,6 +129,7 @@ public class GbUserEvent {
 
     /**
      * Setter for Data wydarzenia
+     *
      * @param value value
      */
     public void setDatawydarzenia(String value) {

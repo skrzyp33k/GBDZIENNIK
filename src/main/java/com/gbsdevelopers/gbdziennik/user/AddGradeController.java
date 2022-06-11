@@ -4,14 +4,15 @@ import com.gbsdevelopers.gbdziennik.Program;
 import com.gbsdevelopers.gbdziennik.user.datatypes.GbUserLessonChoiceElement;
 import com.gbsdevelopers.gbdziennik.user.datatypes.GbUserStudentChoiceElement;
 import com.gbsdevelopers.gbssocket.GbsMessage;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.control.*;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
@@ -110,36 +111,33 @@ public class AddGradeController implements Initializable {
 
         lessonChoiceBox.setItems(FXCollections.observableList(MainSceneController.choiceLessonsArrayList));
 
-        lessonChoiceBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<GbUserLessonChoiceElement>() {
-            @Override
-            public void changed(ObservableValue<? extends GbUserLessonChoiceElement> observableValue, GbUserLessonChoiceElement gbUserLessonChoiceElement, GbUserLessonChoiceElement t1) {
-                studentsChoiceBox.setDisable(false);
+        lessonChoiceBox.getSelectionModel().selectedItemProperty().addListener((observableValue, gbUserLessonChoiceElement, t1) -> {
+            studentsChoiceBox.setDisable(false);
 
-                String className = lessonChoiceBox.getSelectionModel().selectedItemProperty().get().getClassName();
+            String className = lessonChoiceBox.getSelectionModel().selectedItemProperty().get().getClassName();
 
-                GbsMessage message = new GbsMessage();
+            GbsMessage message = new GbsMessage();
 
-                message.header = "_executeSelect";
+            message.header = "_executeSelect";
 
-                message.arguments.add("SELECT u.ID_ucznia, CONCAT(u.nazwisko,\" \", u.imie) AS Dane FROM uczniowie u, klasy k WHERE u.ID_klasy = k.ID_klasy AND k.nazwa_klasy = '" + className + "';");
+            message.arguments.add("SELECT u.ID_ucznia, CONCAT(u.nazwisko,\" \", u.imie) AS Dane FROM uczniowie u, klasy k WHERE u.ID_klasy = k.ID_klasy AND k.nazwa_klasy = '" + className + "';");
 
-                GbsMessage reply = null;
+            GbsMessage reply = null;
 
-                try {
-                    reply = Program.socket.executeRequest(message);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-                ArrayList<GbUserStudentChoiceElement> localStudentsArrayList = new ArrayList<>();
-
-                assert reply != null;
-                for (String str : reply.arguments) {
-                    localStudentsArrayList.add(new GbUserStudentChoiceElement(str));
-                }
-
-                studentsChoiceBox.setItems(FXCollections.observableList(localStudentsArrayList));
+            try {
+                reply = Program.socket.executeRequest(message);
+            } catch (IOException e) {
+                e.printStackTrace();
             }
+
+            ArrayList<GbUserStudentChoiceElement> localStudentsArrayList = new ArrayList<>();
+
+            assert reply != null;
+            for (String str : reply.arguments) {
+                localStudentsArrayList.add(new GbUserStudentChoiceElement(str));
+            }
+
+            studentsChoiceBox.setItems(FXCollections.observableList(localStudentsArrayList));
         });
 
         gradePattern = Pattern.compile("((^[0-6]{1}[+-]?){1,2})$");
@@ -149,6 +147,7 @@ public class AddGradeController implements Initializable {
 
     /**
      * Handler for addButton
+     *
      * @param event ActionEvent
      */
     @FXML
@@ -178,20 +177,17 @@ public class AddGradeController implements Initializable {
 
                         message.header = "_manualQuery";
 
-                        if(grade.contains("+"))
-                        {
+                        if (grade.contains("+")) {
                             grade = GbsMessage.removeLastChar(grade) + ".5";
-                        }
-                        else if(grade.contains("-"))
-                        {
+                        } else if (grade.contains("-")) {
                             grade = Integer.parseInt(GbsMessage.removeLastChar(grade)) + ".75";
                         }
 
                         String course = lessonChoiceBox.getSelectionModel().getSelectedItem().getIdprzedmiotu();
 
-                        System.out.println("INSERT INTO oceny VALUES(null,"+grade+","+weight+",'"+description+"',"+student+","+MainSceneController.teacherID+","+course+",CURRENT_TIMESTAMP());");
+                        System.out.println("INSERT INTO oceny VALUES(null," + grade + "," + weight + ",'" + description + "'," + student + "," + MainSceneController.teacherID + "," + course + ",CURRENT_TIMESTAMP());");
 
-                        message.arguments.add("INSERT INTO oceny VALUES(null,"+grade+","+weight+",'"+description+"',"+student+","+MainSceneController.teacherID+","+course+",CURRENT_TIMESTAMP());");
+                        message.arguments.add("INSERT INTO oceny VALUES(null," + grade + "," + weight + ",'" + description + "'," + student + "," + MainSceneController.teacherID + "," + course + ",CURRENT_TIMESTAMP());");
 
                         try {
                             Program.socket.executeRequest(message);

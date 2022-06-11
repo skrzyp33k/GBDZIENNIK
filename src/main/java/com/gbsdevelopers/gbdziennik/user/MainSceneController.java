@@ -7,10 +7,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -448,7 +446,7 @@ public class MainSceneController implements Initializable {
     /**
      * Changes TableViews visibility
      *
-     * @param tableView TableView that is should be visible
+     * @param tableView TableView that it should be visible
      */
     private void tablesVisibility(TableView<?> tableView) {
         gradesTableView.setVisible(false);
@@ -465,10 +463,16 @@ public class MainSceneController implements Initializable {
      * GradesTable builder
      */
     private void buildGradesTable() {
-        String query = switch (Program.loggedPerms) {
-            case "n" -> "SELECT CONCAT((SELECT nazwisko FROM uczniowie WHERE ID_ucznia = o.ID_ucznia),\" \",(SELECT imie FROM uczniowie WHERE ID_ucznia = o.ID_ucznia)) AS uczen, p.nazwa_przedmiotu AS Przedmiot, o.Ocena AS Ocena, o.Waga AS Waga, o.Opis AS Opis, o.data_wystawienia AS Data_wystawienia FROM oceny o, przedmioty p WHERE o.ID_przedmiotu = p.ID_przedmiotu AND ID_nauczyciela = " + teacherID + " ORDER BY p.nazwa_przedmiotu ASC, uczen ASC, o.data_wystawienia DESC;";
-            default -> "SELECT null,p.nazwa_przedmiotu AS Przedmiot, o.Ocena AS Ocena, o.Waga AS Waga, o.Opis AS Opis, o.data_wystawienia AS Data_wystawienia FROM oceny o, przedmioty p WHERE o.ID_przedmiotu = p.ID_przedmiotu AND ID_ucznia = " + studentID + " ORDER BY p.nazwa_przedmiotu ASC, o.data_wystawienia DESC;";
-        };
+        String query;
+
+        if(Program.loggedPerms.equals("n"))
+        {
+            query = "SELECT CONCAT((SELECT nazwisko FROM uczniowie WHERE ID_ucznia = o.ID_ucznia),\" \",(SELECT imie FROM uczniowie WHERE ID_ucznia = o.ID_ucznia)) AS uczen, p.nazwa_przedmiotu AS Przedmiot, o.Ocena AS Ocena, o.Waga AS Waga, o.Opis AS Opis, o.data_wystawienia AS Data_wystawienia FROM oceny o, przedmioty p WHERE o.ID_przedmiotu = p.ID_przedmiotu AND ID_nauczyciela = " + teacherID + " ORDER BY p.nazwa_przedmiotu ASC, uczen ASC, o.data_wystawienia DESC;";
+        }
+        else
+        {
+            query = "SELECT null,p.nazwa_przedmiotu AS Przedmiot, o.Ocena AS Ocena, o.Waga AS Waga, o.Opis AS Opis, o.data_wystawienia AS Data_wystawienia FROM oceny o, przedmioty p WHERE o.ID_przedmiotu = p.ID_przedmiotu AND ID_ucznia = " + studentID + " ORDER BY p.nazwa_przedmiotu ASC, o.data_wystawienia DESC;";
+        }
 
         GbsMessage message = new GbsMessage();
 
@@ -522,10 +526,16 @@ public class MainSceneController implements Initializable {
      * AttendancesTable builder
      */
     private void buildAttendancesTable() {
-        String query = switch (Program.loggedPerms) {
-            case "n" -> "SELECT CONCAT((SELECT nazwisko FROM uczniowie WHERE ID_ucznia = n.ID_ucznia),\" \",(SELECT imie FROM uczniowie WHERE ID_ucznia = n.ID_ucznia)) AS uczen, p.nazwa_przedmiotu, n.data_nieobecnosci, n.TYP FROM nieobecnosci n, lekcje l, przedmioty p WHERE n.ID_lekcji = l.ID_lekcji AND l.ID_przedmiotu = p.ID_przedmiotu AND l.ID_nauczyciela = " + teacherID + " ORDER BY p.nazwa_przedmiotu ASC, uczen ASC, n.data_nieobecnosci DESC;";
-            default -> "SELECT null, p.nazwa_przedmiotu, n.data_nieobecnosci, n.TYP FROM nieobecnosci n, lekcje l, przedmioty p WHERE n.ID_lekcji = l.ID_lekcji AND l.ID_przedmiotu = p.ID_przedmiotu AND n.ID_ucznia = " + studentID + " ORDER BY p.nazwa_przedmiotu ASC, n.data_nieobecnosci DESC;";
-        };
+        String query;
+
+        if(Program.loggedPerms.equals("n"))
+        {
+            query = "SELECT CONCAT((SELECT nazwisko FROM uczniowie WHERE ID_ucznia = n.ID_ucznia),\" \",(SELECT imie FROM uczniowie WHERE ID_ucznia = n.ID_ucznia)) AS uczen, p.nazwa_przedmiotu, n.data_nieobecnosci, n.TYP FROM nieobecnosci n, lekcje l, przedmioty p WHERE n.ID_lekcji = l.ID_lekcji AND l.ID_przedmiotu = p.ID_przedmiotu AND l.ID_nauczyciela = " + teacherID + " ORDER BY p.nazwa_przedmiotu ASC, uczen ASC, n.data_nieobecnosci DESC;";
+        }
+        else
+        {
+            query = "SELECT null, p.nazwa_przedmiotu, n.data_nieobecnosci, n.TYP FROM nieobecnosci n, lekcje l, przedmioty p WHERE n.ID_lekcji = l.ID_lekcji AND l.ID_przedmiotu = p.ID_przedmiotu AND n.ID_ucznia = " + studentID + " ORDER BY p.nazwa_przedmiotu ASC, n.data_nieobecnosci DESC;";
+        }
 
         GbsMessage message = new GbsMessage();
 
@@ -625,10 +635,16 @@ public class MainSceneController implements Initializable {
      * RemarksTable builder
      */
     private void buildRemarksTable() {
-        String query = switch (Program.loggedPerms) {
-            case "n" -> "SELECT CONCAT(n.imie,\" \",n.nazwisko), u.Tresc, u.data_wystawienia FROM uwagi u, uczniowie n WHERE u.ID_ucznia = n.ID_ucznia AND ID_nauczyciela = " + teacherID + " ORDER BY data_wystawienia DESC;";
-            default -> "SELECT CONCAT(n.imie,\" \",n.nazwisko), u.Tresc, u.data_wystawienia FROM uwagi u, nauczyciele n WHERE u.ID_nauczyciela = n.ID_nauczyciela AND ID_ucznia = " + studentID + " ORDER BY data_wystawienia DESC;";
-        };
+        String query;
+
+        if(Program.loggedPerms.equals("n"))
+        {
+            query = "SELECT CONCAT(n.imie,\" \",n.nazwisko), u.Tresc, u.data_wystawienia FROM uwagi u, uczniowie n WHERE u.ID_ucznia = n.ID_ucznia AND ID_nauczyciela = " + teacherID + " ORDER BY data_wystawienia DESC;";
+        }
+        else
+        {
+            query = "SELECT CONCAT(n.imie,\" \",n.nazwisko), u.Tresc, u.data_wystawienia FROM uwagi u, nauczyciele n WHERE u.ID_nauczyciela = n.ID_nauczyciela AND ID_ucznia = " + studentID + " ORDER BY data_wystawienia DESC;";
+        }
 
         GbsMessage message = new GbsMessage();
 
@@ -682,15 +698,12 @@ public class MainSceneController implements Initializable {
 
         message.header = "_executeSelect";
 
-        switch (Program.loggedPerms) {
-            case "n" -> {
-                message.arguments.add("SELECT p.nazwa_przedmiotu, k.nazwa_klasy, w.Kategoria, w.Opis, w.data_wydarzenia FROM wydarzenia w, przedmioty p, lekcje l, klasy k WHERE w.ID_lekcji = l.ID_lekcji AND l.ID_przedmiotu = p.ID_przedmiotu AND l.ID_klasy = k.ID_klasy AND l.ID_nauczyciela = " + teacherID + " AND w.data_wydarzenia > CURRENT_TIMESTAMP() ORDER BY p.nazwa_przedmiotu ASC, w.data_wydarzenia ASC;");
-                message.arguments.add("SELECT p.nazwa_przedmiotu, k.nazwa_klasy, w.Kategoria, w.Opis, w.data_wydarzenia FROM wydarzenia w, przedmioty p, lekcje l, klasy k WHERE w.ID_lekcji = l.ID_lekcji AND l.ID_przedmiotu = p.ID_przedmiotu AND l.ID_klasy = k.ID_klasy AND l.ID_nauczyciela = " + teacherID + " AND w.data_wydarzenia <= CURRENT_TIMESTAMP() ORDER BY p.nazwa_przedmiotu ASC, w.data_wydarzenia DESC;");
-            }
-            default -> {
-                message.arguments.add("SELECT p.nazwa_przedmiotu, null, w.Kategoria, w.Opis, w.data_wydarzenia FROM wydarzenia w, przedmioty p, lekcje l, klasy k, uczniowie u WHERE w.ID_lekcji = l.ID_lekcji AND l.ID_przedmiotu = p.ID_przedmiotu AND u.ID_klasy = l.ID_klasy AND u.ID_ucznia = " + studentID + " AND w.data_wydarzenia > CURRENT_TIMESTAMP() ORDER BY w.data_wydarzenia ASC;");
-                message.arguments.add("SELECT p.nazwa_przedmiotu, null, w.Kategoria, w.Opis, w.data_wydarzenia FROM wydarzenia w, przedmioty p, lekcje l, klasy k, uczniowie u WHERE w.ID_lekcji = l.ID_lekcji AND l.ID_przedmiotu = p.ID_przedmiotu AND u.ID_klasy = l.ID_klasy AND u.ID_ucznia = " + studentID + " AND w.data_wydarzenia <= CURRENT_TIMESTAMP() ORDER BY w.data_wydarzenia DESC;");
-            }
+        if ("n".equals(Program.loggedPerms)) {
+            message.arguments.add("SELECT p.nazwa_przedmiotu, k.nazwa_klasy, w.Kategoria, w.Opis, w.data_wydarzenia FROM wydarzenia w, przedmioty p, lekcje l, klasy k WHERE w.ID_lekcji = l.ID_lekcji AND l.ID_przedmiotu = p.ID_przedmiotu AND l.ID_klasy = k.ID_klasy AND l.ID_nauczyciela = " + teacherID + " AND w.data_wydarzenia > CURRENT_TIMESTAMP() ORDER BY p.nazwa_przedmiotu ASC, w.data_wydarzenia ASC;");
+            message.arguments.add("SELECT p.nazwa_przedmiotu, k.nazwa_klasy, w.Kategoria, w.Opis, w.data_wydarzenia FROM wydarzenia w, przedmioty p, lekcje l, klasy k WHERE w.ID_lekcji = l.ID_lekcji AND l.ID_przedmiotu = p.ID_przedmiotu AND l.ID_klasy = k.ID_klasy AND l.ID_nauczyciela = " + teacherID + " AND w.data_wydarzenia <= CURRENT_TIMESTAMP() ORDER BY p.nazwa_przedmiotu ASC, w.data_wydarzenia DESC;");
+        } else {
+            message.arguments.add("SELECT p.nazwa_przedmiotu, null, w.Kategoria, w.Opis, w.data_wydarzenia FROM wydarzenia w, przedmioty p, lekcje l, klasy k, uczniowie u WHERE w.ID_lekcji = l.ID_lekcji AND l.ID_przedmiotu = p.ID_przedmiotu AND u.ID_klasy = l.ID_klasy AND u.ID_ucznia = " + studentID + " AND w.data_wydarzenia > CURRENT_TIMESTAMP() ORDER BY w.data_wydarzenia ASC;");
+            message.arguments.add("SELECT p.nazwa_przedmiotu, null, w.Kategoria, w.Opis, w.data_wydarzenia FROM wydarzenia w, przedmioty p, lekcje l, klasy k, uczniowie u WHERE w.ID_lekcji = l.ID_lekcji AND l.ID_przedmiotu = p.ID_przedmiotu AND u.ID_klasy = l.ID_klasy AND u.ID_ucznia = " + studentID + " AND w.data_wydarzenia <= CURRENT_TIMESTAMP() ORDER BY w.data_wydarzenia DESC;");
         }
 
         GbsMessage reply = null;
@@ -762,6 +775,7 @@ public class MainSceneController implements Initializable {
 
         ArrayList<GbUserSchedule> replyArrayList = new ArrayList<>();
 
+        assert reply != null;
         for (String str : reply.arguments) {
             replyArrayList.add(new GbUserSchedule(str));
         }
@@ -891,7 +905,7 @@ public class MainSceneController implements Initializable {
         if (event.getButton().equals(MouseButton.PRIMARY)) {
             getIDs();
 
-            getStaticData();;
+            getStaticData();
 
             buildGradesTable();
             buildAttendancesTable();

@@ -12,21 +12,20 @@ public class GbUserStudentChoiceElement {
     /**
      * ID ucznia field
      */
-    private SimpleStringProperty iducznia;
+    private final SimpleStringProperty iducznia;
 
     /**
      * Dane field
      */
-    private SimpleStringProperty dane;
+    private final SimpleStringProperty dane;
 
     /**
      * Constructor that construct object from row data merged into one string
      *
      * @param str Data merged into one string
      */
-    public GbUserStudentChoiceElement(String str)
-    {
-        Vector<String> fields = GbsMessage.explode(str,";");
+    public GbUserStudentChoiceElement(String str) {
+        Vector<String> fields = GbsMessage.explode(str, ";");
 
         iducznia = new SimpleStringProperty(fields.get(0));
         dane = new SimpleStringProperty(fields.get(1));
@@ -34,6 +33,7 @@ public class GbUserStudentChoiceElement {
 
     /**
      * Getter for ID ucznia
+     *
      * @return value
      */
     public String getIducznia() {
@@ -42,6 +42,7 @@ public class GbUserStudentChoiceElement {
 
     /**
      * Setter for ID ucznia
+     *
      * @param value value
      */
     public void setIducznia(String value) {
@@ -50,6 +51,7 @@ public class GbUserStudentChoiceElement {
 
     /**
      * Getter for Dane
+     *
      * @return value
      */
     public String getDane() {
@@ -58,6 +60,7 @@ public class GbUserStudentChoiceElement {
 
     /**
      * Setter for Dane
+     *
      * @param value value
      */
     public void setDane(String value) {
@@ -66,11 +69,11 @@ public class GbUserStudentChoiceElement {
 
     /**
      * Provides text to ChoiceBox
+     *
      * @return dane
      */
     @Override
-    public String toString()
-    {
+    public String toString() {
         return dane.get();
     }
 }

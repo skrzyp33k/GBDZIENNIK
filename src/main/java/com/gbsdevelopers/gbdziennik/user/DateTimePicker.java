@@ -17,21 +17,32 @@ import java.time.format.DateTimeFormatter;
  */
 @SuppressWarnings("unused")
 public class DateTimePicker extends DatePicker {
-    public static final String DefaultFormat = "yyyy-MM-dd HH:mm";
 
+    /**
+     * Date default format
+     */
+    public static final String DefaultFormat = "yyyy-MM-dd HH:mm";
+    /**
+     * DateTimeValue Property
+     */
+    private final ObjectProperty<LocalDateTime> dateTimeValue = new SimpleObjectProperty<>(LocalDateTime.now());
+    /**
+     * Formatter
+     */
     private DateTimeFormatter formatter;
-    private ObjectProperty<LocalDateTime> dateTimeValue = new SimpleObjectProperty<>(LocalDateTime.now());
-    private ObjectProperty<String> format = new SimpleObjectProperty<String>() {
+    /**
+     * Format object
+     */
+    private final ObjectProperty<String> format = new SimpleObjectProperty<>() {
         public void set(String newValue) {
             super.set(newValue);
             formatter = DateTimeFormatter.ofPattern(newValue);
         }
     };
 
-    public void alignColumnCountWithFormat() {
-        getEditor().setPrefColumnCount(getFormat().length());
-    }
-
+    /**
+     * Class constructor
+     */
     public DateTimePicker() {
         getStyleClass().add("datetime-picker");
         setFormat(DefaultFormat);
@@ -73,46 +84,106 @@ public class DateTimePicker extends DatePicker {
 
     }
 
+    /**
+     * Column alignment
+     */
+    public void alignColumnCountWithFormat() {
+        getEditor().setPrefColumnCount(getFormat().length());
+    }
+
+    /**
+     * Simulating Enter press
+     */
     private void simulateEnterPressed() {
         getEditor().commitValue();
     }
 
+    /**
+     * Getter for DateTimeValue
+     *
+     * @return value
+     */
     public LocalDateTime getDateTimeValue() {
         return dateTimeValue.get();
     }
 
+    /**
+     * Setter for DateTimeValue
+     *
+     * @param value value
+     */
+    public void setDateTimeValue(LocalDateTime value) {
+        this.dateTimeValue.set(value);
+    }
+
+    /**
+     * Overrided method that returns date and time in necessary format
+     *
+     * @return value
+     */
     @Override
     public String toString() {
         return this.getDateTimeValue().toString().replace("T", " ") + ":00";
     }
 
-    public void setDateTimeValue(LocalDateTime dateTimeValue) {
-        this.dateTimeValue.set(dateTimeValue);
-    }
-
+    /**
+     * Getter for DateTimeValue Property
+     *
+     * @return value
+     */
     public ObjectProperty<LocalDateTime> dateTimeValueProperty() {
         return dateTimeValue;
     }
 
+    /**
+     * Getter for Format
+     *
+     * @return value
+     */
     public String getFormat() {
         return format.get();
     }
 
+    /**
+     * Setter for Format
+     *
+     * @param value value
+     */
+    public void setFormat(String value) {
+        this.format.set(value);
+        alignColumnCountWithFormat();
+    }
+
+    /**
+     * Getter for Format Property
+     *
+     * @return
+     */
     public ObjectProperty<String> formatProperty() {
         return format;
     }
 
-    public void setFormat(String format) {
-        this.format.set(format);
-        alignColumnCountWithFormat();
-    }
-
+    /**
+     * Internal Converter class
+     */
     class InternalConverter extends StringConverter<LocalDate> {
+        /**
+         * Converts LocalDate to String
+         *
+         * @param object LocalDate object
+         * @return LocalDate in String
+         */
         public String toString(LocalDate object) {
             LocalDateTime value = getDateTimeValue();
             return (value != null) ? value.format(formatter) : "";
         }
 
+        /**
+         * Converts String to LocalDate
+         *
+         * @param value LocalDate in String
+         * @return LocalDate in object
+         */
         public LocalDate fromString(String value) {
             if (value == null || value.isEmpty()) {
                 dateTimeValue.set(null);

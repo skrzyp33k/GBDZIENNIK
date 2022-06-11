@@ -9,7 +9,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
@@ -53,7 +52,7 @@ public class SendMessageController implements Initializable {
 
     /**
      * Handler for sendButton
-     * @param event
+     * @param event ActionEvent
      */
     @FXML
     void sendButtonClicked(ActionEvent event) {

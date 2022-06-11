@@ -57,6 +57,7 @@ public class GbUserGrade {
 
     /**
      * Getter for Uczen
+     *
      * @return value
      */
     public String getUczen() {
@@ -64,47 +65,8 @@ public class GbUserGrade {
     }
 
     /**
-     * Getter for Przedmiot
-     * @return value
-     */
-    public String getPrzedmiot() {
-        return przedmiot.get();
-    }
-
-    /**
-     * Getter for Ocena
-     * @return value
-     */
-    public String getOcena() {
-        return ocena.get();
-    }
-
-    /**
-     * Getter for Waga
-     * @return value
-     */
-    public String getWaga() {
-        return waga.get();
-    }
-
-    /**
-     * Getter for Opis
-     * @return value
-     */
-    public String getOpis() {
-        return opis.get();
-    }
-
-    /**
-     * Getter for Data Wystawienia
-     * @return value
-     */
-    public String getDatawystawienia() {
-        return datawystawienia.get();
-    }
-
-    /**
      * Setter for Uczen
+     *
      * @param value value
      */
     public void setUczen(String value) {
@@ -112,7 +74,17 @@ public class GbUserGrade {
     }
 
     /**
+     * Getter for Przedmiot
+     *
+     * @return value
+     */
+    public String getPrzedmiot() {
+        return przedmiot.get();
+    }
+
+    /**
      * Setter for Przedmiot
+     *
      * @param value value
      */
     public void setPrzedmiot(String value) {
@@ -120,7 +92,17 @@ public class GbUserGrade {
     }
 
     /**
+     * Getter for Ocena
+     *
+     * @return value
+     */
+    public String getOcena() {
+        return ocena.get();
+    }
+
+    /**
      * Setter for Ocena
+     *
      * @param value value
      */
     public void setOcena(String value) {
@@ -128,7 +110,17 @@ public class GbUserGrade {
     }
 
     /**
+     * Getter for Waga
+     *
+     * @return value
+     */
+    public String getWaga() {
+        return waga.get();
+    }
+
+    /**
      * Setter for Waga
+     *
      * @param value value
      */
     public void setWaga(String value) {
@@ -136,7 +128,17 @@ public class GbUserGrade {
     }
 
     /**
+     * Getter for Opis
+     *
+     * @return value
+     */
+    public String getOpis() {
+        return opis.get();
+    }
+
+    /**
      * Setter for Opis
+     *
      * @param value value
      */
     public void setOpis(String value) {
@@ -144,7 +146,17 @@ public class GbUserGrade {
     }
 
     /**
+     * Getter for Data Wystawienia
+     *
+     * @return value
+     */
+    public String getDatawystawienia() {
+        return datawystawienia.get();
+    }
+
+    /**
      * Setter for Data Wystawienia
+     *
      * @param value value
      */
     public void setDatawystawienia(String value) {

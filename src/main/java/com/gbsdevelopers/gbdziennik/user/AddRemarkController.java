@@ -51,6 +51,7 @@ public class AddRemarkController implements Initializable {
 
     /**
      * Handler for addButton
+     *
      * @param event ActionEvent
      */
     @FXML

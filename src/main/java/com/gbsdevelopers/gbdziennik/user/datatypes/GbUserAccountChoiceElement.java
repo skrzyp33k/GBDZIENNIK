@@ -13,21 +13,20 @@ public class GbUserAccountChoiceElement {
     /**
      * ID konta field
      */
-    private SimpleStringProperty idkonta;
+    private final SimpleStringProperty idkonta;
 
     /**
      * Imię i nazwisko field
      */
-    private SimpleStringProperty dane;
+    private final SimpleStringProperty dane;
 
     /**
      * Constructor that construct object from row data merged into one string
      *
      * @param str Data merged into one string
      */
-    public GbUserAccountChoiceElement(String str)
-    {
-        Vector<String> fields = GbsMessage.explode(str,";");
+    public GbUserAccountChoiceElement(String str) {
+        Vector<String> fields = GbsMessage.explode(str, ";");
 
         idkonta = new SimpleStringProperty(fields.get(0));
         dane = new SimpleStringProperty(fields.get(1));
@@ -35,6 +34,7 @@ public class GbUserAccountChoiceElement {
 
     /**
      * Getter for ID konta
+     *
      * @return value(String)
      */
     public String getIdkonta() {
@@ -43,6 +43,7 @@ public class GbUserAccountChoiceElement {
 
     /**
      * Setter for ID konta
+     *
      * @param value value
      */
     public void setIdkonta(String value) {
@@ -51,6 +52,7 @@ public class GbUserAccountChoiceElement {
 
     /**
      * Getter for Dane
+     *
      * @return value
      */
     public String getDane() {
@@ -59,6 +61,7 @@ public class GbUserAccountChoiceElement {
 
     /**
      * Setter for Dane
+     *
      * @param value value
      */
     public void setDane(String value) {
@@ -67,11 +70,11 @@ public class GbUserAccountChoiceElement {
 
     /**
      * Provides text to ChoiceBox
+     *
      * @return dane
      */
     @Override
-    public String toString()
-    {
+    public String toString() {
         return dane.get();
     }
 }

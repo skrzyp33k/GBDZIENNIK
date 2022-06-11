@@ -6,7 +6,15 @@ import com.gbsdevelopers.gbssocket.GbsMessage;
 import java.io.IOException;
 import java.util.Vector;
 
+/**
+ * Simple tester class
+ */
 public class Tester {
+
+    /**
+     * Main class
+     * @param args program arguments
+     */
     public static void main(String[] args) {
         GbsClient client = new GbsClient(25565, "localhost");
 

@@ -56,6 +56,14 @@
                      </TextArea>
                </children>
             </VBox>
+            <Label fx:id="messageMessage" textFill="RED">
+               <font>
+                  <Font name="Arial" size="12.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </VBox.margin>
+            </Label>
               <Button fx:id="sendButton" mnemonicParsing="false" onAction="#sendButtonClicked" text="Wyślij">
                   <font>
                       <Font name="Arial Black" size="16.0" />

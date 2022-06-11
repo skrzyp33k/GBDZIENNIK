@@ -13,8 +13,7 @@ import java.time.format.DateTimeFormatter;
 /**
  * A DateTimePicker with configurable datetime format where both date and time can be changed
  * via the text field and the date can additionally be changed via the JavaFX default date picker.
- * <p>
- * Got from TornadoFX Controls
+ * Got from TornadoFX Controls.
  */
 @SuppressWarnings("unused")
 public class DateTimePicker extends DatePicker {

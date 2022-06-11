@@ -33,143 +33,231 @@ import java.util.ResourceBundle;
  * Controller for userMainScene
  */
 public class MainSceneController implements Initializable {
+
+    //region Static data for other windows
+
+    public static ArrayList<GbUserStudentChoiceElement> choiceStudentsArrayList;
+
+    public static ArrayList<GbUserLessonChoiceElement> choiceLessonsArrayList;
+
+    public static ArrayList<GbUserAccountChoiceElement> choiceAccountsArrayList;
+
+    private void getStaticData()
+    {
+        GbsMessage message = new GbsMessage();
+        GbsMessage reply = null;
+
+        choiceStudentsArrayList = new ArrayList<>();
+
+        choiceLessonsArrayList = new ArrayList<>();
+
+        choiceAccountsArrayList = new ArrayList<>();
+
+        message.header = "_executeSelect";
+
+        if(Program.loggedPerms.equals("n"))
+        {
+            //lista wszystkich kont
+
+            message.arguments.add("SELECT ID_konta, Login FROM konta WHERE Uprawnienia = \"a\";");
+            message.arguments.add("SELECT u.ID_konta, CONCAT(u.nazwisko,\" \",u.imie, \" \", k.nazwa_klasy) AS Dane FROM uczniowie u, klasy k ORDER BY Dane ASC;");
+            message.arguments.add("SELECT r.ID_konta, CONCAT(r.nazwisko,\" \",r.imie, \" (\",u.nazwisko,\" \", u.imie,\" \", k.nazwa_klasy,\")\") AS Dane FROM rodzice r, uczniowie u, klasy k WHERE r.ID_rodzica = u.ID_rodzica AND u.ID_klasy = u.ID_klasy ORDER BY Dane ASC;");
+            message.arguments.add("SELECT ID_konta, CONCAT(nazwisko,\" \",imie) AS Dane FROM nauczyciele ORDER BY Dane ASC;");
+
+            try {
+                reply = Program.socket.executeRequest(message);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            assert reply != null;
+            for(String str : reply.arguments)
+            {
+                choiceAccountsArrayList.add(new GbUserAccountChoiceElement(str));
+            }
+
+            //lista lekcji
+
+            message.arguments.clear();
+
+            message.arguments.add("SELECT l.ID_lekcji, CONCAT(p.nazwa_przedmiotu,\" \",k.nazwa_klasy) AS Dane FROM lekcje l, przedmioty p, klasy k WHERE l.ID_przedmiotu = p.ID_przedmiotu AND l.ID_klasy = k.ID_klasy AND l.ID_nauczyciela = "+teacherID+" ORDER BY Dane ASC;");
+
+            reply = null;
+
+            try {
+                reply = Program.socket.executeRequest(message);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            assert reply != null;
+            for(String str : reply.arguments)
+            {
+                choiceLessonsArrayList.add(new GbUserLessonChoiceElement(str));
+            }
+
+            //lista uczniow
+
+            message.arguments.clear();
+
+            message.arguments.add("SELECT DISTINCT u.ID_ucznia, CONCAT(u.nazwisko,\" \",u.imie, \" \", k.nazwa_klasy) AS Dane FROM lekcje l, klasy k, uczniowie u WHERE l.ID_klasy = k.ID_klasy AND u.ID_klasy = k.ID_klasy AND l.ID_nauczyciela = "+teacherID+" ORDER BY Dane ASC;");
+
+            reply = null;
+
+            try {
+                reply = Program.socket.executeRequest(message);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            assert reply != null;
+            for(String str : reply.arguments)
+            {
+                choiceStudentsArrayList.add(new GbUserStudentChoiceElement(str));
+            }
+        }
+        else
+        {
+            //lista nauczycieli wraz z ID konta
+
+            message.arguments.add("SELECT ID_konta, CONCAT(nazwisko,\" \",imie) AS Dane FROM nauczyciele ORDER BY Dane ASC;");
+
+            try {
+                reply = Program.socket.executeRequest(message);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            assert reply != null;
+            for(String str : reply.arguments)
+            {
+                choiceAccountsArrayList.add(new GbUserAccountChoiceElement(str));
+            }
+        }
+    }
+
+    //endregion
+
+    //region Form field
+    /**
+     * TableView for grades
+     */
+    @FXML
+    TableView<GbUserGrade> gradesTableView;
+    /**
+     * TableView for attendances
+     */
+    @FXML
+    TableView<GbUserAttendance> attendancesTableView;
+    /**
+     * TableView for messages
+     */
+    @FXML
+    TableView<GbUserMessage> messagesTableView;
+    /**
+     * TableView for remarks
+     */
+    @FXML
+    TableView<GbUserRemark> remarksTableView;
+    /**
+     * TableView for events
+     */
+    @FXML
+    TableView<GbUserEvent> eventsTableView;
+    /**
+     * TableView for schedule
+     */
+    @FXML
+    TableView<GbUserSchedule> scheduleTableView;
+    /**
+     * addGrade Button
+     */
+    @FXML
+    Button addGradeButton;
+    /**
+     * addAttendance Button
+     */
+    @FXML
+    Button addAttendanceButton;
+    /**
+     * sendMessage Button
+     */
+    @FXML
+    Button sendMessageButton;
+    /**
+     * addRemark Button
+     */
+    @FXML
+    Button addRemarkButton;
+    /**
+     * addEvent Button
+     */
+    @FXML
+    Button addEventButton;
     /**
      * logoutImage ImageView
      */
     @FXML
     private ImageView logoutImage;
-
     /**
      * refreshImage ImageView
      */
     @FXML
     private ImageView refreshImage;
-
     /**
      * attendanceImage ImageView
      */
     @FXML
     private ImageView attendanceImage;
-
     /**
      * messagesImage ImageView
      */
     @FXML
     private ImageView messagesImage;
-
     /**
      * actualUser Label
      */
     @FXML
     private Label actualUser;
-
     /**
      * backgroundImage ImageView
      */
     @FXML
     private ImageView backgroundImage;
-
     /**
      * avatarImage ImageView
      */
     @FXML
     private ImageView avatarImage;
-
     /**
      * remarksImage ImageView
      */
     @FXML
     private ImageView remarksImage;
-
     /**
      * gradesImage ImageView
      */
     @FXML
     private ImageView gradesImage;
-
     /**
      * eventsImage ImageView
      */
     @FXML
     private ImageView eventsImage;
-
     /**
      * scheduleImage ImageView
      */
     @FXML
     private ImageView scheduleImage;
-
     /**
      * sideVBox VBox
      */
     @FXML
     private VBox sideVBox;
 
-    /**
-     * TableView for grades
-     */
-    @FXML
-    TableView<GbUserGrade> gradesTableView;
+    //endregion
 
-    /**
-     * TableView for attendances
-     */
-    @FXML
-    TableView<GbUserAttendance> attendancesTableView;
-
-    /**
-     * TableView for messages
-     */
-    @FXML
-    TableView<GbUserMessage> messagesTableView;
-
-    /**
-     * TableView for remarks
-     */
-    @FXML
-    TableView<GbUserRemark> remarksTableView;
-
-    /**
-     * TableView for events
-     */
-    @FXML
-    TableView<GbUserEvent> eventsTableView;
-
-    /**
-     * TableView for schedule
-     */
-    @FXML
-    TableView<GbUserSchedule> scheduleTableView;
-
-    /**
-     * addGrade Button
-     */
-    @FXML
-    Button addGradeButton;
-
-    /**
-     * addAttendance Button
-     */
-    @FXML
-    Button addAttendanceButton;
-
-    /**
-     * sendMessage Button
-     */
-    @FXML
-    Button sendMessageButton;
-
-    /**
-     * addRemark Button
-     */
-    @FXML
-    Button addRemarkButton;
-
-    /**
-     * addEvent Button
-     */
-    @FXML
-    Button addEventButton;
+    //region Data needed for queries
 
     /**
      * Student ID
@@ -353,43 +441,9 @@ public class MainSceneController implements Initializable {
         }
     }
 
-    /**
-     * Initialize window.
-     *
-     * @param url            URL location.
-     * @param resourceBundle Resource bundle.
-     */
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        studentID = null;
-        parentID = null;
-        teacherID = null;
-        classID = null;
-        className = null;
+    //endregion
 
-        getIDs();
-
-        gradesImage.setImage(new Image(Objects.requireNonNull(Program.class.getResourceAsStream("img/grade.png"))));
-        attendanceImage.setImage(new Image(Objects.requireNonNull(Program.class.getResourceAsStream("img/attendance.png"))));
-        messagesImage.setImage(new Image(Objects.requireNonNull(Program.class.getResourceAsStream("img/messages.png"))));
-        remarksImage.setImage(new Image(Objects.requireNonNull(Program.class.getResourceAsStream("img/remarks.png"))));
-        eventsImage.setImage(new Image(Objects.requireNonNull(Program.class.getResourceAsStream("img/events.png"))));
-        scheduleImage.setImage(new Image(Objects.requireNonNull(Program.class.getResourceAsStream("img/schedule.png"))));
-
-        switch (Program.loggedPerms) {
-            case "u" -> avatarImage.setImage(new Image(Objects.requireNonNull(Program.class.getResourceAsStream("img/student.png"))));
-            case "r" -> avatarImage.setImage(new Image(Objects.requireNonNull(Program.class.getResourceAsStream("img/parent.png"))));
-            case "n" -> avatarImage.setImage(new Image(Objects.requireNonNull(Program.class.getResourceAsStream("img/teacher.png"))));
-        }
-
-        refreshImage.setImage(new Image(Objects.requireNonNull(Program.class.getResourceAsStream("img/refresh.png"))));
-        logoutImage.setImage(new Image(Objects.requireNonNull(Program.class.getResourceAsStream("img/logout.png"))));
-        backgroundImage.setImage(new Image(Objects.requireNonNull(Program.class.getResourceAsStream("img/background.png"))));
-
-        actualUser.setText(Program.loggedUser + " (" + Program.loggedID + ")");
-
-        gradeClickedFunc();
-    }
+    //region Table builders
 
     /**
      * Changes TableViews visibility
@@ -737,6 +791,10 @@ public class MainSceneController implements Initializable {
         scheduleTableView.getColumns().addAll(columnGodzina, columnPoniedzialek, columnWtorek, columnSroda, columnCzwartek, columnPiatek);
     }
 
+    //endregion
+
+    //region Button action handlers
+
     /**
      * Function body for gradeClicked()
      */
@@ -831,6 +889,10 @@ public class MainSceneController implements Initializable {
     @FXML
     void refreshClicked(MouseEvent event) {
         if (event.getButton().equals(MouseButton.PRIMARY)) {
+            getIDs();
+
+            getStaticData();;
+
             buildGradesTable();
             buildAttendancesTable();
             buildMessagesTable();
@@ -848,14 +910,7 @@ public class MainSceneController implements Initializable {
     @FXML
     void logoutClicked(MouseEvent event) throws IOException {
         if (event.getButton().equals(MouseButton.PRIMARY)) {
-            FXMLLoader fxmlLoader = new FXMLLoader(Program.class.getResource("fxml/loginScene.fxml"));
-            Scene scene = new Scene(fxmlLoader.load(), 1280, 720);
-            Stage stage = new Stage();
-            stage.setTitle("GBDziennik - Zaloguj się!");
-            stage.setScene(scene);
-            stage.getIcons().add(new Image(Objects.requireNonNull(Program.class.getResourceAsStream("img/icon.png"))));
-            stage.setResizable(false);
-            stage.show();
+            Program.showStage("loginScene.fxml", "Zaloguj się!", 1280, 720);
 
             ((Stage) (((Node) event.getSource()).getScene().getWindow())).close();
         }
@@ -929,5 +984,64 @@ public class MainSceneController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    //endregion
+
+    /**
+     * Initialize window.
+     *
+     * @param url            URL location.
+     * @param resourceBundle Resource bundle.
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        studentID = null;
+        parentID = null;
+        teacherID = null;
+        classID = null;
+        className = null;
+
+        getIDs();
+
+        getStaticData();
+
+        gradesImage.setImage(new Image(Objects.requireNonNull(Program.class.getResourceAsStream("img/grade.png"))));
+        attendanceImage.setImage(new Image(Objects.requireNonNull(Program.class.getResourceAsStream("img/attendance.png"))));
+        messagesImage.setImage(new Image(Objects.requireNonNull(Program.class.getResourceAsStream("img/messages.png"))));
+        remarksImage.setImage(new Image(Objects.requireNonNull(Program.class.getResourceAsStream("img/remarks.png"))));
+        eventsImage.setImage(new Image(Objects.requireNonNull(Program.class.getResourceAsStream("img/events.png"))));
+        scheduleImage.setImage(new Image(Objects.requireNonNull(Program.class.getResourceAsStream("img/schedule.png"))));
+
+        switch (Program.loggedPerms) {
+            case "u" -> avatarImage.setImage(new Image(Objects.requireNonNull(Program.class.getResourceAsStream("img/student.png"))));
+            case "r" -> avatarImage.setImage(new Image(Objects.requireNonNull(Program.class.getResourceAsStream("img/parent.png"))));
+            case "n" -> avatarImage.setImage(new Image(Objects.requireNonNull(Program.class.getResourceAsStream("img/teacher.png"))));
+        }
+
+        refreshImage.setImage(new Image(Objects.requireNonNull(Program.class.getResourceAsStream("img/refresh.png"))));
+        logoutImage.setImage(new Image(Objects.requireNonNull(Program.class.getResourceAsStream("img/logout.png"))));
+        backgroundImage.setImage(new Image(Objects.requireNonNull(Program.class.getResourceAsStream("img/background.png"))));
+
+        actualUser.setText(Program.loggedUser + " (" + Program.loggedID + ")");
+
+        if(Program.loggedPerms.equals("n"))
+        {
+            addGradeButton.setVisible(true);
+            addAttendanceButton.setVisible(true);
+            sendMessageButton.setVisible(true);
+            addRemarkButton.setVisible(true);
+            addEventButton.setVisible(true);
+        }
+        else
+        {
+            addGradeButton.setVisible(false);
+            addAttendanceButton.setVisible(false);
+            sendMessageButton.setVisible(true);
+            addRemarkButton.setVisible(false);
+            addEventButton.setVisible(false);
+        }
+
+        gradeClickedFunc();
     }
 }

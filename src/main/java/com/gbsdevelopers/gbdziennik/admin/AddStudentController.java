@@ -28,10 +28,16 @@ public class AddStudentController {
     private TextField studentPassTextField;
 
     /**
-     * Name TextField
+     * Student name TextField
      */
     @FXML
-    private TextField nameTextField;
+    private TextField studentNameTextField;
+
+    /**
+     * Parent name TextField
+     */
+    @FXML
+    private TextField parentNameTextField;
 
     /**
      * Parent Password TextField
@@ -40,10 +46,16 @@ public class AddStudentController {
     private TextField parentPassTextField;
 
     /**
-     * Surname TextField
+     * Student surname TextField
      */
     @FXML
-    private TextField surnameTextField;
+    private TextField studentSurnameTextField;
+
+    /**
+     * Parent surname TextField
+     */
+    @FXML
+    private TextField parentSurnameTextField;
 
     /**
      * Handler for AddButton
@@ -54,8 +66,10 @@ public class AddStudentController {
     void addButtonClicked(ActionEvent event) {
 
         if (!(classIDTextField.getText().isEmpty()) &&
-                !(nameTextField.getText().isEmpty()) &&
-                !(surnameTextField.getText().isEmpty()) &&
+                !(studentNameTextField.getText().isEmpty()) &&
+                !(studentSurnameTextField.getText().isEmpty()) &&
+                !(parentNameTextField.getText().isEmpty()) &&
+                !(parentSurnameTextField.getText().isEmpty()) &&
                 !(parentPassTextField.getText().isEmpty()) &&
                 !(studentPassTextField.getText().isEmpty())) {
 
@@ -63,8 +77,10 @@ public class AddStudentController {
 
             message.header = "_addStudent";
 
-            message.arguments.add(nameTextField.getText());
-            message.arguments.add(surnameTextField.getText());
+            message.arguments.add(studentNameTextField.getText());
+            message.arguments.add(studentSurnameTextField.getText());
+            message.arguments.add(parentNameTextField.getText());
+            message.arguments.add(parentSurnameTextField.getText());
             message.arguments.add(classIDTextField.getText());
             message.arguments.add(GbsMessage.MD5(studentPassTextField.getText()));
             message.arguments.add(GbsMessage.MD5(parentPassTextField.getText()));

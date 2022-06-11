@@ -255,7 +255,7 @@ public class MainSceneController implements Initializable {
     @FXML
     void logoutButtonClick(ActionEvent event) {
         try {
-            Program.showStage("loginScene.fxml", "Zaloguj się!");
+            Program.showStage("loginScene.fxml", "Zaloguj się!",1280,720);
         } catch (IOException e) {
             e.printStackTrace();
         }

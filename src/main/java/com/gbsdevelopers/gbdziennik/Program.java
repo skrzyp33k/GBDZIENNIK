@@ -47,8 +47,12 @@ public class Program extends Application {
      * @throws IOException Throws when can not find or load resources.
      */
     public static void showStage(String fxml, String title) throws IOException {
+        showStage(fxml,title,480,640);
+    }
+
+    public static void showStage(String fxml, String title, double width, double height) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Program.class.getResource("fxml/" + fxml));
-        Scene scene = new Scene(fxmlLoader.load(), 480, 640);
+        Scene scene = new Scene(fxmlLoader.load(), width, height);
 
         Stage stage = new Stage();
 

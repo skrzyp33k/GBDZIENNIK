@@ -59,7 +59,7 @@
                      </TextArea>
                  </children>
               </HBox>
-            <Label fx:id="descriptionMessage" textFill="RED">
+            <Label fx:id="contentMessage" textFill="RED">
                <font>
                   <Font name="Arial" size="12.0" />
                </font>

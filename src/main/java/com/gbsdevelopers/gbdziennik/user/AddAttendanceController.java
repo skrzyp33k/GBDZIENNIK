@@ -10,11 +10,14 @@ import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -41,7 +44,25 @@ public class AddAttendanceController implements Initializable {
 
     @FXML
     void addButtonClicked(ActionEvent event) {
+        String lessonID = lessonChoiceBox.getSelectionModel().getSelectedItem().getIdlekcji();
+        String studentID = studentsChoiceBox.getSelectionModel().getSelectedItem().getIducznia();
+        String typ = ((RadioButton) (type.getSelectedToggle())).getText();
+        if(!(lessonID.isEmpty()) && !(studentID.isEmpty()) && !(typ.isEmpty()));
+        {
+            GbsMessage message = new GbsMessage();
 
+            message.header = "_manualQuery";
+
+            message.arguments.add("INSERT INTO nieobecnosci VALUES(null,"+studentID+","+lessonID+",CURRENT_TIMESTAMP(),'"+typ+"');");
+
+            try {
+                Program.socket.executeRequest(message);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            ((Stage) (((Node) event.getSource()).getScene().getWindow())).close();
+        }
     }
 
     @Override

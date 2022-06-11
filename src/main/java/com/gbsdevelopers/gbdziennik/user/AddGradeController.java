@@ -24,39 +24,88 @@ import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Controller for addGradeScene
+ */
 public class AddGradeController implements Initializable {
 
+    /**
+     * Weight TextField
+     */
     @FXML
-    Button addButton;
-    @FXML
-    private TextField weightTextArea;
+    private TextField weightTextField;
+
+    /**
+     * Background image
+     */
     @FXML
     private ImageView backgroundImage;
+
+    /**
+     * Description TextArea
+     */
     @FXML
     private TextArea descriptionTextArea;
+
+    /**
+     * Lesson ChoiceBox
+     */
     @FXML
     private ChoiceBox<GbUserLessonChoiceElement> lessonChoiceBox;
+
+    /**
+     * Grade TextField
+     */
     @FXML
-    private TextField gradeTextArea;
+    private TextField gradeTextField;
+
+    /**
+     * Student ChoiceBox
+     */
     @FXML
     private ChoiceBox<GbUserStudentChoiceElement> studentsChoiceBox;
+
+    /**
+     * Grade Message Label
+     */
     @FXML
     private Label gradeMessage;
 
+    /**
+     * Weight Message Label
+     */
     @FXML
     private Label weightMessage;
 
+    /**
+     * Description Message Label
+     */
     @FXML
     private Label descriptionMessage;
 
+    /**
+     * RegEx Pattern for grade
+     */
     private Pattern gradePattern;
 
+    /**
+     * RegEx Pattern for weight
+     */
     private Pattern weightPattern;
 
+    /**
+     * RegEx Pattern for no semicolon
+     */
     private Pattern semicolonPattern;
 
+    /**
+     * Initialize window.
+     *
+     * @param location  URL location.
+     * @param resources Resource bundle.
+     */
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    public void initialize(URL location, ResourceBundle resources) {
         backgroundImage.setImage(new Image(Objects.requireNonNull(Program.class.getResourceAsStream("img/background_sm.png"))));
 
         lessonChoiceBox.setItems(FXCollections.observableList(MainSceneController.choiceLessonsArrayList));
@@ -92,12 +141,20 @@ public class AddGradeController implements Initializable {
                 studentsChoiceBox.setItems(FXCollections.observableList(localStudentsArrayList));
             }
         });
+
+        gradePattern = Pattern.compile("((^[0-6]{1}[+-]?){1,2})$");
+        weightPattern = Pattern.compile("((^[1-9]{1}))$");
+        semicolonPattern = Pattern.compile("[;]");
     }
 
+    /**
+     * Handler for addButton
+     * @param event ActionEvent
+     */
     @FXML
     private void addButtonClicked(ActionEvent event) {
-        String grade = gradeTextArea.getText();
-        String weight = weightTextArea.getText();
+        String grade = gradeTextField.getText();
+        String weight = weightTextField.getText();
         String description = descriptionTextArea.getText();
 
         String lesson = lessonChoiceBox.getSelectionModel().getSelectedItem().getIdlekcji();
@@ -107,10 +164,6 @@ public class AddGradeController implements Initializable {
         descriptionMessage.setText("");
         weightMessage.setText("");
         gradeMessage.setText("");
-
-        gradePattern = Pattern.compile("((^[0-6]{1}[+-]?){1,2})$");
-        weightPattern = Pattern.compile("((^[1-9]{1}))$");
-        semicolonPattern = Pattern.compile("[;]");
 
         if (!(grade.isEmpty()) && !(weight.isEmpty()) && !(description).isEmpty() && !(lesson.isEmpty()) && !(student.isEmpty())) {
             Matcher matcher = gradePattern.matcher(grade);

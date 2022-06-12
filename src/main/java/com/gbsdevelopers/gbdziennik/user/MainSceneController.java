@@ -28,6 +28,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.ResourceBundle;
+import java.util.Vector;
 
 /**
  * Controller for userMainScene
@@ -45,100 +46,10 @@ public class MainSceneController implements Initializable {
     public static ArrayList<GbUserLessonChoiceElement> choiceLessonsArrayList;
 
     public static ArrayList<GbUserAccountChoiceElement> choiceAccountsArrayList;
-
-    private void getStaticData()
-    {
-        GbsMessage message = new GbsMessage();
-        GbsMessage reply = null;
-
-        choiceStudentsArrayList = new ArrayList<>();
-
-        choiceLessonsArrayList = new ArrayList<>();
-
-        choiceAccountsArrayList = new ArrayList<>();
-
-        message.header = "_executeSelect";
-
-        if(Program.loggedPerms.equals("n"))
-        {
-            //lista wszystkich kont
-
-            message.arguments.add("SELECT ID_konta, Login FROM konta WHERE Uprawnienia = \"a\";");
-            message.arguments.add("SELECT u.ID_konta, CONCAT(u.nazwisko,\" \",u.imie, \" \", k.nazwa_klasy) AS Dane FROM uczniowie u, klasy k ORDER BY Dane ASC;");
-            message.arguments.add("SELECT r.ID_konta, CONCAT(r.nazwisko,\" \",r.imie, \" (\",u.nazwisko,\" \", u.imie,\" \", k.nazwa_klasy,\")\") AS Dane FROM rodzice r, uczniowie u, klasy k WHERE r.ID_rodzica = u.ID_rodzica AND u.ID_klasy = u.ID_klasy ORDER BY Dane ASC;");
-            message.arguments.add("SELECT ID_konta, CONCAT(nazwisko,\" \",imie) AS Dane FROM nauczyciele ORDER BY Dane ASC;");
-
-            try {
-                reply = Program.socket.executeRequest(message);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            assert reply != null;
-            for(String str : reply.arguments)
-            {
-                choiceAccountsArrayList.add(new GbUserAccountChoiceElement(str));
-            }
-
-            //lista lekcji
-
-            message.arguments.clear();
-
-            message.arguments.add("SELECT l.ID_lekcji, l.ID_przedmiotu, CONCAT(p.nazwa_przedmiotu,\" \",k.nazwa_klasy) AS Dane FROM lekcje l, przedmioty p, klasy k WHERE l.ID_przedmiotu = p.ID_przedmiotu AND l.ID_klasy = k.ID_klasy AND l.ID_nauczyciela = "+teacherID+" ORDER BY Dane ASC;");
-
-            reply = null;
-
-            try {
-                reply = Program.socket.executeRequest(message);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            assert reply != null;
-            for(String str : reply.arguments)
-            {
-                choiceLessonsArrayList.add(new GbUserLessonChoiceElement(str));
-            }
-
-            //lista uczniow
-
-            message.arguments.clear();
-
-            message.arguments.add("SELECT DISTINCT u.ID_ucznia, CONCAT(u.nazwisko,\" \",u.imie, \" \", k.nazwa_klasy) AS Dane FROM lekcje l, klasy k, uczniowie u WHERE l.ID_klasy = k.ID_klasy AND u.ID_klasy = k.ID_klasy AND l.ID_nauczyciela = "+teacherID+" ORDER BY Dane ASC;");
-
-            reply = null;
-
-            try {
-                reply = Program.socket.executeRequest(message);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            assert reply != null;
-            for(String str : reply.arguments)
-            {
-                choiceStudentsArrayList.add(new GbUserStudentChoiceElement(str));
-            }
-        }
-        else
-        {
-            //lista nauczycieli wraz z ID konta
-
-            message.arguments.add("SELECT ID_konta, CONCAT(nazwisko,\" \",imie) AS Dane FROM nauczyciele ORDER BY Dane ASC;");
-
-            try {
-                reply = Program.socket.executeRequest(message);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            assert reply != null;
-            for(String str : reply.arguments)
-            {
-                choiceAccountsArrayList.add(new GbUserAccountChoiceElement(str));
-            }
-        }
-    }
+    /**
+     * Teacher ID
+     */
+    public static String teacherID;
 
     //endregion
 
@@ -272,21 +183,100 @@ public class MainSceneController implements Initializable {
      * Parent ID
      */
     private String parentID;
-
-    /**
-     * Teacher ID
-     */
-    public static String teacherID;
-
     /**
      * Class ID
      */
     private String classID;
-
     /**
      * Class name
      */
     private String className;
+
+    private void getStaticData() {
+        GbsMessage message = new GbsMessage();
+        GbsMessage reply = null;
+
+        choiceStudentsArrayList = new ArrayList<>();
+
+        choiceLessonsArrayList = new ArrayList<>();
+
+        choiceAccountsArrayList = new ArrayList<>();
+
+        message.header = "_executeSelect";
+
+        if (Program.loggedPerms.equals("n")) {
+            //lista wszystkich kont
+
+            message.arguments.add("SELECT ID_konta, Login FROM konta WHERE Uprawnienia = \"a\";");
+            message.arguments.add("SELECT u.ID_konta, CONCAT(u.nazwisko,\" \",u.imie, \" \", k.nazwa_klasy) AS Dane FROM uczniowie u, klasy k WHERE u.ID_klasy = k.ID_klasy ORDER BY Dane ASC;");
+            message.arguments.add("SELECT r.ID_konta, CONCAT(r.nazwisko,\" \",r.imie, \" (\",u.nazwisko,\" \", u.imie,\" \", k.nazwa_klasy,\")\") AS Dane FROM rodzice r, uczniowie u, klasy k WHERE r.ID_rodzica = u.ID_rodzica AND k.ID_klasy = u.ID_klasy ORDER BY Dane ASC;");
+            message.arguments.add("SELECT ID_konta, CONCAT(nazwisko,\" \",imie) AS Dane FROM nauczyciele ORDER BY Dane ASC;");
+
+            try {
+                reply = Program.socket.executeRequest(message);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            assert reply != null;
+            for (String str : reply.arguments) {
+                choiceAccountsArrayList.add(new GbUserAccountChoiceElement(str));
+            }
+
+            //lista lekcji
+
+            message.arguments.clear();
+
+            message.arguments.add("SELECT l.ID_lekcji, l.ID_przedmiotu, CONCAT(p.nazwa_przedmiotu,\" \",k.nazwa_klasy) AS Dane FROM lekcje l, przedmioty p, klasy k WHERE l.ID_przedmiotu = p.ID_przedmiotu AND l.ID_klasy = k.ID_klasy AND l.ID_nauczyciela = " + teacherID + " ORDER BY Dane ASC;");
+
+            reply = null;
+
+            try {
+                reply = Program.socket.executeRequest(message);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            assert reply != null;
+            for (String str : reply.arguments) {
+                choiceLessonsArrayList.add(new GbUserLessonChoiceElement(str));
+            }
+
+            //lista uczniow
+
+            message.arguments.clear();
+
+            message.arguments.add("SELECT DISTINCT u.ID_ucznia, CONCAT(u.nazwisko,\" \",u.imie, \" \", k.nazwa_klasy) AS Dane FROM lekcje l, klasy k, uczniowie u WHERE l.ID_klasy = k.ID_klasy AND u.ID_klasy = k.ID_klasy AND l.ID_nauczyciela = " + teacherID + " ORDER BY Dane ASC;");
+
+            reply = null;
+
+            try {
+                reply = Program.socket.executeRequest(message);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            assert reply != null;
+            for (String str : reply.arguments) {
+                choiceStudentsArrayList.add(new GbUserStudentChoiceElement(str));
+            }
+        } else {
+            //lista nauczycieli wraz z ID konta
+
+            message.arguments.add("SELECT ID_konta, CONCAT(nazwisko,\" \",imie) AS Dane FROM nauczyciele ORDER BY Dane ASC;");
+
+            try {
+                reply = Program.socket.executeRequest(message);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            assert reply != null;
+            for (String str : reply.arguments) {
+                choiceAccountsArrayList.add(new GbUserAccountChoiceElement(str));
+            }
+        }
+    }
 
     /**
      * Get studentID for logged user
@@ -471,12 +461,9 @@ public class MainSceneController implements Initializable {
     private void buildGradesTable() {
         String query;
 
-        if(Program.loggedPerms.equals("n"))
-        {
+        if (Program.loggedPerms.equals("n")) {
             query = "SELECT CONCAT((SELECT nazwisko FROM uczniowie WHERE ID_ucznia = o.ID_ucznia),\" \",(SELECT imie FROM uczniowie WHERE ID_ucznia = o.ID_ucznia)) AS uczen, p.nazwa_przedmiotu AS Przedmiot, o.Ocena AS Ocena, o.Waga AS Waga, o.Opis AS Opis, o.data_wystawienia AS Data_wystawienia FROM oceny o, przedmioty p WHERE o.ID_przedmiotu = p.ID_przedmiotu AND ID_nauczyciela = " + teacherID + " ORDER BY p.nazwa_przedmiotu ASC, uczen ASC, o.data_wystawienia DESC;";
-        }
-        else
-        {
+        } else {
             query = "SELECT null,p.nazwa_przedmiotu AS Przedmiot, o.Ocena AS Ocena, o.Waga AS Waga, o.Opis AS Opis, o.data_wystawienia AS Data_wystawienia FROM oceny o, przedmioty p WHERE o.ID_przedmiotu = p.ID_przedmiotu AND ID_ucznia = " + studentID + " ORDER BY p.nazwa_przedmiotu ASC, o.data_wystawienia DESC;";
         }
 
@@ -534,12 +521,9 @@ public class MainSceneController implements Initializable {
     private void buildAttendancesTable() {
         String query;
 
-        if(Program.loggedPerms.equals("n"))
-        {
+        if (Program.loggedPerms.equals("n")) {
             query = "SELECT CONCAT((SELECT nazwisko FROM uczniowie WHERE ID_ucznia = n.ID_ucznia),\" \",(SELECT imie FROM uczniowie WHERE ID_ucznia = n.ID_ucznia)) AS uczen, p.nazwa_przedmiotu, n.data_nieobecnosci, n.TYP FROM nieobecnosci n, lekcje l, przedmioty p WHERE n.ID_lekcji = l.ID_lekcji AND l.ID_przedmiotu = p.ID_przedmiotu AND l.ID_nauczyciela = " + teacherID + " ORDER BY p.nazwa_przedmiotu ASC, uczen ASC, n.data_nieobecnosci DESC;";
-        }
-        else
-        {
+        } else {
             query = "SELECT null, p.nazwa_przedmiotu, n.data_nieobecnosci, n.TYP FROM nieobecnosci n, lekcje l, przedmioty p WHERE n.ID_lekcji = l.ID_lekcji AND l.ID_przedmiotu = p.ID_przedmiotu AND n.ID_ucznia = " + studentID + " ORDER BY p.nazwa_przedmiotu ASC, n.data_nieobecnosci DESC;";
         }
 
@@ -643,12 +627,9 @@ public class MainSceneController implements Initializable {
     private void buildRemarksTable() {
         String query;
 
-        if(Program.loggedPerms.equals("n"))
-        {
+        if (Program.loggedPerms.equals("n")) {
             query = "SELECT CONCAT(n.imie,\" \",n.nazwisko), u.Tresc, u.data_wystawienia FROM uwagi u, uczniowie n WHERE u.ID_ucznia = n.ID_ucznia AND ID_nauczyciela = " + teacherID + " ORDER BY data_wystawienia DESC;";
-        }
-        else
-        {
+        } else {
             query = "SELECT CONCAT(n.imie,\" \",n.nazwisko), u.Tresc, u.data_wystawienia FROM uwagi u, nauczyciele n WHERE u.ID_nauczyciela = n.ID_nauczyciela AND ID_ucznia = " + studentID + " ORDER BY data_wystawienia DESC;";
         }
 
@@ -708,8 +689,8 @@ public class MainSceneController implements Initializable {
             message.arguments.add("SELECT p.nazwa_przedmiotu, k.nazwa_klasy, w.Kategoria, w.Opis, w.data_wydarzenia FROM wydarzenia w, przedmioty p, lekcje l, klasy k WHERE w.ID_lekcji = l.ID_lekcji AND l.ID_przedmiotu = p.ID_przedmiotu AND l.ID_klasy = k.ID_klasy AND l.ID_nauczyciela = " + teacherID + " AND w.data_wydarzenia > CURRENT_TIMESTAMP() ORDER BY p.nazwa_przedmiotu ASC, w.data_wydarzenia ASC;");
             message.arguments.add("SELECT p.nazwa_przedmiotu, k.nazwa_klasy, w.Kategoria, w.Opis, w.data_wydarzenia FROM wydarzenia w, przedmioty p, lekcje l, klasy k WHERE w.ID_lekcji = l.ID_lekcji AND l.ID_przedmiotu = p.ID_przedmiotu AND l.ID_klasy = k.ID_klasy AND l.ID_nauczyciela = " + teacherID + " AND w.data_wydarzenia <= CURRENT_TIMESTAMP() ORDER BY p.nazwa_przedmiotu ASC, w.data_wydarzenia DESC;");
         } else {
-            message.arguments.add("SELECT p.nazwa_przedmiotu, null, w.Kategoria, w.Opis, w.data_wydarzenia FROM wydarzenia w, przedmioty p, lekcje l, klasy k, uczniowie u WHERE w.ID_lekcji = l.ID_lekcji AND l.ID_przedmiotu = p.ID_przedmiotu AND u.ID_klasy = l.ID_klasy AND u.ID_ucznia = " + studentID + " AND w.data_wydarzenia > CURRENT_TIMESTAMP() ORDER BY w.data_wydarzenia ASC;");
-            message.arguments.add("SELECT p.nazwa_przedmiotu, null, w.Kategoria, w.Opis, w.data_wydarzenia FROM wydarzenia w, przedmioty p, lekcje l, klasy k, uczniowie u WHERE w.ID_lekcji = l.ID_lekcji AND l.ID_przedmiotu = p.ID_przedmiotu AND u.ID_klasy = l.ID_klasy AND u.ID_ucznia = " + studentID + " AND w.data_wydarzenia <= CURRENT_TIMESTAMP() ORDER BY w.data_wydarzenia DESC;");
+            message.arguments.add("SELECT p.nazwa_przedmiotu, null, w.Kategoria, w.Opis, w.data_wydarzenia FROM wydarzenia w, przedmioty p, lekcje l, klasy k, uczniowie u WHERE w.ID_lekcji = l.ID_lekcji AND l.ID_przedmiotu = p.ID_przedmiotu AND u.ID_klasy = l.ID_klasy AND u.ID_klasy = k.ID_klasy AND u.ID_ucznia = " + studentID + " AND w.data_wydarzenia > CURRENT_TIMESTAMP() ORDER BY w.data_wydarzenia ASC;");
+            message.arguments.add("SELECT p.nazwa_przedmiotu, null, w.Kategoria, w.Opis, w.data_wydarzenia FROM wydarzenia w, przedmioty p, lekcje l, klasy k, uczniowie u WHERE w.ID_lekcji = l.ID_lekcji AND l.ID_przedmiotu = p.ID_przedmiotu AND u.ID_klasy = l.ID_klasy AND u.ID_klasy = k.ID_klasy AND u.ID_ucznia = " + studentID + " AND w.data_wydarzenia <= CURRENT_TIMESTAMP() ORDER BY w.data_wydarzenia DESC;");
         }
 
         GbsMessage reply = null;
@@ -759,38 +740,91 @@ public class MainSceneController implements Initializable {
     private void buildScheduleTable() {
         String query;
 
-        if (Program.loggedPerms.equals("n")) {
-            query = "SELECT Godzina,(SELECT CONCAT(p.nazwa_przedmiotu,\", \", l.Sala,\", \", k.nazwa_klasy) FROM lekcje l, nauczyciele n, klasy k, przedmioty p WHERE l.ID_przedmiotu = p.ID_przedmiotu AND l.ID_nauczyciela = n.ID_nauczyciela AND l.ID_klasy = k.ID_klasy AND l.ID_nauczyciela = " + teacherID + "  AND l.ID_lekcji = pl.Poniedzialek),(SELECT CONCAT(p.nazwa_przedmiotu,\", \", l.Sala,\", \", k.nazwa_klasy) FROM lekcje l, nauczyciele n, klasy k, przedmioty p WHERE l.ID_przedmiotu = p.ID_przedmiotu AND l.ID_nauczyciela = n.ID_nauczyciela AND l.ID_klasy = k.ID_klasy AND l.ID_nauczyciela = " + teacherID + "  AND l.ID_lekcji = pl.Wtorek),(SELECT CONCAT(p.nazwa_przedmiotu,\", \", l.Sala,\", \", k.nazwa_klasy) FROM lekcje l, nauczyciele n, klasy k, przedmioty p WHERE l.ID_przedmiotu = p.ID_przedmiotu AND l.ID_nauczyciela = n.ID_nauczyciela AND l.ID_klasy = k.ID_klasy AND l.ID_nauczyciela = " + teacherID + "  AND l.ID_lekcji = pl.Sroda),(SELECT CONCAT(p.nazwa_przedmiotu,\", \", l.Sala,\", \", k.nazwa_klasy) FROM lekcje l, nauczyciele n, klasy k, przedmioty p WHERE l.ID_przedmiotu = p.ID_przedmiotu AND l.ID_nauczyciela = n.ID_nauczyciela AND l.ID_klasy = k.ID_klasy AND l.ID_nauczyciela = " + teacherID + "  AND l.ID_lekcji = pl.Czwartek),(SELECT CONCAT(p.nazwa_przedmiotu,\", \", l.Sala,\", \", k.nazwa_klasy) FROM lekcje l, nauczyciele n, klasy k, przedmioty p WHERE l.ID_przedmiotu = p.ID_przedmiotu AND l.ID_nauczyciela = n.ID_nauczyciela AND l.ID_klasy = k.ID_klasy AND l.ID_nauczyciela = " + teacherID + "  AND l.ID_lekcji = pl.Piatek) FROM plan_1a pl;";
-        } else {
-            query = "SELECT Godzina,(SELECT CONCAT(p.nazwa_przedmiotu, \", \", l.Sala, \", \",CONCAT((SELECT nazwisko FROM nauczyciele WHERE ID_nauczyciela = l.ID_nauczyciela),\" \",(SELECT imie FROM nauczyciele WHERE ID_nauczyciela = l.ID_nauczyciela))) FROM lekcje l, przedmioty p, nauczyciele n, klasy k WHERE l.ID_przedmiotu = p.ID_przedmiotu AND l.ID_nauczyciela = n.ID_nauczyciela AND l.ID_klasy = k.ID_klasy AND l.ID_klasy = '" + className + "' AND l.ID_lekcji = pl.Poniedzialek),(SELECT CONCAT(p.nazwa_przedmiotu, \", \", l.Sala, \", \",CONCAT((SELECT nazwisko FROM nauczyciele WHERE ID_nauczyciela = l.ID_nauczyciela),\" \",(SELECT imie FROM nauczyciele WHERE ID_nauczyciela = l.ID_nauczyciela))) FROM lekcje l, przedmioty p, nauczyciele n, klasy k WHERE l.ID_przedmiotu = p.ID_przedmiotu AND l.ID_nauczyciela = n.ID_nauczyciela AND l.ID_klasy = k.ID_klasy AND l.ID_klasy = '" + className + "' AND l.ID_lekcji = pl.Wtorek),(SELECT CONCAT(p.nazwa_przedmiotu, \", \", l.Sala, \", \",CONCAT((SELECT nazwisko FROM nauczyciele WHERE ID_nauczyciela = l.ID_nauczyciela),\" \",(SELECT imie FROM nauczyciele WHERE ID_nauczyciela = l.ID_nauczyciela))) FROM lekcje l, przedmioty p, nauczyciele n, klasy k WHERE l.ID_przedmiotu = p.ID_przedmiotu AND l.ID_nauczyciela = n.ID_nauczyciela AND l.ID_klasy = k.ID_klasy AND l.ID_klasy = '" + className + "' AND l.ID_lekcji = pl.Sroda),(SELECT CONCAT(p.nazwa_przedmiotu, \", \", l.Sala, \", \",CONCAT((SELECT nazwisko FROM nauczyciele WHERE ID_nauczyciela = l.ID_nauczyciela),\" \",(SELECT imie FROM nauczyciele WHERE ID_nauczyciela = l.ID_nauczyciela))) FROM lekcje l, przedmioty p, nauczyciele n, klasy k WHERE l.ID_przedmiotu = p.ID_przedmiotu AND l.ID_nauczyciela = n.ID_nauczyciela AND l.ID_klasy = k.ID_klasy AND l.ID_klasy = '" + className + "' AND l.ID_lekcji = pl.Czwartek),(SELECT CONCAT(p.nazwa_przedmiotu, \", \", l.Sala, \", \",CONCAT((SELECT nazwisko FROM nauczyciele WHERE ID_nauczyciela = l.ID_nauczyciela),\" \",(SELECT imie FROM nauczyciele WHERE ID_nauczyciela = l.ID_nauczyciela))) FROM lekcje l, przedmioty p, nauczyciele n, klasy k WHERE l.ID_przedmiotu = p.ID_przedmiotu AND l.ID_nauczyciela = n.ID_nauczyciela AND l.ID_klasy = k.ID_klasy AND l.ID_klasy = '" + className + "' AND l.ID_lekcji = pl.Piatek) FROM plan_1a pl;";
-        }
-
-        GbsMessage message = new GbsMessage();
-
-        message.header = "_executeSelect";
-
-        message.arguments.add(query);
-
-        GbsMessage reply = null;
-
-        try {
-            reply = Program.socket.executeRequest(message);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
         ArrayList<GbUserSchedule> replyArrayList = new ArrayList<>();
 
-        assert reply != null;
-        for (String str : reply.arguments) {
-            replyArrayList.add(new GbUserSchedule(str));
+        if (!Program.loggedPerms.equals("n")) {
+            query = "SELECT Godzina,(SELECT CONCAT(p.nazwa_przedmiotu, \", \", l.Sala, \", \",CONCAT((SELECT nazwisko FROM nauczyciele WHERE ID_nauczyciela = l.ID_nauczyciela),\" \",(SELECT imie FROM nauczyciele WHERE ID_nauczyciela = l.ID_nauczyciela))) FROM lekcje l, przedmioty p, nauczyciele n, klasy k WHERE l.ID_przedmiotu = p.ID_przedmiotu AND l.ID_nauczyciela = n.ID_nauczyciela AND l.ID_klasy = k.ID_klasy AND l.ID_klasy = '" + classID + "' AND l.ID_lekcji = pl.Poniedzialek),(SELECT CONCAT(p.nazwa_przedmiotu, \", \", l.Sala, \", \",CONCAT((SELECT nazwisko FROM nauczyciele WHERE ID_nauczyciela = l.ID_nauczyciela),\" \",(SELECT imie FROM nauczyciele WHERE ID_nauczyciela = l.ID_nauczyciela))) FROM lekcje l, przedmioty p, nauczyciele n, klasy k WHERE l.ID_przedmiotu = p.ID_przedmiotu AND l.ID_nauczyciela = n.ID_nauczyciela AND l.ID_klasy = k.ID_klasy AND l.ID_klasy = '" + classID + "' AND l.ID_lekcji = pl.Wtorek),(SELECT CONCAT(p.nazwa_przedmiotu, \", \", l.Sala, \", \",CONCAT((SELECT nazwisko FROM nauczyciele WHERE ID_nauczyciela = l.ID_nauczyciela),\" \",(SELECT imie FROM nauczyciele WHERE ID_nauczyciela = l.ID_nauczyciela))) FROM lekcje l, przedmioty p, nauczyciele n, klasy k WHERE l.ID_przedmiotu = p.ID_przedmiotu AND l.ID_nauczyciela = n.ID_nauczyciela AND l.ID_klasy = k.ID_klasy AND l.ID_klasy = '" + classID + "' AND l.ID_lekcji = pl.Sroda),(SELECT CONCAT(p.nazwa_przedmiotu, \", \", l.Sala, \", \",CONCAT((SELECT nazwisko FROM nauczyciele WHERE ID_nauczyciela = l.ID_nauczyciela),\" \",(SELECT imie FROM nauczyciele WHERE ID_nauczyciela = l.ID_nauczyciela))) FROM lekcje l, przedmioty p, nauczyciele n, klasy k WHERE l.ID_przedmiotu = p.ID_przedmiotu AND l.ID_nauczyciela = n.ID_nauczyciela AND l.ID_klasy = k.ID_klasy AND l.ID_klasy = '" + classID + "' AND l.ID_lekcji = pl.Czwartek),(SELECT CONCAT(p.nazwa_przedmiotu, \", \", l.Sala, \", \",CONCAT((SELECT nazwisko FROM nauczyciele WHERE ID_nauczyciela = l.ID_nauczyciela),\" \",(SELECT imie FROM nauczyciele WHERE ID_nauczyciela = l.ID_nauczyciela))) FROM lekcje l, przedmioty p, nauczyciele n, klasy k WHERE l.ID_przedmiotu = p.ID_przedmiotu AND l.ID_nauczyciela = n.ID_nauczyciela AND l.ID_klasy = k.ID_klasy AND l.ID_klasy = '" + classID + "' AND l.ID_lekcji = pl.Piatek) FROM plan_"+className+" pl;";
+
+            GbsMessage message = new GbsMessage();
+
+            message.header = "_executeSelect";
+
+            message.arguments.add(query);
+
+            GbsMessage reply = null;
+
+            try {
+                reply = Program.socket.executeRequest(message);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            assert reply != null;
+            for (String str : reply.arguments) {
+                GbUserSchedule gbus = new GbUserSchedule();
+                gbus.insertData(str);
+                replyArrayList.add(gbus);
+            }
+        } else {
+            Vector<String> classNames = new Vector<>();
+
+            GbsMessage message = new GbsMessage();
+
+            message.header = "_executeSelect";
+
+            message.arguments.add("SELECT nazwa_klasy FROM klasy");
+
+            GbsMessage reply = null;
+
+            try {
+                reply = Program.socket.executeRequest(message);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            for (String str : reply.arguments) {
+                classNames.add(str);
+            }
+
+            boolean firstRun = true;
+
+            for (String className : classNames) {
+                message.arguments.clear();
+
+                message.arguments.add("SELECT Godzina,(SELECT CONCAT(p.nazwa_przedmiotu,\", \", l.Sala,\", \", k.nazwa_klasy) FROM lekcje l, nauczyciele n, klasy k, przedmioty p WHERE l.ID_przedmiotu = p.ID_przedmiotu AND l.ID_nauczyciela = n.ID_nauczyciela AND l.ID_klasy = k.ID_klasy AND l.ID_nauczyciela = " + teacherID + " AND l.ID_lekcji = pl.Poniedzialek),(SELECT CONCAT(p.nazwa_przedmiotu,\", \", l.Sala,\", \", k.nazwa_klasy) FROM lekcje l, nauczyciele n, klasy k, przedmioty p WHERE l.ID_przedmiotu = p.ID_przedmiotu AND l.ID_nauczyciela = n.ID_nauczyciela AND l.ID_klasy = k.ID_klasy AND l.ID_nauczyciela = " + teacherID + " AND l.ID_lekcji = pl.Wtorek),(SELECT CONCAT(p.nazwa_przedmiotu,\", \", l.Sala,\", \", k.nazwa_klasy) FROM lekcje l, nauczyciele n, klasy k, przedmioty p WHERE l.ID_przedmiotu = p.ID_przedmiotu AND l.ID_nauczyciela = n.ID_nauczyciela AND l.ID_klasy = k.ID_klasy AND l.ID_nauczyciela = " + teacherID + " AND l.ID_lekcji = pl.Sroda),(SELECT CONCAT(p.nazwa_przedmiotu,\", \", l.Sala,\", \", k.nazwa_klasy) FROM lekcje l, nauczyciele n, klasy k, przedmioty p WHERE l.ID_przedmiotu = p.ID_przedmiotu AND l.ID_nauczyciela = n.ID_nauczyciela AND l.ID_klasy = k.ID_klasy AND l.ID_nauczyciela = " + teacherID + " AND l.ID_lekcji = pl.Czwartek),(SELECT CONCAT(p.nazwa_przedmiotu,\", \", l.Sala,\", \", k.nazwa_klasy) FROM lekcje l, nauczyciele n, klasy k, przedmioty p WHERE l.ID_przedmiotu = p.ID_przedmiotu AND l.ID_nauczyciela = n.ID_nauczyciela AND l.ID_klasy = k.ID_klasy AND l.ID_nauczyciela = " + teacherID + " AND l.ID_lekcji = pl.Piatek) FROM plan_" + className + " pl;");
+
+                try {
+                    reply = Program.socket.executeRequest(message);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                if (firstRun) {
+
+                    for (String str : reply.arguments)
+                    {
+                        GbUserSchedule gbus = new GbUserSchedule();
+                        gbus.insertData(str);
+                        replyArrayList.add(gbus);
+                    }
+
+                    firstRun = false;
+                }
+                else
+                {
+                    for(int i = 0; i < replyArrayList.size(); i++)
+                    {
+                        replyArrayList.get(i).insertData(reply.arguments.get(i));
+                    }
+                }
+            }
         }
 
         ObservableList<GbUserSchedule> data = FXCollections.observableArrayList(replyArrayList);
 
         scheduleTableView.getColumns().clear();
 
-        TableColumn columnGodzina = new TableColumn("Przedmiot");
+        TableColumn columnGodzina = new TableColumn("Godzina");
         TableColumn columnPoniedzialek = new TableColumn("Poniedziałek");
         TableColumn columnWtorek = new TableColumn("Wtorek");
         TableColumn columnSroda = new TableColumn("Środa");
@@ -1058,16 +1092,13 @@ public class MainSceneController implements Initializable {
 
         actualUser.setText(Program.loggedUser + " (" + Program.loggedID + ")");
 
-        if(Program.loggedPerms.equals("n"))
-        {
+        if (Program.loggedPerms.equals("n")) {
             addGradeButton.setVisible(true);
             addAttendanceButton.setVisible(true);
             sendMessageButton.setVisible(true);
             addRemarkButton.setVisible(true);
             addEventButton.setVisible(true);
-        }
-        else
-        {
+        } else {
             addGradeButton.setVisible(false);
             addAttendanceButton.setVisible(false);
             sendMessageButton.setVisible(true);

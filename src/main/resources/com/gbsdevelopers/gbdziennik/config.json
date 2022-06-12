@@ -4,7 +4,7 @@
         "serverPort": 25565
     },
     "MySqlConfig":{
-        "host": "localhost",
+        "host": "skrzyp3k.pl",
         "port": "3306",
         "database": "gbdziennik",
         "user": "gbdziennik",

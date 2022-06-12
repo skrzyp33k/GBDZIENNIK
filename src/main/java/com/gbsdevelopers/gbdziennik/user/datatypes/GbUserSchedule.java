@@ -40,19 +40,51 @@ public class GbUserSchedule {
     private final SimpleStringProperty piatek;
 
     /**
-     * Constructor that construct object from row data merged into one string
-     *
-     * @param str Data merged into one string
+     * Empty constructor
      */
-    public GbUserSchedule(String str) {
+    public GbUserSchedule() {
+        godzina = new SimpleStringProperty("");
+        poniedzialek = new SimpleStringProperty("");
+        wtorek = new SimpleStringProperty("");
+        sroda = new SimpleStringProperty("");
+        czwartek = new SimpleStringProperty("");
+        piatek = new SimpleStringProperty("");
+    }
+
+    /**
+     * Data inserter
+     * @param str String to divide and insert
+     */
+    public void insertData(String str) {
         Vector<String> fields = GbsMessage.explode(str, ";");
 
-        godzina = new SimpleStringProperty(fields.get(0));
-        poniedzialek = new SimpleStringProperty(fields.get(1));
-        wtorek = new SimpleStringProperty(fields.get(2));
-        sroda = new SimpleStringProperty(fields.get(3));
-        czwartek = new SimpleStringProperty(fields.get(4));
-        piatek = new SimpleStringProperty(fields.get(5));
+        godzina.set(fields.get(0));
+
+        if (poniedzialek.get().equals("")) {
+            poniedzialek.set(fields.get(1));
+        }
+
+        if (wtorek.get().equals("")) {
+            wtorek.set(fields.get(2));
+        }
+
+        if (sroda.get().equals("")) {
+            sroda.set(fields.get(3));
+        }
+
+        if (czwartek.get().equals("")) {
+            czwartek.set(fields.get(4));
+        }
+
+        if (piatek.get().equals("")) {
+            piatek.set(fields.get(5));
+        }
+
+        if (poniedzialek.get().equals("null")) poniedzialek.set("");
+        if (wtorek.get().equals("null")) wtorek.set("");
+        if (sroda.get().equals("null")) sroda.set("");
+        if (czwartek.get().equals("null")) czwartek.set("");
+        if (piatek.get().equals("null")) piatek.set("");
     }
 
     /**

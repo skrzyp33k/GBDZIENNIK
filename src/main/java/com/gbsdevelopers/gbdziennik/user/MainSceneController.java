@@ -46,11 +46,6 @@ public class MainSceneController implements Initializable {
     public static ArrayList<GbUserLessonChoiceElement> choiceLessonsArrayList;
 
     public static ArrayList<GbUserAccountChoiceElement> choiceAccountsArrayList;
-    /**
-     * Teacher ID
-     */
-    public static String teacherID;
-
     //endregion
 
     //region Form field
@@ -178,7 +173,10 @@ public class MainSceneController implements Initializable {
      * Student ID
      */
     private String studentID;
-
+    /**
+     * Teacher ID
+     */
+    public static String teacherID;
     /**
      * Parent ID
      */

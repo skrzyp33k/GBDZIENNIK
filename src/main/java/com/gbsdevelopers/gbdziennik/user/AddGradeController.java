@@ -187,12 +187,10 @@ public class AddGradeController implements Initializable {
                         if (grade.contains("+")) {
                             grade = GbsMessage.removeLastChar(grade) + ".5";
                         } else if (grade.contains("-")) {
-                            grade = Integer.parseInt(GbsMessage.removeLastChar(grade)) + ".75";
+                            grade = Integer.parseInt(GbsMessage.removeLastChar(grade)) - 1 + ".75";
                         }
 
                         String course = lessonChoiceBox.getSelectionModel().getSelectedItem().getIdprzedmiotu();
-
-                        System.out.println("INSERT INTO oceny VALUES(null," + grade + "," + weight + ",'" + description + "'," + student + "," + MainSceneController.teacherID + "," + course + ",CURRENT_TIMESTAMP());");
 
                         message.arguments.add("INSERT INTO oceny VALUES(null," + grade + "," + weight + ",'" + description + "'," + student + "," + MainSceneController.teacherID + "," + course + ",CURRENT_TIMESTAMP());");
 
